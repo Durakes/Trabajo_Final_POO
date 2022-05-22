@@ -1,6 +1,6 @@
 #include <iostream>
 
-class Clase
+class User
 {
     private:
         std::string Name;
