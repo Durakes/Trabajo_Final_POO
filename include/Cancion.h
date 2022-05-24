@@ -13,12 +13,12 @@ class Cancion{
     
     public:
         //Constructor
-        Cancion( int Codigo, string Nombre, string Autor, int DuracionSegundos, string Direccion ){
-            this->Codigo = Codigo;
-            this->Nombre = Nombre;
-            this->Autor = Autor;
-            this->Duracion = DuracionSegundos;
-            this->Direccion = Direccion;
+        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string direccion ){
+            this->Codigo = codigo;
+            this->Nombre = nombre;
+            this->Autor = autor;
+            this->Duracion = duracionSegundos;
+            this->Direccion = direccion;
         }
 
 
