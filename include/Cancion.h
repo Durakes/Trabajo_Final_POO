@@ -4,21 +4,21 @@ using namespace std;
 
 class Cancion{
     private:
-        int codigo;
-        string nombre;
-        string autor;       // O podría ser autor*(? Un puntero de objeto autor
-        int duracion; //En segundos
-        string direccion;
+        int Codigo;
+        string Nombre;
+        string Autor;       // O podría ser autor*(? Un puntero de objeto autor
+        int Duracion; //En segundos
+        string Direccion;
 
     
     public:
         //Constructor
-        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string direccion ){
-            this->codigo = codigo;
-            this->nombre = nombre;
-            this->autor = autor;
-            this->duracion = duracionSegundos;
-            this->direccion = direccion;
+        Cancion( int Codigo, string Nombre, string Autor, int DuracionSegundos, string Direccion ){
+            this->Codigo = Codigo;
+            this->Nombre = Nombre;
+            this->Autor = Autor;
+            this->Duracion = DuracionSegundos;
+            this->Direccion = Direccion;
         }
 
 
@@ -30,23 +30,23 @@ class Cancion{
 
         //Cambia la direccion http de la cancion
         void setDireccion( string direccion ){
-            this->direccion = direccion;
+            this->Direccion = direccion;
         }
 
         int getCodigo(){
-            return codigo;
+            return Codigo;
         }
         string getNombre(){
-            return nombre;
+            return Nombre;
         }
         string getAutor(){
-            return autor;
+            return Autor;
         }
         int getDuracion(){
-            return duracion;
+            return Duracion;
         }
         string getDireccion(){
-            return direccion;
+            return Direccion;
         }
 
 
@@ -59,23 +59,23 @@ class Cancion{
         //Regresa los datos de la cancion ordenados
         string getDatosCompletos(){
 
-            string tiempo = std::to_string( floor(duracion*0.016) ) 
+            string tiempo = std::to_string( floor(Duracion*0.016) ) 
                             + ":";
                         
-            if (duracion%60 < 10){
-                tiempo += "0" + std::to_string( duracion % 60 );
+            if (Duracion%60 < 10){
+                tiempo += "0" + std::to_string( Duracion % 60 );
             } else {
-                tiempo += std::to_string( duracion % 60 );
+                tiempo += std::to_string( Duracion % 60 );
             }
 
-            return ( nombre + " - " + autor + " " + tiempo );
+            return ( Nombre + " - " + Autor + " " + tiempo );
         }
 
         void reproducirCancion(){
-            string defecto = "start " + direccion;
+            string defecto = "start " + Direccion;
 
             char *enviado = &defecto[0];
-            cout<<"Reproduciendo: " + nombre + " - " + autor;
+            cout<<"Reproduciendo: " + Nombre + " - " + Autor;
             system( enviado );
         }
 
