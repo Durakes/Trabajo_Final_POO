@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cmath>
+#include<string>
 using namespace std;
 
 class Cancion{
@@ -59,13 +60,13 @@ class Cancion{
         //Regresa los datos de la cancion ordenados
         string getDatosCompletos(){
 
-            string tiempo = std::to_string( floor(Duracion*0.016) ) 
+            string tiempo = to_string( floor(Duracion*0.016) ) 
                             + ":";
                         
             if (Duracion%60 < 10){
-                tiempo += "0" + std::to_string( Duracion % 60 );
+                tiempo += "0" + to_string( Duracion % 60 );
             } else {
-                tiempo += std::to_string( Duracion % 60 );
+                tiempo += to_string( Duracion % 60 );
             }
 
             return ( Nombre + " - " + Autor + " " + tiempo );
