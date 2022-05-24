@@ -4,7 +4,7 @@ using namespace std;
 
 void login()
 {
-    
+    cout<<"logeate"<<endl;
 }
 
 void registerUser()
