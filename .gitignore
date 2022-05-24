@@ -32,5 +32,4 @@
 *.app
 
 Notas.txt
-*.vscode
-test.cpp
+.vscode
