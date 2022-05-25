@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include "..\include\User.h"
+
 using namespace std;
 
 void login()
