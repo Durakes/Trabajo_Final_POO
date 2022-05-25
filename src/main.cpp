@@ -21,25 +21,24 @@ void login()
 
 void registerUser()
 {
-    //Doble verificacion contraseña
     //Verificar que no existe un Usuario similar
-    system("cls");
+    
     string name;
     string email;
-    int phoneNumber;
+    string phoneNumber;
     string username;
     string passwordIni;
     string passwordFin;
+    bool userExists = false;
 
+    system("cls");
     cout << " REGISTRO DE NUEVO USUARIO \n";
-    cin.ignore();
     cout << "Ingrese su nombre completo: \n";
     getline(cin, name);
     cout << "Ingrese su correo electronico: \n"; 
     getline(cin, email);
     cout << "Ingrese su numero telefonico: \n";
-    cin >> phoneNumber;
-    cin.ignore();
+    getline(cin, phoneNumber);
     cout << "Ingrese su usuario a usar: \n";
     getline(cin, username);
     cout << "Ingrese su contrasena: \n";
@@ -47,19 +46,40 @@ void registerUser()
     cout << "Ingrese su contrasena nuevamente: \n";
     getline(cin, passwordFin);
 
-    if(passwordFin == passwordIni)
+    Archive archive(R"(..\docs\Users.csv)", 0);
+    vector<User> users;
+    User user;
+    archive.cargarDatos(&users);
+
+    for(int i = 0 ; i < users.size(); i++)
     {
-        string hashed = bcrypt::generateHash(passwordIni);
-        Archive archive(R"(..\docs\Users.csv)", 0);
-        User newUser("U1", name, email, phoneNumber, username, hashed);
-        archive.saveNewLine(newUser);
-    }else
-    {
-        "Contrasena Incorrecta!!!";
-        system("pause");
-        registerUser();
+        if(username == users[i].getUsername())
+        {
+            cout << "Este nombre de usuario ya existe" << endl;
+            system("pause");
+            userExists = true;
+            break;
+        }
     }
 
+    if(userExists == false)
+    {
+        if(passwordFin == passwordIni)
+        {
+            string hashed = bcrypt::generateHash(passwordIni);
+            User newUser("U1", name, email, phoneNumber, username, hashed);
+            archive.saveNewLine(newUser);
+        }else
+        {
+            cout << "Contrasena Incorrecta!!!" << endl;
+            system("pause");
+            registerUser();
+        }
+    }else
+    {
+        registerUser();
+    }
+    
 }
 
 int main()
@@ -67,10 +87,12 @@ int main()
     int option;
     cout << "##### INICIO DE SESION ##### \n Iniciar sesion [1] \n Registro [2] \n Ingrese una opcion [1-2]" << endl;
     cin >> option;
+    cin.ignore();
 
     switch (option)
     {
     case 1:
+        system("cls");
         login();
         break;
     
