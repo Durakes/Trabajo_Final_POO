@@ -7,6 +7,7 @@ using namespace std;
 
 void login()
 {
+
     // string user;
     // string password;
     // system("cls");
@@ -15,6 +16,7 @@ void login()
     // cout << "Ingrese su Contrasena: " << endl;
     // cin >> password;
     // string datos[2] = {user, password};
+
 }
 
 void registerUser()
