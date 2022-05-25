@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Artist.h"
+#include "User.h"
 using namespace std;
 
 
@@ -26,13 +26,13 @@ class Archive
             {
                 fstream archive;
                 archive.open(Path, ios :: app);
-                if(userArchive.is_open())
+                if(archive.is_open())
                 {
                     switch (Type)
                     {
                     case 0:
-                        userArchive << obj.getCode() << ";" << obj.getName() << ";" << obj.getEmail() << ";" << obj.getPhoneNumber() << ";" << obj.getUsername() << ";" << obj.getPassword() << ";" << endl;
-                        userArchive.close();    
+                        archive << obj.getCode() << ";" << obj.getName() << ";" << obj.getEmail() << ";" << obj.getPhoneNumber() << ";" << obj.getUsername() << ";" << obj.getPassword() << ";" << endl;
+                        archive.close();    
                         break;
                     case 1:
                         // Crear cancion
