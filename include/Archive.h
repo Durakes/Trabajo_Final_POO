@@ -1,8 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Artist.h"
 using namespace std;
+
 
 class Archive
 {
@@ -22,8 +24,8 @@ class Archive
         {
             try
             {
-                fstream userArchive;
-                userArchive.open(Path, ios :: app);
+                fstream archive;
+                archive.open(Path, ios :: app);
                 if(userArchive.is_open())
                 {
                     switch (Type)
@@ -45,6 +47,58 @@ class Archive
             }catch(exception e)
             {
                 cout << "Ocurrio un error al grabar el archivo!!!";
+            }
+        }
+
+
+        User crear(vector<string> temp)
+        {
+            User usuario(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5]);
+
+            return usuario;
+        }
+
+        template <class T>
+        void cargarDatos(vector<T> *objs)
+        {
+            try
+            {
+                int i;
+                string line;
+                size_t posi; //Cantidad Maxima
+                fstream archive;
+
+                archive.open(Path, ios :: in);
+                if(archive.is_open())
+                {
+                    while (!archive.eof())
+                    {
+                        while (getline(archive, line))
+                        {
+                            vector<string> temp;
+                            while ((posi = line.find(";")) != string::npos /*Valor constante que vale -1*/)
+                            {
+                                temp.push_back(line.substr(0, posi));
+                                line.erase(0, posi+1);
+                            }
+                            T obj;
+                            switch (Type)
+                            {
+                            case 0:
+                                obj = crear(temp);
+                                objs->push_back(obj);
+                                break;
+                            default:
+                                cout << "No existe ese archivo" << endl;
+                                break;
+                            }
+                        }
+                    }
+                }
+                archive.close();
+            }catch(exception e)
+            {
+                cout << "Ocurrio un error al leer el archivo!!!";
             }
         }
 };
