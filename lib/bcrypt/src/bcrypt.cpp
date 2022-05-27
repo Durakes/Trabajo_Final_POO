@@ -40,7 +40,7 @@
 
 #include "node_blf.h"
 
-#include "..\include\bcrypt.h"
+#include "../include/bcrypt.h"
 #include "openbsd.h"
 #include "blowfish.cpp"
 
