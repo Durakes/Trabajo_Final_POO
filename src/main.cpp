@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "..\include\Archive.h"
-#include "..\lib\bcrypt\src\bcrypt.cpp"
+#include "../include/Archive.h"
+#include "../lib/bcrypt/src/bcrypt.cpp"
 using namespace std;
 
 void login()
@@ -46,7 +46,7 @@ void registerUser()
     cout << "Ingrese su contrasena nuevamente: \n";
     getline(cin, passwordFin);
 
-    Archive archive(R"(..\docs\Users.csv)", 0);
+    Archive archive(R"(../docs/Users.csv)", 0);
     vector<User> users;
     User user;
     archive.cargarDatos(&users);

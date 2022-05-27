@@ -33,7 +33,7 @@ class User
         void setEmail(string email) {Email = email;}
 
         string getPhoneNumber()    {return PhoneNumber;}
-        void setPhoneNumber(int number) {PhoneNumber = number;}
+        void setPhoneNumber(string number) {PhoneNumber = number;}
 
         string getUsername()    {return Username;}
         void setUsername(string user) {Username = user;}

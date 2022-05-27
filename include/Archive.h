@@ -20,7 +20,7 @@ class Archive
         }
         
         template <class T>
-        void saveNewLine(T obj)
+        void saveNewLine(T obj)//guarda las lineas csv
         {
             try
             {
@@ -37,7 +37,8 @@ class Archive
                     case 1:
                         // Crear cancion
                     case 2:
-                        // Crear playlist
+                        // Crear playlist 
+                        break;
                     default:
                         cout << "Ese tipo de archivo no existe!!!" << endl;
                         break;
@@ -59,7 +60,7 @@ class Archive
         }
 
         template <class T>
-        void cargarDatos(vector<T> *objs)
+        void cargarDatos(vector<T> *objs)//carga los dtos del archivo en un vector
         {
             try
             {
@@ -85,9 +86,9 @@ class Archive
                             switch (Type)
                             {
                             case 0:
-                                obj = crear(temp);
+                                obj=crear(temp);
                                 objs->push_back(obj);
-                                break;
+                                break;                           
                             default:
                                 cout << "No existe ese archivo" << endl;
                                 break;
