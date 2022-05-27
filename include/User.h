@@ -3,41 +3,34 @@ using namespace std;
 class User
 {
     protected:
-        string Code;
+        int Code;
         string Name;
-        string Email;
-        string PhoneNumber;
         string Username;
         string Password;
-        //string Type; //enum c# --- c++
+        string Type;
     public:
         User(){}
-        User(string code,string name, string email, string number, string username, string pass)
+        User(int code,string name, string username, string pass, string type)
         {
             Code = code;
             Name = name;
-            Email = email;
-            PhoneNumber = number;
             Username = username;
             Password = pass;
-            //Type = "user";
+            Type = type;
         }
 
-        string getCode()    {return Code;}
-        void setCode(string code)   {Code = code;}
+        int getCode()    {return Code;}
+        void setCode(int code)   {Code = code;}
 
         string getName()    {return Name;}
         void setName(string name)   {Name = name;}
-
-        string getEmail()   {return Email;}
-        void setEmail(string email) {Email = email;}
-
-        string getPhoneNumber()    {return PhoneNumber;}
-        void setPhoneNumber(string number) {PhoneNumber = number;}
 
         string getUsername()    {return Username;}
         void setUsername(string user) {Username = user;}
 
         string getPassword()    {return Password;}
         void setPassword(string pass) {Password = pass;}
+
+        string getType()    {return Type;}
+        void setType(string type)   {Type = type;}
 };
