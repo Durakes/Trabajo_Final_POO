@@ -30,7 +30,7 @@ class Archive
         }
 
         template <class T>
-        void saveNewLine(T obj)
+        void saveNewLine(T obj)//guarda las lineas csv
         {
             try
             {
@@ -39,7 +39,7 @@ class Archive
                 if(archive.is_open())
                 {
                     archive << crearLinea(obj) << endl;
-                    archive.close();    
+                    archive.close();
                 }
             }catch(exception e)
             {
