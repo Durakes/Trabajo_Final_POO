@@ -14,6 +14,7 @@ class Cancion{
     
     public:
         //Constructor
+        Cancion(){}
         Cancion( int codigo, string nombre, string autor, int duracionSegundos, string direccion ){
             this->Codigo = codigo;
             this->Nombre = nombre;
@@ -21,6 +22,7 @@ class Cancion{
             this->Duracion = duracionSegundos;
             this->Direccion = direccion;
         }
+
 
 
         /*
@@ -32,6 +34,26 @@ class Cancion{
         //Cambia la direccion http de la cancion
         void setDireccion( string direccion ){
             this->Direccion = direccion;
+        }
+
+        void setCodigo(int codigo)
+        {
+            Codigo = codigo;
+        }
+        
+        void setNombre(string nombre)
+        {
+            Nombre = nombre;
+        }
+
+        void setAutor(string autor)
+        {
+            Autor = autor;
+        }
+
+        void setDuracion(int duracion)
+        {
+            Duracion = duracion;
         }
 
         int getCodigo(){

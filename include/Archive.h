@@ -3,22 +3,32 @@
 #include <string>
 #include <vector>
 #include "User.h"
+#include "Cancion.h"
 using namespace std;
-
 
 class Archive
 {
     private:
         string Path;
-        int Type;
     public:
         Archive(){};
-        Archive(string path, int type)
+        Archive(string path)
         {
             Path = path;
-            Type = type;
         }
         
+        string crearLinea(User obj)
+        {
+            string user = to_string(obj.getCode()) + ";" + obj.getName() + ";" + obj.getUsername() + ";" + obj.getPassword() + ";" + obj.getType() + ";";
+            return user;
+        }
+
+        string crearLinea(Cancion obj)
+        {
+            string cancion = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getAutor() + ";" + to_string(obj.getDuracion()) + ";" + obj.getDireccion() + ";";
+            return cancion;
+        }
+
         template <class T>
         void saveNewLine(T obj)//guarda las lineas csv
         {
@@ -28,22 +38,8 @@ class Archive
                 archive.open(Path, ios :: app);
                 if(archive.is_open())
                 {
-                    switch (Type)
-                    {
-                    case 0:
-                        archive << obj.getCode() << ";" << obj.getName() << ";" << obj.getEmail() << ";" << obj.getPhoneNumber() << ";" << obj.getUsername() << ";" << obj.getPassword() << ";" << endl;
-                        archive.close();    
-                        break;
-                    case 1:
-                        // Crear cancion
-                    case 2:
-                        // Crear playlist 
-                        break;
-                    default:
-                        cout << "Ese tipo de archivo no existe!!!" << endl;
-                        break;
-                    }
-                    
+                    archive << crearLinea(obj) << endl;
+                    archive.close();
                 }
             }catch(exception e)
             {
@@ -51,20 +47,30 @@ class Archive
             }
         }
 
-
-        User crear(vector<string> temp)
+        
+        void crearObjeto(vector<string> temp, User *user)
         {
-            User usuario(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5]);
+            user->setCode(stoi(temp[0]));
+            user->setName(temp[1]);
+            user->setUsername(temp[2]);
+            user->setPassword(temp[3]);
+            user->setType(temp[4]);
+        }
 
-            return usuario;
+        void crearObjeto(vector<string> temp, Cancion *cancion)
+        {
+            cancion->setCodigo(stoi(temp[0]));
+            cancion->setNombre(temp[1]);
+            cancion->setAutor(temp[2]);
+            cancion->setDuracion(stoi(temp[3]));
+            cancion->setDireccion(temp[4]);
         }
 
         template <class T>
-        void cargarDatos(vector<T> *objs)//carga los dtos del archivo en un vector
+        void cargarDatos(T obj, vector<T> *objs)
         {
             try
             {
-                int i;
                 string line;
                 size_t posi; //Cantidad Maxima
                 fstream archive;
@@ -83,16 +89,8 @@ class Archive
                                 line.erase(0, posi+1);
                             }
                             T obj;
-                            switch (Type)
-                            {
-                            case 0:
-                                obj=crear(temp);
-                                objs->push_back(obj);
-                                break;                           
-                            default:
-                                cout << "No existe ese archivo" << endl;
-                                break;
-                            }
+                            crearObjeto(temp, &obj);
+                            objs->push_back(obj);
                         }
                     }
                 }
