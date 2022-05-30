@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "..\include\Archive.h"
 #include "..\lib\bcrypt\src\bcrypt.cpp"
+#include "..\src\buscarCancion.cpp"
 using namespace std;
 
 void menuOpciones(string name, string typeUser)
@@ -24,6 +25,9 @@ void menuOpciones(string name, string typeUser)
 
     switch (option)
     {
+    case 2:
+        menuBuscar("");
+        break;
     case 5:
         exit(0);
         break;
@@ -166,6 +170,8 @@ void registerUser()
             string hashed = bcrypt::generateHash(passwordIni);
             User newUser(code, name, username, hashed, type);
             archive.saveNewLine(newUser);
+            cout << "Cuenta creada exitosamente!" << endl;
+            system("pause");
         }else
         {
             cout << "Contrasena Incorrecta!!!" << endl;
