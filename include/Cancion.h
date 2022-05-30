@@ -15,7 +15,7 @@ class Cancion{
     public:
         //Constructor
         Cancion(){}
-        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string direccion ){
+        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string direccion){
             this->Codigo = codigo;
             this->Nombre = nombre;
             this->Autor = autor;
