@@ -1,3 +1,5 @@
+#ifndef __ARCHIVE_H__
+#define __ARCHIVE_H__
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -41,6 +43,7 @@ class Archive
                     archive << crearLinea(obj) << endl;
                     archive.close();
                 }
+    
             }catch(exception e)
             {
                 cout << "Ocurrio un error al grabar el archivo!!!";
@@ -101,3 +104,4 @@ class Archive
             }
         }
 };
+#endif
