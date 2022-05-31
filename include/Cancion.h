@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cmath>
+#include<string>
 using namespace std;
 
 class Cancion{
@@ -13,13 +14,15 @@ class Cancion{
     
     public:
         //Constructor
-        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string direccion ){
+        Cancion(){}
+        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string direccion){
             this->Codigo = codigo;
             this->Nombre = nombre;
             this->Autor = autor;
             this->Duracion = duracionSegundos;
             this->Direccion = direccion;
         }
+
 
 
         /*
@@ -31,6 +34,26 @@ class Cancion{
         //Cambia la direccion http de la cancion
         void setDireccion( string direccion ){
             this->Direccion = direccion;
+        }
+
+        void setCodigo(int codigo)
+        {
+            Codigo = codigo;
+        }
+        
+        void setNombre(string nombre)
+        {
+            Nombre = nombre;
+        }
+
+        void setAutor(string autor)
+        {
+            Autor = autor;
+        }
+
+        void setDuracion(int duracion)
+        {
+            Duracion = duracion;
         }
 
         int getCodigo(){
@@ -59,13 +82,13 @@ class Cancion{
         //Regresa los datos de la cancion ordenados
         string getDatosCompletos(){
 
-            string tiempo = std::to_string( floor(Duracion*0.016) ) 
+            string tiempo = to_string( floor(Duracion*0.016) ) 
                             + ":";
                         
             if (Duracion%60 < 10){
-                tiempo += "0" + std::to_string( Duracion % 60 );
+                tiempo += "0" + to_string( Duracion % 60 );
             } else {
-                tiempo += std::to_string( Duracion % 60 );
+                tiempo += to_string( Duracion % 60 );
             }
 
             return ( Nombre + " - " + Autor + " " + tiempo );
