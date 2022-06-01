@@ -1,8 +1,17 @@
 #include <iostream>
 #include <vector>
+#include <utility>
+#include <algorithm>
 #include "..\include\Archive.h"
 
 using namespace std;
+/*struct ordenarVec
+{
+    inline bool operator() ( Cancion& struct1,  Cancion& struct2)
+    {
+        return (struct1.getNombre() < struct2.getNombre());
+    }
+};*/
 
 class BuscarCancion
 {
@@ -16,7 +25,16 @@ class BuscarCancion
         {            
             Cancion objCancion;
             Archive archive(R"(..\docs\Canciones.csv)");
-            archive.cargarDatos(objCancion, &vectorCanciones); // graba las canciones a un vector;
+            archive.cargarDatos(objCancion, &vectorCanciones); // graba las canciones a un vector;          
+        } 
+
+        static bool compareTitle(Cancion &a, Cancion &b) 
+        {
+            return a.getNombre() < b.getNombre();
+        }
+        static bool compareAuthor(Cancion &a, Cancion &b) 
+        {
+            return a.getAutor() < b.getAutor();
         }
 
         void getDatos(int cod) // Imprime los datos de la canción seleccionada
@@ -29,14 +47,18 @@ class BuscarCancion
             cout<<"Duracion: "<<minutos<<":"<<segundos<<endl;
 
         }
+
         void fromMainMenu() // Elejir Playlist cuando se llega del menu principal
         {
-            cout<<"Elija la playlist a la que desea agregar la cancion: ";
+            cout<<"Elija la playlist a la que desea agregar la cancion: "<<endl;
+            
         }
 
         void fromPlaylist(string codeP) // Añadir a playlist ya determinada
         {
-            cout<<"Desea agregar la cancion a "<<endl;
+            cout<<"Desea agregar la cancion a  "<<endl;
+            
+
         }
 
         string aMinuscula(string cadena) // Convierte los titulos a minuscula
@@ -48,23 +70,80 @@ class BuscarCancion
             return cadena;
         }
 
-        void getResultados(string titulo)  // Imprime resultados
+        int binarySearch(int first, int last, string titulo)   // busqueda binaria                  
         {
-            int i=1;
-            for (Cancion x : vectorCanciones)
+            int med=(first+last)/2;
+            if (last>=first)
             {
-                string nombre = aMinuscula(x.getNombre());
-                if (titulo==nombre) // Compara el titulo ingresado con los almacenados en el archivo
+  
+                if (aMinuscula(vectorCanciones[med].getNombre())==titulo)
                 {
-                    cout<<x.getNombre()<<" - "<<x.getAutor()<<" ["<<i<<"]"<<endl;
-                    i++;
-                    vectorResultados.push_back(x); // Añade al vector el obj Cancion
+                    vectorResultados.push_back(vectorCanciones[med]);
+                    int n=1;
+                    while(titulo==aMinuscula(vectorCanciones[med-n].getNombre()))
+                    {   
+                    
+                        vectorResultados.push_back(vectorCanciones[med-n]);
+                        n++;
+                    }
+                
+                    int m=1;
+                    while(titulo==aMinuscula(vectorCanciones[med+m].getNombre()))
+                    {   
+                        vectorResultados.push_back(vectorCanciones[med+m]);
+                        m++;                    
+                    } 
+                    return 1;
+                  
+                                                 
+                }
+                else if(aMinuscula(vectorCanciones[med].getNombre())>titulo)
+                {
+                    return binarySearch(first,med-1,titulo);
+
                 }
                 else
-                {
-                    cout<<"No se encontraron resultados"<<endl;
+                {   
+                    return binarySearch(med+1,last,titulo);
+
                 }
             }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+        int getResultados(string titulo)  // Recibe el titulo para buscar los resultados
+        {
+            sort(vectorCanciones.begin(), vectorCanciones.end(), compareTitle);
+            int v;
+            int first=0, 
+                last=vectorCanciones.size()-1,
+                med=last/2;
+            
+            v=binarySearch(first, last, titulo); // busqueda binaria
+            return v;
+
+          
+        }
+
+        void imprimirResultados() // imprime resultados encontrados
+        {
+            
+                int i=1;
+
+ 
+                    sort(vectorResultados.begin(), vectorResultados.end(), compareAuthor);
+                    for (Cancion x : vectorResultados)
+                    {              
+                        cout<<x.getNombre()<<" - "<<x.getAutor()<<" ["<<i<<"]"<<endl; 
+                        i++;               
+                    }
+    
+
+            
         }
 
 };
