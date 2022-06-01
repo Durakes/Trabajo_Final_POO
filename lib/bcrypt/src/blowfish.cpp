@@ -51,9 +51,9 @@
 /* Function for Feistel Networks */
 
 #define F(s, x) ((((s)[        (((x)>>24)&0xFF)]  \
-		 + (s)[0x100 + (((x)>>16)&0xFF)]) \
-		 ^ (s)[0x200 + (((x)>> 8)&0xFF)]) \
-		 + (s)[0x300 + ( (x)     &0xFF)])
+		+ (s)[0x100 + (((x)>>16)&0xFF)]) \
+		^ (s)[0x200 + (((x)>> 8)&0xFF)]) \
+		+ (s)[0x300 + ( (x)     &0xFF)])
 
 #define BLFRND(s,p,i,j,n) (i ^= F(s,j) ^ (p)[n])
 
@@ -641,7 +641,7 @@ report(u_int32_t data[], u_int16_t len)
 	u_int16_t i;
 	for (i = 0; i < len; i += 2)
 		printf("Block %0hd: %08lx %08lx.\n",
-		    i / 2, data[i], data[i + 1]);
+			i / 2, data[i], data[i + 1]);
 }
 void
 main(void)

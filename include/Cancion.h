@@ -1,3 +1,6 @@
+#ifndef __CANCION_H__
+#define __CANCION_H__
+
 #include<iostream>
 #include<cmath>
 #include<string>
@@ -104,3 +107,4 @@ class Cancion{
 
 
 };
+#endif

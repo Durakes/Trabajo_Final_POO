@@ -6,6 +6,7 @@
 #include "..\include\Archive.h"
 #include "..\lib\bcrypt\src\bcrypt.cpp"
 #include "..\src\buscarCancion.cpp"
+#include "..\include\BinaryFile.h"
 using namespace std;
 
 void menuOpciones(string name, string typeUser)
@@ -14,10 +15,10 @@ void menuOpciones(string name, string typeUser)
     system("cls");
     if(typeUser == "user")
     {
-        cout << "##### Bienvenido "<< name << " ##### \n Mostrar Playlist [1] \n Buscar Canciones [2] \n Buscar Artista [3] \n Ingrese una opcion [1-3] o presione [5] para salir" << endl;
+        cout << "##### Bienvenido "<< name << " ##### \n Playlist [1] \n Buscar Canciones [2] \n Buscar Artista [3] \n Ingrese una opcion [1-3] o presione [5] para salir" << endl;
     }else
     {
-        cout << "##### Bienvenido "<< name << " ##### \n Mostrar Playlist [1] \n Buscar Canciones [2] \n Buscar Artista [3] \n Crear Cancion [4] \n Ingrese una opcion [1-4] o presione [5] para salir" << endl;
+        cout << "##### Bienvenido "<< name << " ##### \n Playlist [1] \n Buscar Canciones [2] \n Buscar Artista [3] \n Crear Cancion [4] \n Ingrese una opcion [1-4] o presione [5] para salir" << endl;
     }
 
     cin >> option;
@@ -67,11 +68,10 @@ void login()
         ch = getch();
     }
     
-
-    Archive archive(R"(..\docs\Users.csv)");
-    vector<User> users;
+    string path = "..\\docs\\Users.bin";
+    BinaryFile binFile(path);
+    vector<User> users = binFile.LeerDato();
     User usuario;
-    archive.cargarDatos(usuario, &users);
 
     for(int i = 0; i < users.size(); i++)
     {
@@ -90,12 +90,14 @@ void login()
             menuOpciones(usuario.getUsername(), usuario.getType());
         }else
         {
+            cout << endl;
             cout << "Los datos ingresados son incorrectos!!" << endl;
             system("pause");
             login();
         }
     }else
     {
+        cout << endl;
         cout << "El usuario no existe!" << endl;
         system("pause");
         login();
@@ -137,44 +139,53 @@ void registerUser()
         type = "user";
     }
 
-    Archive archive(R"(..\docs\Users.csv)");
-    vector<User> users;
+    string path = "..\\docs\\Users.bin";
+    BinaryFile archive(path);
     User user;
     int code = 1;
-    archive.cargarDatos(user, &users);
-
-    //Arreglar y ordenar
-    if(users.size() == 0) 
+    string ruta = "../docs/Users.bin";
+    ifstream file((char*)&ruta[0]);
+    if(file.good() == true)
     {
-        code = 1;
-    }else
-    {
-        code = users.size() + 1;
-    }
-
-    for(int i = 0 ; i < users.size(); i++)
-    {
-        if(username == users[i].getUsername())
+        vector<User> users = archive.LeerDato();
+        if(users.size() == 0) 
         {
-            cout << "Este nombre de usuario ya existe" << endl;
-            system("pause");
-            userExists = true;
-            break;
+            code = 1;
+        }else
+        {
+            code = users.size() + 1;
+        }
+
+        for(int i = 0 ; i < users.size(); i++)
+        {
+            if(username == users[i].getUsername())
+            {
+                cout << endl;
+                cout << "Este nombre de usuario ya existe" << endl;
+                system("pause");
+                userExists = true;
+                break;
+            }else
+            {
+                userExists = false;
+            }
         }
     }
-
+    file.close();
     if(userExists == false)
     {
         if(passwordFin == passwordIni)
         {
             string hashed = bcrypt::generateHash(passwordIni);
-            User newUser(code, name, username, hashed, type);
-            archive.saveNewLine(newUser);
+            User newUser(code, (char*)&name[0], (char*)&username[0], (char*)&hashed[0], (char*)&type[0]);
+            archive.GrabarDato(newUser);
+            cout << endl;
             cout << "Cuenta creada exitosamente!" << endl;
             system("pause");
         }else
         {
-            cout << "Contrasena Incorrecta!!!" << endl;
+            cout << endl;
+            cout << "Las contrasenas no coinciden!!!" << endl;
             system("pause");
             registerUser();
         }
@@ -187,7 +198,6 @@ void registerUser()
 
 int main()
 {
-    //HOLA
     int option;
     cout << "##### INICIO DE SESION ##### \n Iniciar sesion [1] \n Registro [2] \n Ingrese una opcion [1-2]" << endl;
     cin >> option;
