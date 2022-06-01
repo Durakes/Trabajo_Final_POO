@@ -4,7 +4,6 @@
 //#include"Cancion.h"
 using namespace std;
 
-
 void subMenu_CrearCancion(){
 
     string nombre;

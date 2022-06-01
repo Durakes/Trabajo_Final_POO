@@ -57,9 +57,9 @@ void menuBuscar(string codPlaylist)
     
 }
 
-int main()
+/*int main()
 {
     string prueba="01";
     menuBuscar(prueba);
-}
+}*/
 
