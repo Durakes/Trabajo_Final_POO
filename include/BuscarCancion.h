@@ -5,13 +5,6 @@
 #include "..\include\Archive.h"
 
 using namespace std;
-/*struct ordenarVec
-{
-    inline bool operator() ( Cancion& struct1,  Cancion& struct2)
-    {
-        return (struct1.getNombre() < struct2.getNombre());
-    }
-};*/
 
 class BuscarCancion
 {
@@ -132,18 +125,15 @@ class BuscarCancion
         void imprimirResultados() // imprime resultados encontrados
         {
             
-                int i=1;
+            int i=1;
 
- 
-                    sort(vectorResultados.begin(), vectorResultados.end(), compareAuthor);
-                    for (Cancion x : vectorResultados)
-                    {              
-                        cout<<x.getNombre()<<" - "<<x.getAutor()<<" ["<<i<<"]"<<endl; 
-                        i++;               
-                    }
-    
-
-            
+            sort(vectorResultados.begin(), vectorResultados.end(), compareAuthor);
+            for (Cancion x : vectorResultados)
+            {              
+                cout<<x.getNombre()<<" - "<<x.getAutor()<<" ["<<i<<"]"<<endl; 
+                i++;               
+            }
+     
         }
 
 };
