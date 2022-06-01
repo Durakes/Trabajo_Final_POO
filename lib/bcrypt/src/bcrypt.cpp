@@ -133,9 +133,9 @@ encode_salt(char *salt, u_int8_t *csalt, char minor, u_int16_t clen, u_int8_t lo
 
 
 /* Generates a salt for this version of crypt.
-   Since versions may change. Keeping this here
-   seems sensible.
-   from: http://mail-index.netbsd.org/tech-crypto/2002/05/24/msg000204.html
+	Since versions may change. Keeping this here
+	seems sensible.
+	from: http://mail-index.netbsd.org/tech-crypto/2002/05/24/msg000204.html
 */
 void
 bcrypt_gensalt(char minor, u_int8_t log_rounds, u_int8_t *seed, char *gsalt)
@@ -174,18 +174,19 @@ node_bcrypt(const char *key, size_t key_len, const char *salt, char *encrypted)
 
 	/* Check for minor versions */
 	if (salt[1] != '$') {
-		 switch (salt[1]) {
-		 case 'a': /* 'ab' should not yield the same as 'abab' */
-		 case 'b': /* cap input length at 72 bytes */
-			 minor = salt[1];
-			 salt++;
-			 break;
-		 default:
-			 strcpy(encrypted, error);
-			 return;
-		 }
+		switch (salt[1])
+		{
+		 	case 'a': /* 'ab' should not yield the same as 'abab' */
+		 	case 'b': /* cap input length at 72 bytes */
+				minor = salt[1];
+				salt++;
+				break;
+			default:
+				strcpy(encrypted, error);
+				return;
+		}
 	} else
-		 minor = 0;
+		minor = 0;
 
 	/* Discard version + "$" identifier */
 	salt += 2;
@@ -279,15 +280,15 @@ node_bcrypt(const char *key, size_t key_len, const char *salt, char *encrypted)
 
 u_int32_t bcrypt_get_rounds(const char * hash)
 {
-  /* skip past the leading "$" */
-  if (!hash || *(hash++) != '$') return 0;
-
-  /* skip past version */
-  if (0 == (*hash++)) return 0;
-  if (*hash && *hash != '$') hash++;
-  if (*hash++ != '$') return 0;
-
-  return  atoi(hash);
+  	/* skip past the leading "$" */
+  	if (!hash || *(hash++) != '$') return 0;
+	
+  	/* skip past version */
+	if (0 == (*hash++)) return 0;
+  	if (*hash && *hash != '$') hash++;
+	if (*hash++ != '$') return 0;
+	
+	return  atoi(hash);
 }
 
 static void

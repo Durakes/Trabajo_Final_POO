@@ -25,7 +25,6 @@ void menuDeOpcionesInicioPlaylist()
 	
 	do
 	{
-	
 		cout<<"Playlist\n";
 		cout<<"Crear una playlist 	[1]\n";
 		cout<<"Mostrar tus playlist	[2]\n";
@@ -51,7 +50,6 @@ void menuDeOpcionesInicioPlaylist()
 void agregarCancionesPlaylist(){
 	cout<<"* Busca las canciones para tu playlist: "<<endl;
 	//llamo funcion de jacqueline
-	
 }
 
 void adicionarPlaylist()
@@ -68,7 +66,7 @@ void adicionarPlaylist()
 		cout << "* Crea un nombre para tu playlist: "; getline(cin, name);
 		
 		
-		//Crear el objeto de la clase alumno
+		//Crear el objeto de la clase playlist
 		Playlist playlist;
 		
 		playlist.setCodigoPlaylist(code);

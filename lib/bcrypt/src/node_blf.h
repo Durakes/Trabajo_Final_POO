@@ -58,8 +58,8 @@
 #  else
      typedef long LONG_PTR;
 #  endif
-  typedef LONG_PTR SSIZE_T;
-  typedef SSIZE_T s_size_t;
+     typedef LONG_PTR SSIZE_T;
+     typedef SSIZE_T s_size_t;
 #endif
 
 /* z/OS compatibility */

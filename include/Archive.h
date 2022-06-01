@@ -19,12 +19,6 @@ class Archive
             Path = path;
         }
         
-        string crearLinea(User obj)
-        {
-            string user = to_string(obj.getCode()) + ";" + obj.getName() + ";" + obj.getUsername() + ";" + obj.getPassword() + ";" + obj.getType() + ";";
-            return user;
-        }
-
         string crearLinea(Cancion obj)
         {
             string cancion = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getAutor() + ";" + to_string(obj.getDuracion()) + ";" + obj.getDireccion() + ";";
@@ -48,16 +42,6 @@ class Archive
             {
                 cout << "Ocurrio un error al grabar el archivo!!!";
             }
-        }
-
-        
-        void crearObjeto(vector<string> temp, User *user)
-        {
-            user->setCode(stoi(temp[0]));
-            user->setName(temp[1]);
-            user->setUsername(temp[2]);
-            user->setPassword(temp[3]);
-            user->setType(temp[4]);
         }
 
         void crearObjeto(vector<string> temp, Cancion *cancion)
