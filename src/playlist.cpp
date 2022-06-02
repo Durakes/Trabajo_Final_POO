@@ -4,7 +4,7 @@
 #include "../include/playlistVector.h"
 #include <vector>
 #include <cstring>
-#include "..\src\buscarCancion.cpp"
+#include "buscarCancion.cpp"
 using namespace std;
 
 PlaylistVector vectorPlaylist; //Instancia de la clase AlumnoVector

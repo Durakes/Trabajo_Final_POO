@@ -28,7 +28,7 @@ void menuOpciones(string name, string typeUser)
     switch (option)
     {
       case 1:
-          menuDeOpcionesInicioPlaylist(name);
+           menuDeOpcionesInicioPlaylist(name);
           break;
     case 2:
         menuBuscar("");
