@@ -1,36 +1,41 @@
+#ifndef __USER_H__
+#define __USER_H__
 #include <iostream>
+#include <cstring>
 using namespace std;
 class User
 {
     protected:
         int Code;
-        string Name;
-        string Username;
-        string Password;
-        string Type;
+        char Name[100];
+        char Username[100];
+        char Password[100];
+        char Type[100];
     public:
         User(){}
-        User(int code,string name, string username, string pass, string type)
+        User(int code,char* name, char* username, char* pass, char* type)
         {
             Code = code;
-            Name = name;
-            Username = username;
-            Password = pass;
-            Type = type;
+            strcpy(Name, name);
+            strcpy(Username, username);
+            strcpy(Password, pass);
+            strcpy(Type, type);
         }
 
         int getCode()    {return Code;}
         void setCode(int code)   {Code = code;}
 
-        string getName()    {return Name;}
-        void setName(string name)   {Name = name;}
+        char* getName()    {return Name;}
+        void setName(char* name)   {strcpy(Name, name);}
 
-        string getUsername()    {return Username;}
-        void setUsername(string user) {Username = user;}
+        char* getUsername()    {return Username;}
+        void setUsername(char* user) {strcpy(Username, user);}
 
-        string getPassword()    {return Password;}
-        void setPassword(string pass) {Password = pass;}
+        char* getPassword()    {return Password;}
+        void setPassword(char *pass) {strcpy(Password, pass);}
 
-        string getType()    {return Type;}
-        void setType(string type)   {Type = type;}
+        char* getType()    {return Type;}
+        void setType(char* type)   {strcpy(Type, type);}
 };
+
+#endif

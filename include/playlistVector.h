@@ -101,7 +101,7 @@ class PlaylistVector{
 									i++; 
 								}
 								
-								//Crear un bojeto de tipo alumno
+								//Crear un bojeto de tipo playlist
 								Playlist playlist;
 								playlist.setCodigoPlaylist(std::stoi(temporal[0])); //std::stoi -- cambiar de string a entero
 								playlist.setNombrePlaylist(temporal[1]);

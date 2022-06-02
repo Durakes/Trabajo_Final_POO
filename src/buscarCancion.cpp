@@ -24,30 +24,42 @@ void menuBuscar(string codPlaylist)
     } while ( rspta!="si");
 
     system("cls");
-    objBuscar.getResultados(titulo); // obtiene resultados de la búsqueda
 
-    cout<<endl;
-    cout<<"Elija una cancion: ";
-    cin>>codCancion;
-    system("cls");
-
-    objBuscar.getDatos(codCancion-1);
-    cout<<endl;
-
-    if (codPlaylist=="") // determina si se viene del menu principal o una playlist especifica
+    if(objBuscar.getResultados(titulo)==0)
     {
-        objBuscar.fromMainMenu();
+        cout<<"No se encontraron resultados"<<endl;
+        system("pause");
+        system("cls");
+        menuBuscar(codPlaylist);
     }
     else
     {
-        objBuscar.fromPlaylist(codPlaylist);
+        objBuscar.imprimirResultados();
+        cout<<endl;
+        cout<<"Elija una cancion: ";
+        cin>>codCancion;
+        system("cls");
+
+        objBuscar.getDatos(codCancion-1);
+        cout<<endl;
+
+        if (codPlaylist=="") // determina si se viene del menu principal o una playlist especifica
+        {
+            objBuscar.fromMainMenu();
+        }
+        else
+        {
+            objBuscar.fromPlaylist(codPlaylist);
+        }
+
     }
 
+    
 }
 
 /*int main()
 {
-    string prueba="";
+    string prueba="01";
     menuBuscar(prueba);
 }*/
 
