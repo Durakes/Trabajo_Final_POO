@@ -4,12 +4,16 @@
 //#include"Cancion.h"
 using namespace std;
 
+void verificarEntrada(string tipo){
+
+}
+
 void subMenu_CrearCancion(){
 
     string nombre;
     string autor;
     double duracion;
-    string direccion;
+    string album;
 
     string rpta = "Si";
 
@@ -23,19 +27,19 @@ void subMenu_CrearCancion(){
         */
         autor = "Falta arreglar aca";
 
+        cout<<"Album de la cancion: "<<endl<<" >";
+        getline(cin, album);
+
         cout<<"Duracion de la cancion:"<<endl;
         cout<<"(Minutos.Segundos)"<<endl<<" >";
         cin>>duracion;
         cin.ignore();
 
-        cout<<"Direccion web de la cancion: "<<endl<<" >";
-        getline(cin, direccion);
-
         cout<<"Seguro quieres crear la cancion: "<<endl;
         cout<<"Nombre: \t"<<nombre<<endl;
         cout<<"Autor: \t"<<autor<<endl;
+        cout<<"Album:\t"<<album<<endl;
         cout<<"Duracion: \t"<<duracion<<endl;
-        cout<<"Direccion:\t"<<direccion<<endl;
 
         cout<<"[Si] \t [No]"<<endl<<" >";
         cin>>rpta;
@@ -56,7 +60,6 @@ void subMenu_CrearCancion(){
             cout<<"Cancion agregada con exito"<<endl;
             cout<<"¿Desea agregar una nueva cancion?"<<endl<<" >";
             cin>>rpta;
-
         }
 
         cin.ignore();
