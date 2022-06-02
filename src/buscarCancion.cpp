@@ -1,5 +1,8 @@
+#ifndef __BUSCARCANCION_CPP__
+#define __BUSCARCANCION_CPP__
 #include <iostream>
 #include "..\include\BuscarCancion.h"
+#include "playlist.cpp"
 #include <algorithm>
 
 using namespace std;
@@ -9,7 +12,7 @@ void menuBuscar(string codPlaylist)
     BuscarCancion objBuscar;
     string titulo, rspta;
     int codCancion;
-    
+
     do
     {
         string nuevoTit;
@@ -54,7 +57,7 @@ void menuBuscar(string codPlaylist)
 
     }
 
-    
+
 }
 
 /*int main()
@@ -62,4 +65,4 @@ void menuBuscar(string codPlaylist)
     string prueba="01";
     menuBuscar(prueba);
 }*/
-
+#endif

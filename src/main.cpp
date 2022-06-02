@@ -7,6 +7,7 @@
 #include "..\lib\bcrypt\src\bcrypt.cpp"
 #include "..\src\buscarCancion.cpp"
 #include "..\include\BinaryFile.h"
+#include "playlist.cpp"
 using namespace std;
 
 void menuOpciones(string name, string typeUser)
@@ -26,6 +27,9 @@ void menuOpciones(string name, string typeUser)
 
     switch (option)
     {
+      case 1:
+          menuDeOpcionesInicioPlaylist(name);
+          break;
     case 2:
         menuBuscar("");
         break;
