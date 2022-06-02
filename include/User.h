@@ -35,7 +35,7 @@ class User
         void setPassword(char *pass) {strcpy(Password, pass);}
 
         char* getType()    {return Type;}
-        void setType(char* type)   {strcpy(Type, type);} 
+        void setType(char* type)   {strcpy(Type, type);}
 };
 
 #endif

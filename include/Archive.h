@@ -18,7 +18,7 @@ class Archive
         {
             Path = path;
         }
-        
+
         string crearLinea(Cancion obj)
         {
             string cancion = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getAutor() + ";" + to_string(obj.getDuracion()) + ";" + obj.getDireccion() + ";";
@@ -37,7 +37,7 @@ class Archive
                     archive << crearLinea(obj) << endl;
                     archive.close();
                 }
-    
+
             }catch(exception e)
             {
                 cout << "Ocurrio un error al grabar el archivo!!!";

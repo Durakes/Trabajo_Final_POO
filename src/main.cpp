@@ -7,6 +7,7 @@
 #include "..\lib\bcrypt\src\bcrypt.cpp"
 #include "..\src\buscarCancion.cpp"
 #include "..\include\BinaryFile.h"
+#include "playlist.cpp"
 using namespace std;
 
 void menuOpciones(string name, string typeUser)
@@ -26,13 +27,16 @@ void menuOpciones(string name, string typeUser)
 
     switch (option)
     {
+      case 1:
+           menuDeOpcionesInicioPlaylist(name);
+          break;
     case 2:
         menuBuscar("");
         break;
     case 5:
         exit(0);
         break;
-    
+
     default:
         break;
     }
@@ -67,7 +71,7 @@ void login()
         }
         ch = getch();
     }
-    
+
     string path = "..\\docs\\Users.bin";
     BinaryFile binFile(path);
     vector<User> users = binFile.LeerDato();
@@ -105,7 +109,7 @@ void login()
 }
 
 void registerUser()
-{    
+{
     string name;
     string email;
     string phoneNumber;
@@ -148,7 +152,7 @@ void registerUser()
     if(file.good() == true)
     {
         vector<User> users = archive.LeerDato();
-        if(users.size() == 0) 
+        if(users.size() == 0)
         {
             code = 1;
         }else
