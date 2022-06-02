@@ -6,6 +6,7 @@
 #include "..\include\Archive.h"
 #include "..\lib\bcrypt\src\bcrypt.cpp"
 #include "..\src\buscarCancion.cpp"
+#include "..\src\creacancion.cpp"
 #include "..\include\BinaryFile.h"
 #include "playlist.cpp"
 using namespace std;
@@ -32,6 +33,9 @@ void menuOpciones(string name, string typeUser)
           break;
     case 2:
         menuBuscar("");
+        break;
+    case 4:
+        subMenu_CrearCancion( name );
         break;
     case 5:
         exit(0);

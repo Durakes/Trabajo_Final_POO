@@ -8,7 +8,7 @@ void verificarEntrada(string tipo){
 
 }
 
-void subMenu_CrearCancion(){
+void subMenu_CrearCancion( string usuario ){
 
     string nombre;
     string autor;
@@ -17,15 +17,18 @@ void subMenu_CrearCancion(){
 
     string rpta = "Si";
 
+    /*
+    Obtener al artista desde el codigo de usuario
+    */
+
     do {
         //Recibir datos
         cout<<"Nombre de la cancion:"<<endl<<" >";
         getline(cin, nombre);
 
         /*
-        Obtener datos del autor automatico
+        El autor ya se obtiene automaticamente arriba
         */
-        autor = "Falta arreglar aca";
 
         cout<<"Album de la cancion: "<<endl<<" >";
         getline(cin, album);
@@ -68,5 +71,5 @@ void subMenu_CrearCancion(){
 }
 
 int main(){
-    subMenu_CrearCancion();    
+    subMenu_CrearCancion( "prueba" );    
 }
