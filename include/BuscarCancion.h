@@ -68,7 +68,7 @@ class BuscarCancion
             int med=(first+last)/2;
             if (last>=first)
             {
-  
+
                 if (aMinuscula(vectorCanciones[med].getNombre())==titulo)
                 {
                     vectorResultados.push_back(vectorCanciones[med]);
@@ -87,8 +87,8 @@ class BuscarCancion
                         m++;                    
                     } 
                     return 1;
-                  
-                                                 
+                
+                
                 }
                 else if(aMinuscula(vectorCanciones[med].getNombre())>titulo)
                 {
@@ -118,8 +118,6 @@ class BuscarCancion
             
             v=binarySearch(first, last, titulo); // busqueda binaria
             return v;
-
-          
         }
 
         void imprimirResultados() // imprime resultados encontrados
@@ -133,7 +131,7 @@ class BuscarCancion
                 cout<<x.getNombre()<<" - "<<x.getAutor()<<" ["<<i<<"]"<<endl; 
                 i++;               
             }
-     
+
         }
 
 };
