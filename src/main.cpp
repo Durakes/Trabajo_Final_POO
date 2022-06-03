@@ -27,16 +27,16 @@ void menuOpciones(string name, string typeUser)
 
     switch (option)
     {
-      case 1:
-           menuDeOpcionesInicioPlaylist(name);
-          break;
+    case 1:
+        menuDeOpcionesInicioPlaylist(name);
+        break;
     case 2:
         menuBuscar("");
         break;
     case 5:
         exit(0);
         break;
-
+    
     default:
         break;
     }
@@ -49,67 +49,78 @@ void login()
     int ch;
     string password;
     bool userExist;
-    system("cls");
-    cout << "Ingrese su Usuario: " << endl;
-    cin >> user;
-    cout << "Ingrese su Contrasena: " << endl;
-    ch = getch();
-
-    while (ch != 13) /*13 ASCCI ENTER*/
-    {
-        if(ch != 8) /*8 BACKSPACE*/
-        {
-            password.push_back(ch);
-            cout << "*";
-        }else
-        {
-            if(password.length() > 0)
-            {
-                cout << "\b \b";
-                password = password.substr(0, password.length() - 1);
-            }
-        }
-        ch = getch();
-    }
-
+    int tries = 0;
     string path = "..\\docs\\Users.bin";
     BinaryFile binFile(path);
     vector<User> users = binFile.LeerDato();
     User usuario;
 
-    for(int i = 0; i < users.size(); i++)
+    do
     {
-        if(user == users[i].getUsername())
+        system("cls");
+        cout << "Ingrese su Usuario: " << endl;
+        cin >> user;
+        cout << "Ingrese su Contrasena: " << endl;
+        ch = getch();
+    
+        while (ch != 13) /*13 ASCCI ENTER*/
         {
-            userExist = true;
-            usuario = users[i];
-            break;
+            if(ch != 8) /*8 BACKSPACE*/
+            {
+                password.push_back(ch);
+                cout << "*";
+            }else
+            {
+                if(password.length() > 0)
+                {
+                    cout << "\b \b";
+                    password = password.substr(0, password.length() - 1);
+                }
+            }
+            ch = getch();
         }
-    }
-
-    if(userExist == true)
-    {
-        if(bcrypt::validatePassword(password,usuario.getPassword()))
+        
+    
+        for(int i = 0; i < users.size(); i++)
         {
-            menuOpciones(usuario.getUsername(), usuario.getType());
+            if(user == users[i].getUsername())
+            {
+                userExist = true;
+                usuario = users[i];
+                break;
+            }
+        }
+    
+        if(userExist == true)
+        {
+            if(bcrypt::validatePassword(password,usuario.getPassword()))
+            {
+                menuOpciones(usuario.getUsername(), usuario.getType());
+            }else
+            {
+                
+                cout << endl;
+                cout << "Los datos ingresados son incorrectos!!" << endl;
+                tries++;
+                system("pause");
+            }
         }else
         {
             cout << endl;
-            cout << "Los datos ingresados son incorrectos!!" << endl;
+            cout << "El usuario no existe!" << endl;
+            tries++;
             system("pause");
-            login();
         }
-    }else
-    {
-        cout << endl;
-        cout << "El usuario no existe!" << endl;
-        system("pause");
-        login();
-    }
+    } while (tries < 3);
+
+    cout << endl;
+    cout << "Ha superado el limite de intentos " << endl;
+    system("pause");
+    exit(0);
 }
 
 void registerUser()
-{
+{    
     string name;
     string email;
     string phoneNumber;
@@ -152,7 +163,7 @@ void registerUser()
     if(file.good() == true)
     {
         vector<User> users = archive.LeerDato();
-        if(users.size() == 0)
+        if(users.size() == 0) 
         {
             code = 1;
         }else
