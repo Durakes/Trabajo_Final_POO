@@ -2,7 +2,6 @@
 #define __BUSCARCANCION_CPP__
 #include <iostream>
 #include "..\include\BuscarCancion.h"
-#include "playlist.cpp"
 #include <algorithm>
 
 using namespace std;
@@ -15,11 +14,10 @@ void menuBuscar(string codPlaylist)
 
     do
     {
-        string nuevoTit;
         cout<<"Ingrese el titulo de la cancion: ";
         getline(cin,titulo);
         transform(titulo.begin(), titulo.end(), titulo.begin(), ::tolower);
-        cout<<"Desea continuar? ";
+        cout<<"Desea buscar la cancion? ";
         cin>>rspta;
         transform(rspta.begin(), rspta.end(), rspta.begin(), ::tolower);
         cin.ignore();
@@ -62,7 +60,8 @@ void menuBuscar(string codPlaylist)
 
 /*int main()
 {
-    string prueba="01";
+    string prueba="0";
     menuBuscar(prueba);
 }*/
+
 #endif
