@@ -19,7 +19,7 @@ void EliminarPlaylist();
 void EliminarCancion();
 void mainPlaylist();
 void listarCanciones();
-void 	MostrarCancionesPorCodigo();
+void MostrarCancionesPorCodigo();
 
 //el name es igual al username, si es igual se agrega al vector
 //para mostrar, se diferencia por el codigo
@@ -48,7 +48,7 @@ void menuDeOpcionesInicioPlaylist(string name){
 				adicionarPlaylist(userName);
 				break;
 
-	      case 2 : 	system("cls");
+				case 2 : 	system("cls");
 				listarPlaylist(userName);
 				break;
 

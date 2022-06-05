@@ -1,3 +1,5 @@
+#ifndef __PLAYLIST_H__
+#define __PLAYLIST_H__
 #include<string>
 #include "Cancion.h"
 using namespace std;
@@ -48,14 +50,16 @@ class Playlist{
 
         vector<Cancion> getVectorCancion()
         {
-          return vectorCancion;
+            return vectorCancion;
         }
 
         vector<int> getVectorCodigoCancion()
         {
-          return vectorCodigo;
+            return vectorCodigo;
         }
 };
+
+#endif
 
 //cuando haga el getvectorcodigocancion, consigo el codigo de las canciones, tengo un vector con puros codigos, debo ir comparando uno con uno con las canciones del codigo csv, puedo usar la clase de jaqui
 //los codigos que tengo yo deben compararse con los codigos de las canciones y ver cuales son iguales para mostrarlas.

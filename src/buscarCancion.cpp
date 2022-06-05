@@ -46,7 +46,7 @@ void menuBuscar(string codPlaylist)
         objBuscar.getDatos(codCancion-1);
         cout<<endl;
 
-        if (codPlaylist=="") // determina si se viene del menu principal o una playlist especifica
+        if (codPlaylist=="0") // determina si se viene del menu principal o una playlist especifica
         {
             objBuscar.fromMainMenu();
         }
