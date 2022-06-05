@@ -31,7 +31,7 @@ void menuOpciones(string name, string typeUser)
         menuDeOpcionesInicioPlaylist(name);
         break;
     case 2:
-        menuBuscar("");
+        menuBuscar("0");
         break;
     case 5:
         exit(0);
@@ -42,27 +42,24 @@ void menuOpciones(string name, string typeUser)
     }
 }
 
-
-void login()
+void login(int intentos)
 {
     string user;
     int ch;
     string password;
     bool userExist;
-    int tries = 0;
     string path = "..\\docs\\Users.bin";
     BinaryFile binFile(path);
     vector<User> users = binFile.LeerDato();
     User usuario;
 
-    do
+    if(intentos < 3)
     {
         system("cls");
         cout << "Ingrese su Usuario: " << endl;
         cin >> user;
         cout << "Ingrese su Contrasena: " << endl;
         ch = getch();
-    
         while (ch != 13) /*13 ASCCI ENTER*/
         {
             if(ch != 8) /*8 BACKSPACE*/
@@ -79,8 +76,7 @@ void login()
             }
             ch = getch();
         }
-        
-    
+
         for(int i = 0; i < users.size(); i++)
         {
             if(user == users[i].getUsername())
@@ -90,7 +86,7 @@ void login()
                 break;
             }
         }
-    
+
         if(userExist == true)
         {
             if(bcrypt::validatePassword(password,usuario.getPassword()))
@@ -98,25 +94,25 @@ void login()
                 menuOpciones(usuario.getUsername(), usuario.getType());
             }else
             {
-                
                 cout << endl;
                 cout << "Los datos ingresados son incorrectos!!" << endl;
-                tries++;
                 system("pause");
+                login(intentos+1);
             }
         }else
         {
             cout << endl;
             cout << "El usuario no existe!" << endl;
-            tries++;
             system("pause");
+            login(intentos+1);
         }
-    } while (tries < 3);
-
-    cout << endl;
-    cout << "Ha superado el limite de intentos " << endl;
-    system("pause");
-    exit(0);
+    }else
+    {
+        cout << endl;
+        cout << "Ha superado el limite de intentos " << endl;
+        system("pause");
+        exit(0);
+    }   
 }
 
 void registerUser()
@@ -222,7 +218,7 @@ int main()
     {
     case 1:
         system("cls");
-        login();
+        login(0);
         break;
     case 2:
         registerUser();

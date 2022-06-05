@@ -119,7 +119,7 @@ class PlaylistVector{
 					size_t posicion; //Cantidad maxima
 					string linea;
 					string temporal[3];//tengo que ver cuantos atributos entran,vector de strings
-          vector<int> vectorCancionesAgregadas;
+    				vector<int> vectorCancionesAgregadas;
 					fstream archivoPlaylist;
 					archivoPlaylist.open("../docs/Playlist.csv", ios::in);
 					if(archivoPlaylist.is_open())

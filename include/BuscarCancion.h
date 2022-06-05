@@ -52,8 +52,6 @@ class BuscarCancion
         void fromPlaylist(string codeP) // Añadir a playlist ya determinada
         {
             cout<<"Desea agregar la cancion a  "<<endl;
-
-
         }
 
         string aMinuscula(string cadena) // Convierte los titulos a minuscula
