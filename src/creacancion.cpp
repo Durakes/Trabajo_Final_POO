@@ -11,15 +11,12 @@ void verificarEntrada(string tipo){
 void subMenu_CrearCancion( string usuario ){
 
     string nombre;
-    string autor;
+    //string nombreArtista es igual al parametro usuario
     double duracion;
     string album;
 
     string rpta = "Si";
 
-    /*
-    Obtener al artista desde el codigo de usuario
-    */
 
     do {
         //Recibir datos
@@ -40,7 +37,7 @@ void subMenu_CrearCancion( string usuario ){
 
         cout<<"Seguro quieres crear la cancion: "<<endl;
         cout<<"Nombre: \t"<<nombre<<endl;
-        cout<<"Autor: \t"<<autor<<endl;
+        cout<<"Autor: \t"<<usuario<<endl;
         cout<<"Album:\t"<<album<<endl;
         cout<<"Duracion: \t"<<duracion<<endl;
 

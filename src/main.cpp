@@ -11,7 +11,7 @@
 #include "playlist.cpp"
 using namespace std;
 
-void menuOpciones(string name, string typeUser)
+void menuOpciones(string name, string typeUser, string nameArtist)
 {
     int option;
     system("cls");
@@ -35,7 +35,7 @@ void menuOpciones(string name, string typeUser)
         menuBuscar("");
         break;
     case 4:
-        subMenu_CrearCancion( name );
+        subMenu_CrearCancion( nameArtist );
         break;
     case 5:
         exit(0);
@@ -99,10 +99,10 @@ void login()
         {
             if(bcrypt::validatePassword(password,usuario.getPassword()))
             {
-                menuOpciones(usuario.getUsername(), usuario.getType());
+                menuOpciones(usuario.getUsername(), usuario.getType(), usuario.getName());
             }else
             {
-                
+
                 cout << endl;
                 cout << "Los datos ingresados son incorrectos!!" << endl;
                 tries++;
