@@ -31,6 +31,10 @@ void menuOpciones(string name, string typeUser)
         menuDeOpcionesInicioPlaylist(name);
         break;
     case 2:
+<<<<<<< Updated upstream
+=======
+        system("cls");
+>>>>>>> Stashed changes
         menuBuscar("0");
         break;
     case 5:
@@ -42,18 +46,32 @@ void menuOpciones(string name, string typeUser)
     }
 }
 
+<<<<<<< Updated upstream
 void login(int intentos)
+=======
+
+void login(int tries)
+>>>>>>> Stashed changes
 {
     string user;
     int ch;
     string password;
     bool userExist;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     string path = "..\\docs\\Users.bin";
     BinaryFile binFile(path);
     vector<User> users = binFile.LeerDato();
     User usuario;
 
+<<<<<<< Updated upstream
     if(intentos < 3)
+=======
+   
+    if(tries<3)
+>>>>>>> Stashed changes
     {
         system("cls");
         cout << "Ingrese su Usuario: " << endl;
@@ -97,22 +115,39 @@ void login(int intentos)
                 cout << endl;
                 cout << "Los datos ingresados son incorrectos!!" << endl;
                 system("pause");
+<<<<<<< Updated upstream
                 login(intentos+1);
+=======
+                login(tries+1);
+>>>>>>> Stashed changes
             }
         }else
         {
             cout << endl;
             cout << "El usuario no existe!" << endl;
             system("pause");
+<<<<<<< Updated upstream
             login(intentos+1);
         }
     }else
+=======
+            login(tries+1);
+        }
+    }
+    else
+>>>>>>> Stashed changes
     {
         cout << endl;
         cout << "Ha superado el limite de intentos " << endl;
         system("pause");
         exit(0);
+<<<<<<< Updated upstream
     }   
+=======
+    }
+
+    
+>>>>>>> Stashed changes
 }
 
 void registerUser()
