@@ -33,8 +33,8 @@ class Cancion{
 
         */
 
-        //Cambia la direccion http de la cancion
-        void setDireccion( string direccion ){
+
+        void setAlbum( string direccion ){
             this->Album = direccion;
         }
 
@@ -70,7 +70,7 @@ class Cancion{
         int getDuracion(){
             return Duracion;
         }
-        string getDireccion(){
+        string getAlbum(){
             return Album;
         }
 
