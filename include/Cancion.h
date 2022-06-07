@@ -12,18 +12,18 @@ class Cancion{
         string Nombre;
         string Autor;       // O podría ser autor*(? Un puntero de objeto autor
         int Duracion; //En segundos
-        string Direccion;
+        string Album;
 
     
     public:
         //Constructor
         Cancion(){}
-        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string direccion){
+        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string album){
             this->Codigo = codigo;
             this->Nombre = nombre;
             this->Autor = autor;
             this->Duracion = duracionSegundos;
-            this->Direccion = direccion;
+            this->Album = album;
         }
 
 
@@ -33,9 +33,9 @@ class Cancion{
 
         */
 
-        //Cambia la direccion http de la cancion
-        void setDireccion( string direccion ){
-            this->Direccion = direccion;
+
+        void setAlbum( string direccion ){
+            this->Album = direccion;
         }
 
         void setCodigo(int codigo)
@@ -70,8 +70,8 @@ class Cancion{
         int getDuracion(){
             return Duracion;
         }
-        string getDireccion(){
-            return Direccion;
+        string getAlbum(){
+            return Album;
         }
 
 
@@ -97,7 +97,7 @@ class Cancion{
         }
 
         void reproducirCancion(){
-            string defecto = "start " + Direccion;
+            string defecto = "start " + Album;
 
             char *enviado = &defecto[0];
             cout<<"Reproduciendo: " + Nombre + " - " + Autor;

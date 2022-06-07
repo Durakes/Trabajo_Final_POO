@@ -21,7 +21,7 @@ class Archive
 
         string crearLinea(Cancion obj)
         {
-            string cancion = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getAutor() + ";" + to_string(obj.getDuracion()) + ";" + obj.getDireccion() + ";";
+            string cancion = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getAutor() + ";" + to_string(obj.getDuracion()) + ";" + obj.getAlbum() + ";";
             return cancion;
         }
 
@@ -50,7 +50,7 @@ class Archive
             cancion->setNombre(temp[1]);
             cancion->setAutor(temp[2]);
             cancion->setDuracion(stoi(temp[3]));
-            cancion->setDireccion(temp[4]);
+            cancion->setAlbum(temp[4]);
         }
 
         template <class T>

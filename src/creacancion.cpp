@@ -4,38 +4,40 @@
 //#include"Cancion.h"
 using namespace std;
 
-void subMenu_CrearCancion(){
+void verificarEntrada(string tipo){
+
+}
+
+void subMenu_CrearCancion( string usuario ){
 
     string nombre;
-    string autor;
+    //string nombreArtista es igual al parametro usuario
     double duracion;
-    string direccion;
-
+    string album;
+    
     string rpta = "Si";
+
 
     do {
         //Recibir datos
         cout<<"Nombre de la cancion:"<<endl<<" >";
         getline(cin, nombre);
 
-        /*
-        Obtener datos del autor automatico
-        */
-        autor = "Falta arreglar aca";
+        /* El autor ya se obtiene automaticamente arriba */
+
+        cout<<"Album de la cancion: "<<endl<<" >";
+        getline(cin, album);
 
         cout<<"Duracion de la cancion:"<<endl;
         cout<<"(Minutos.Segundos)"<<endl<<" >";
         cin>>duracion;
         cin.ignore();
 
-        cout<<"Direccion web de la cancion: "<<endl<<" >";
-        getline(cin, direccion);
-
         cout<<"Seguro quieres crear la cancion: "<<endl;
         cout<<"Nombre: \t"<<nombre<<endl;
-        cout<<"Autor: \t"<<autor<<endl;
+        cout<<"Autor: \t"<<usuario<<endl;
+        cout<<"Album:\t"<<album<<endl;
         cout<<"Duracion: \t"<<duracion<<endl;
-        cout<<"Direccion:\t"<<direccion<<endl;
 
         cout<<"[Si] \t [No]"<<endl<<" >";
         cin>>rpta;
@@ -56,7 +58,6 @@ void subMenu_CrearCancion(){
             cout<<"Cancion agregada con exito"<<endl;
             cout<<"¿Desea agregar una nueva cancion?"<<endl<<" >";
             cin>>rpta;
-
         }
 
         cin.ignore();
@@ -65,5 +66,5 @@ void subMenu_CrearCancion(){
 }
 
 int main(){
-    subMenu_CrearCancion();    
+    subMenu_CrearCancion( "prueba" );    
 }
