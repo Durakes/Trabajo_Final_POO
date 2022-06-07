@@ -23,9 +23,7 @@ void subMenu_CrearCancion( string usuario ){
         cout<<"Nombre de la cancion:"<<endl<<" >";
         getline(cin, nombre);
 
-        /*
-        El autor ya se obtiene automaticamente arriba
-        */
+        /* El autor ya se obtiene automaticamente arriba */
 
         cout<<"Album de la cancion: "<<endl<<" >";
         getline(cin, album);
