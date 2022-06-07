@@ -14,7 +14,7 @@ void subMenu_CrearCancion( string usuario ){
     //string nombreArtista es igual al parametro usuario
     double duracion;
     string album;
-
+    
     string rpta = "Si";
 
 
