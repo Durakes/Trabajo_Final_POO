@@ -36,6 +36,10 @@ class BuscarCancion
         {
             return a.getNombre() < b.getNombre();
         }
+        static bool compare(string a, string b)
+        {
+            return a < b;
+        }
         static bool compareAuthor(Cancion &a, Cancion &b)
         {
             return a.getAutor() < b.getAutor();
@@ -66,36 +70,44 @@ class BuscarCancion
 
         int binarySearch(int first, int last, string titulo, vector <string> vectorTitulos)   // busqueda binaria           
         {
-
             int med=(first+last)/2;
             if (last>=first)
             {  
                 if (vectorTitulos[med]==titulo)
                 {
                     vectorResultados.push_back(vectorCanciones[med]);
-                    int n=1;
-                    while(titulo==aMinuscula(vectorCanciones[med-n].getNombre()))
+                                      
+                    if(med!=0)
+                    {   
+                        int n=1;
+                        while(titulo==vectorTitulos[med-n])
+                        {
+                            vectorResultados.push_back(vectorCanciones[med-n]);
+                            n++;
+                        }
+                    }
+                    
+                    if(med!=vectorTitulos.size()-1)
                     {
+                        int m=1;
 
-                        vectorResultados.push_back(vectorCanciones[med-n]);
-                        n++;
+                        while(titulo==vectorTitulos[med+m])
+                        {
+                            vectorResultados.push_back(vectorCanciones[med+m]);
+                            m++;
+                        }
                     }
 
-                    int m=1;
-                    while(titulo==aMinuscula(vectorCanciones[med+m].getNombre()))
-                    {
-                        vectorResultados.push_back(vectorCanciones[med+m]);
-                        m++;
-                    }
-                    return 1;
-                                  
+                    return 1;                                
                 }
+
                 else if(vectorTitulos[med]>titulo)
                 {
                     return binarySearch(first,med-1,titulo, vectorTitulos);
                 }
                 else
                 {
+                    cout<<"r";
                     return binarySearch(med+1,last,titulo, vectorTitulos);
                 }
             }
@@ -104,26 +116,24 @@ class BuscarCancion
                 return 0;
             }
 
-
         }
-
 
         int getResultados(string titulo)  // Recibe el titulo para buscar los resultados
         {
 
             sort(vectorCanciones.begin(), vectorCanciones.end(), compareTitle);
-            
+
             int v;
             int first=0,
-                last=vectorCanciones.size()-1,
-                med=last/2;
+                last=vectorCanciones.size()-1;
 
             vector<string>vectorTitulos;
             for (Cancion x:vectorCanciones)
             {
                 vectorTitulos.push_back(aMinuscula(x.getNombre()));
             }
-            
+            sort(vectorTitulos.begin(), vectorTitulos.end(), compare);
+
             if(vectorCanciones.size()<=2)
             {
                 for (Cancion x : vectorCanciones)
@@ -133,7 +143,15 @@ class BuscarCancion
                         vectorResultados.push_back(x);
                     }
                 }
-                return 1;
+                if (vectorResultados.size()==0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+                
             }
             else
             {
