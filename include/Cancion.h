@@ -11,6 +11,7 @@ class Cancion{
         int Codigo;
         string Nombre;
         string Autor;       // O podría ser autor*(? Un puntero de objeto autor
+        string Codautor;
         int Duracion; //En segundos
         string Album;
 
@@ -18,10 +19,11 @@ class Cancion{
     public:
         //Constructor
         Cancion(){}
-        Cancion( int codigo, string nombre, string autor, int duracionSegundos, string album){
+        Cancion( int codigo, string nombre, string autor, string codAut, int duracionSegundos, string album){
             this->Codigo = codigo;
             this->Nombre = nombre;
             this->Autor = autor;
+            this->Codautor = codAut;
             this->Duracion = duracionSegundos;
             this->Album = album;
         }
@@ -32,7 +34,6 @@ class Cancion{
             Setters Getters
 
         */
-
 
         void setAlbum( string direccion ){
             this->Album = direccion;
