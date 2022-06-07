@@ -6,12 +6,11 @@
 #include "..\include\Archive.h"
 #include "..\lib\bcrypt\src\bcrypt.cpp"
 #include "..\src\buscarCancion.cpp"
-#include "..\src\creacancion.cpp"
 #include "..\include\BinaryFile.h"
 #include "playlist.cpp"
 using namespace std;
 
-void menuOpciones(string name, string typeUser, string nameArtist)
+void menuOpciones(string name, string typeUser)
 {
     int option;
     system("cls");
@@ -32,10 +31,11 @@ void menuOpciones(string name, string typeUser, string nameArtist)
         menuDeOpcionesInicioPlaylist(name);
         break;
     case 2:
-        menuBuscar("");
-        break;
-    case 4:
-        subMenu_CrearCancion( nameArtist );
+<<<<<<< Updated upstream
+=======
+        system("cls");
+>>>>>>> Stashed changes
+        menuBuscar("0");
         break;
     case 5:
         exit(0);
@@ -46,27 +46,38 @@ void menuOpciones(string name, string typeUser, string nameArtist)
     }
 }
 
+<<<<<<< Updated upstream
+void login(int intentos)
+=======
 
-void login()
+void login(int tries)
+>>>>>>> Stashed changes
 {
     string user;
     int ch;
     string password;
     bool userExist;
-    int tries = 0;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     string path = "..\\docs\\Users.bin";
     BinaryFile binFile(path);
     vector<User> users = binFile.LeerDato();
     User usuario;
 
-    do
+<<<<<<< Updated upstream
+    if(intentos < 3)
+=======
+   
+    if(tries<3)
+>>>>>>> Stashed changes
     {
         system("cls");
         cout << "Ingrese su Usuario: " << endl;
         cin >> user;
         cout << "Ingrese su Contrasena: " << endl;
         ch = getch();
-    
         while (ch != 13) /*13 ASCCI ENTER*/
         {
             if(ch != 8) /*8 BACKSPACE*/
@@ -83,8 +94,7 @@ void login()
             }
             ch = getch();
         }
-        
-    
+
         for(int i = 0; i < users.size(); i++)
         {
             if(user == users[i].getUsername())
@@ -94,33 +104,50 @@ void login()
                 break;
             }
         }
-    
+
         if(userExist == true)
         {
             if(bcrypt::validatePassword(password,usuario.getPassword()))
             {
-                menuOpciones(usuario.getUsername(), usuario.getType(), usuario.getName());
+                menuOpciones(usuario.getUsername(), usuario.getType());
             }else
             {
-
                 cout << endl;
                 cout << "Los datos ingresados son incorrectos!!" << endl;
-                tries++;
                 system("pause");
+<<<<<<< Updated upstream
+                login(intentos+1);
+=======
+                login(tries+1);
+>>>>>>> Stashed changes
             }
         }else
         {
             cout << endl;
             cout << "El usuario no existe!" << endl;
-            tries++;
             system("pause");
+<<<<<<< Updated upstream
+            login(intentos+1);
         }
-    } while (tries < 3);
+    }else
+=======
+            login(tries+1);
+        }
+    }
+    else
+>>>>>>> Stashed changes
+    {
+        cout << endl;
+        cout << "Ha superado el limite de intentos " << endl;
+        system("pause");
+        exit(0);
+<<<<<<< Updated upstream
+    }   
+=======
+    }
 
-    cout << endl;
-    cout << "Ha superado el limite de intentos " << endl;
-    system("pause");
-    exit(0);
+    
+>>>>>>> Stashed changes
 }
 
 void registerUser()
@@ -226,7 +253,7 @@ int main()
     {
     case 1:
         system("cls");
-        login();
+        login(0);
         break;
     case 2:
         registerUser();

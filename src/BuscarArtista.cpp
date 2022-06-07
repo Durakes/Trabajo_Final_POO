@@ -9,7 +9,7 @@ BuscarArtista objArtista;
 string nombreArtista;
 int codigoArtista;
 vector<string> vecArtista = objArtista.agregarDatos();
-void pestanaArtista();
+void pestanaArtista(int);
 
 void menuBuscarArtista(){
     string respuesta;

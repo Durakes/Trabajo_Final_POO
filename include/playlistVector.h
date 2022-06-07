@@ -119,7 +119,7 @@ class PlaylistVector{
 					size_t posicion; //Cantidad maxima
 					string linea;
 					string temporal[3];//tengo que ver cuantos atributos entran,vector de strings
-          vector<int> vectorCancionesAgregadas;
+          			vector<int> vectorCancionesAgregadas;
 					fstream archivoPlaylist;
 					archivoPlaylist.open("../docs/Playlist.csv", ios::in);
 					if(archivoPlaylist.is_open())
@@ -131,24 +131,24 @@ class PlaylistVector{
 								i = 0;
 								while((posicion = linea.find(";")) != string::npos) // string::npos = -1, desde el 0 hasta el 2 son datos fijos, despues si es que existe un elemento 3, desde el 3 hasta el ultimo, debo guardar todo dentro de un vector de strings
 								{
-                  if(i<=2){
-                    temporal[i] = linea.substr(0, posicion); //substr obtiene/ saca una parte de la cadena
-                    linea.erase(0, posicion + 1); //se pone +1 para borrar el primer string(0) mas el ";"
-                    i++;
-                  }
-                  else{
-                    vectorCancionesAgregadas.push_back(std::stoi(linea.substr(0, posicion)));
-                    linea.erase(0, posicion + 1);
-                    i++;
-                  }
+                  					if(i<=2){
+                    					temporal[i] = linea.substr(0, posicion); //substr obtiene/ saca una parte de la cadena
+                    					linea.erase(0, posicion + 1); //se pone +1 para borrar el primer string(0) mas el ";"
+                    					i++;
+                  					}
+                  					else{
+                    					vectorCancionesAgregadas.push_back(std::stoi(linea.substr(0, posicion)));
+                    					linea.erase(0, posicion + 1);
+                    					i++;
+                  					}
 								}
 
 								//Crear un bojeto de tipo alumno
 								Playlist playlist;
 								playlist.setCodigoPlaylist(std::stoi(temporal[0])); //std::stoi -- cambiar de string a entero
 								playlist.setNombrePlaylist(temporal[1]);
-                playlist.setNombreUsuario(temporal[2]);
-                playlist.setVectorCanncionCodigo(vectorCancionesAgregadas);
+                				playlist.setNombreUsuario(temporal[2]);
+                				playlist.setVectorCanncionCodigo(vectorCancionesAgregadas);
 								add(playlist);
 							}
 						}
