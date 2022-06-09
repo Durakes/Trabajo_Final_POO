@@ -6,11 +6,12 @@
 #include "..\include\Archive.h"
 #include "..\lib\bcrypt\src\bcrypt.cpp"
 #include "..\src\buscarCancion.cpp"
+#include "..\src\creacancion.cpp"
 #include "..\include\BinaryFile.h"
 #include "playlist.cpp"
 using namespace std;
 
-void menuOpciones(string name, string typeUser)
+void menuOpciones(int code, string name, string typeUser)
 {
     int option;
     system("cls");
@@ -34,6 +35,9 @@ void menuOpciones(string name, string typeUser)
         system("cls");
         menuBuscar("0");
         break;
+    case 4:
+        system("cls");
+        subMenu_CrearCancion(code, name);
     case 5:
         exit(0);
         break;
@@ -94,7 +98,7 @@ void login(int tries)
         {
             if(bcrypt::validatePassword(password,usuario.getPassword()))
             {
-                menuOpciones(usuario.getUsername(), usuario.getType());
+                menuOpciones(usuario.getCode(), usuario.getUsername(), usuario.getType());
             }else
             {
                 cout << endl;

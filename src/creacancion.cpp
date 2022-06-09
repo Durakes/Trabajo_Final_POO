@@ -1,14 +1,13 @@
 #include<iostream>
 #include<string>
 #include<math.h>
-//#include"Cancion.h"
+#include<fstream>
+#include"..\include\Cancion.h"
 using namespace std;
 
-void verificarEntrada(string tipo){
+void verificarEntrada(string tipo){}
 
-}
-
-void subMenu_CrearCancion( string usuario ){
+void subMenu_CrearCancion( int codigoUsuario, string usuario ){
 
     string nombre;
     //string nombreArtista es igual al parametro usuario
@@ -47,13 +46,13 @@ void subMenu_CrearCancion( string usuario ){
             cout<<(int) duracion<<endl;
             //  Calculo raro: parte_entera*60 + parte_decimal*100
 
-            /*
-            Crear el objeto cancion
-            */
+            //Crea el objeto cancion
+            Cancion nueva( nombre, usuario, album, codigoUsuario, duracion );
 
             /*
             Agregar el objeto cancion a vector
-            */
+            */                  
+
 
             cout<<"Cancion agregada con exito"<<endl;
             cout<<"¿Desea agregar una nueva cancion?"<<endl<<" >";
@@ -66,5 +65,5 @@ void subMenu_CrearCancion( string usuario ){
 }
 
 int main(){
-    subMenu_CrearCancion( "prueba" );    
+    subMenu_CrearCancion(404, "UsuarioPrueba");    
 }

@@ -18,9 +18,8 @@ class Cancion{
     
     public:
         //Constructor
-        Cancion(){}
-        Cancion( int codigo, string nombre, string autor, string codAut, int duracionSegundos, string album){
-            this->Codigo = codigo;
+        Cancion( string nombre, string autor,string album, int codAut, int duracionSegundos ){
+            this->Codigo = obtenerCodigo(); //Se obtiene el codigo automaticamente
             this->Nombre = nombre;
             this->Autor = autor;
             this->Codautor = codAut;
@@ -35,45 +34,18 @@ class Cancion{
 
         */
 
-        void setAlbum( string direccion ){
-            this->Album = direccion;
-        }
+        void setAlbum( string direccion ){ this->Album = direccion; }
+        void setCodigo(int codigo){ Codigo = codigo; }    
+        void setNombre(string nombre){ Nombre = nombre; }
+        void setAutor(string autor){ Autor = autor; }
+        void setDuracion(int duracion){ Duracion = duracion; }
+        int getCodigo(){ return Codigo; }
 
-        void setCodigo(int codigo)
-        {
-            Codigo = codigo;
-        }
-        
-        void setNombre(string nombre)
-        {
-            Nombre = nombre;
-        }
 
-        void setAutor(string autor)
-        {
-            Autor = autor;
-        }
-
-        void setDuracion(int duracion)
-        {
-            Duracion = duracion;
-        }
-
-        int getCodigo(){
-            return Codigo;
-        }
-        string getNombre(){
-            return Nombre;
-        }
-        string getAutor(){
-            return Autor;
-        }
-        int getDuracion(){
-            return Duracion;
-        }
-        string getAlbum(){
-            return Album;
-        }
+        string getNombre(){ return Nombre; }
+        string getAutor(){ return Autor; }
+        int getDuracion(){ return Duracion; }
+        string getAlbum(){ return Album; }
 
 
         /*
@@ -96,6 +68,20 @@ class Cancion{
 
             return ( Nombre + " - " + Autor + " " + tiempo );
         }
+
+
+        // Cuenta la cantidad de filas en el archivo "data_canciones.csv",
+        // así se sabe qué codigo de cancion
+        int obtenerCodigo(){
+            int filas=0;
+            ifstream file("../docs/data_canciones.csv");
+            string line;
+            while (getline(file, line))
+            filas++;
+            file.close();
+            return filas;
+        }
+
 
         void reproducirCancion(){
             string defecto = "start " + Album;
