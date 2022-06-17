@@ -13,7 +13,7 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
     //string nombreArtista es igual al parametro usuario
     double duracion;
     string album;
-    
+
     string rpta = "Si";
 
 
@@ -51,7 +51,7 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
 
             /*
             Agregar el objeto cancion a vector
-            */                  
+            */
 
 
             cout<<"Cancion agregada con exito"<<endl;
@@ -61,9 +61,10 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
 
         cin.ignore();
     } while ( rpta== "Si" || rpta=="si" || rpta=="SI" || rpta=="sI" );
-    
+
 }
 
+/*
 int main(){
-    subMenu_CrearCancion(404, "UsuarioPrueba");    
-}
+    subMenu_CrearCancion(404, "UsuarioPrueba");
+}*/

@@ -6,6 +6,8 @@
 #include <vector>
 #include "User.h"
 #include "Cancion.h"
+#include "playlist.h"
+#include <sstream>
 using namespace std;
 
 class Archive
@@ -23,6 +25,11 @@ class Archive
         {
             string cancion = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getAutor() + ";" + to_string(obj.getDuracion()) + ";" + obj.getAlbum() + ";";
             return cancion;
+        }
+
+        string crearLinea(Playlist obj){
+          string playlist = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getUsuario() + ";" + obj.getEstado() + ";";
+          return playlist;
         }
 
         template <class T>
@@ -51,6 +58,24 @@ class Archive
             cancion->setAutor(temp[2]);
             cancion->setDuracion(stoi(temp[3]));
             cancion->setAlbum(temp[4]);
+        }
+
+        void crearObjeto(vector<string> temp, Playlist *playlist)
+        {
+            vector<int> cancionNull;
+            playlist->setCodigo(stoi(temp[0]));
+            playlist->setNombre(temp[1]);
+            playlist->setUsuario(temp[2]);
+            playlist->setEstado(temp[3]);
+            if(temp.size()>4){
+              vector<int> canciones;
+              for(int i=4; i<temp.size(); i++){
+                canciones.push_back(stoi(temp[i]));
+              }
+              playlist->setCanciones(canciones);
+            }else{
+              playlist->setCanciones(cancionNull);
+            }
         }
 
         template <class T>
@@ -87,5 +112,35 @@ class Archive
                 cout << "Ocurrio un error al leer el archivo!!!";
             }
         }
+
+        void modificarPlaylist(vector<Playlist> vectorPlaylist){//esta
+        try{
+          fstream archive;
+
+          archive.open(Path, ios :: out);
+          if(archive.is_open()){
+              for(Playlist playlist:vectorPlaylist){
+                if(playlist.getCanciones().size()!=0){
+                  stringstream ss;
+                  for(size_t i=0; i<playlist.getCanciones().size();++i){
+                    if(i!=0){
+                      ss<<";";
+                    }
+                    ss<<playlist.getCanciones()[i];
+                  }
+                  string codigos=ss.str();
+                  archive << to_string(playlist.getCodigo()) + ";" + playlist.getNombre() + ";" + playlist.getUsuario() + ";" + playlist.getEstado() + ";" + codigos + ";" << endl;
+                }
+                else{
+                  archive << to_string(playlist.getCodigo()) + ";" + playlist.getNombre() + ";" + playlist.getUsuario() + ";" + playlist.getEstado() + ";" << endl;
+                }
+              }
+          }
+          archive.close();
+        }catch(exception e)
+        {
+            cout << "Ocurrio un error al modificar el archivo!!!";
+        }
+      }
 };
 #endif

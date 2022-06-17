@@ -19,7 +19,7 @@ void menuBuscarArtista(){
     cout << "Ingresa nombre de artista a buscar: ";
     cin >> nombreArtista;
     transform(nombreArtista.begin(), nombreArtista.end(), nombreArtista.begin(), ::tolower);
-    
+
     objArtista.buscarArtista(nombreArtista);
     cout << "¿Desea continuar? (Y/N)";
     cin >> respuesta;
@@ -43,7 +43,7 @@ void menuBuscarArtista(){
     else{
         //Regresar a menu principal
     }
-    
+
 }
 
 void pestanaArtista(int posicion){
@@ -53,6 +53,8 @@ void pestanaArtista(int posicion){
     //Se elige una cancion y se repite el proceso de ElegirCancion
 }
 
+/*
 int main(){
     menuBuscarArtista();
 }
+*/

@@ -15,9 +15,10 @@ class Cancion{
         int Duracion; //En segundos
         string Album;
 
-    
+
     public:
         //Constructor
+        Cancion(){}
         Cancion( string nombre, string autor,string album, int codAut, int duracionSegundos ){
             this->Codigo = obtenerCodigo(); //Se obtiene el codigo automaticamente
             this->Nombre = nombre;
@@ -35,15 +36,17 @@ class Cancion{
         */
 
         void setAlbum( string direccion ){ this->Album = direccion; }
-        void setCodigo(int codigo){ Codigo = codigo; }    
+        void setCodigo(int codigo){ Codigo = codigo; }
         void setNombre(string nombre){ Nombre = nombre; }
         void setAutor(string autor){ Autor = autor; }
         void setDuracion(int duracion){ Duracion = duracion; }
+        void setCodigoAutor(string codAut) { Codautor = codAut;}
         int getCodigo(){ return Codigo; }
 
 
         string getNombre(){ return Nombre; }
         string getAutor(){ return Autor; }
+        string getCodigoAutor() {return Codautor;}
         int getDuracion(){ return Duracion; }
         string getAlbum(){ return Album; }
 
@@ -57,9 +60,9 @@ class Cancion{
         //Regresa los datos de la cancion ordenados
         string getDatosCompletos(){
 
-            string tiempo = to_string( floor(Duracion*0.016) ) 
+            string tiempo = to_string( floor(Duracion*0.016) )
                             + ":";
-                        
+
             if (Duracion%60 < 10){
                 tiempo += "0" + to_string( Duracion % 60 );
             } else {

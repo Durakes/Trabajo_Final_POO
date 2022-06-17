@@ -12,7 +12,7 @@ class BuscarCancion
     private:
 
         vector<Cancion> vectorCanciones; // almacena todas las canciones
-        vector<Cancion> vectorResultados; //almacena los resultados encontrados 
+        vector<Cancion> vectorResultados; //almacena los resultados encontrados
 
 
     public:
@@ -58,7 +58,7 @@ class BuscarCancion
 
         void fromMainMenu() // Elejir Playlist cuando se llega del menu principal
         {
-            cout<<"Elija la playlist a la que desea agregar la cancion: "<<endl;          
+            cout<<"Elija la playlist a la que desea agregar la cancion: "<<endl;
         }
 
         void fromPlaylist(string codeP) // Añadir a playlist ya determinada
@@ -66,19 +66,19 @@ class BuscarCancion
             cout<<"Desea agregar la cancion a  "<<endl;
         }
 
-        
 
-        int binarySearch(int first, int last, string titulo, vector <string> vectorTitulos)   // busqueda binaria           
+
+        int binarySearch(int first, int last, string titulo, vector <string> vectorTitulos)   // busqueda binaria
         {
             int med=(first+last)/2;
             if (last>=first)
-            {  
+            {
                 if (vectorTitulos[med]==titulo)
                 {
                     vectorResultados.push_back(vectorCanciones[med]);
-                                      
+
                     if(med!=0)
-                    {   
+                    {
                         int n=1;
                         while(titulo==vectorTitulos[med-n])
                         {
@@ -86,7 +86,7 @@ class BuscarCancion
                             n++;
                         }
                     }
-                    
+
                     if(med!=vectorTitulos.size()-1)
                     {
                         int m=1;
@@ -98,7 +98,7 @@ class BuscarCancion
                         }
                     }
 
-                    return 1;                                
+                    return 1;
                 }
 
                 else if(vectorTitulos[med]>titulo)
@@ -151,14 +151,14 @@ class BuscarCancion
                 {
                     return 1;
                 }
-                
+
             }
             else
             {
                 v=binarySearch(first, last, titulo, vectorTitulos); // busqueda binaria
                 return v;
             }
-             
+
         }
 
         void imprimirResultados() // imprime resultados encontrados
