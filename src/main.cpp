@@ -29,7 +29,7 @@ void menuOpciones(int code, string name, string typeUser)
     switch (option)
     {
     case 1:
-        menuDeOpcionesInicioPlaylist(name);
+        menuPlaylist(name);
         break;
     case 2:
         system("cls");
@@ -41,7 +41,7 @@ void menuOpciones(int code, string name, string typeUser)
     case 5:
         exit(0);
         break;
-    
+
     default:
         break;
     }
@@ -59,7 +59,7 @@ void login(int tries)
     vector<User> users = binFile.LeerDato();
     User usuario;
 
-   
+
     if(tries<3)
     {
         system("cls");
@@ -122,11 +122,11 @@ void login(int tries)
         exit(0);
     }
 
-    
+
 }
 
 void registerUser()
-{    
+{
     string name;
     string email;
     string phoneNumber;
@@ -169,7 +169,7 @@ void registerUser()
     if(file.good() == true)
     {
         vector<User> users = archive.LeerDato();
-        if(users.size() == 0) 
+        if(users.size() == 0)
         {
             code = 1;
         }else

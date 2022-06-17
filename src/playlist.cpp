@@ -1,39 +1,37 @@
 #ifndef __PLAYLIST_CPP__
 #define __PLAYLIST_CPP__
 #include <iostream>
-#include "../include/playlistVector.h"
+#include "..\include\Archive.h"
+#include <algorithm>
 #include <vector>
 #include <cstring>
+#include<string>
 #include "buscarCancion.cpp"
 using namespace std;
 
-PlaylistVector vectorPlaylist; //Instancia de la clase AlumnoVector
 //Prototipos
-void menuDeOpcionesInicioPlaylist(string name);
-void adicionarPlaylist(string userName);
-void agregarCancionesPlaylist();
-void listarPlaylist(string userName);
-void BuscarPlaylist();
-void EditarPlaylist();
-void EliminarPlaylist();
-void EliminarCancion();
-void mainPlaylist();
-void listarCanciones();
-void MostrarCancionesPorCodigo();
+//void menuPlaylist(string);
+void adicionarPlaylist(string,vector<Playlist>*,Archive);
+//void agregarCancionesPlaylist();
+void listarPlaylist(string,vector<Playlist>*,Archive);
+void detallePlaylist(Playlist,vector<Playlist>*,Archive);
+//void BuscarPlaylist();
+void EditarPlaylist(Playlist,vector<Playlist>*,Archive);
+void EliminarPlaylist(Playlist,vector<Playlist>*,Archive);
+//void mainPlaylist();
+void listarCanciones(Playlist,vector<Playlist>*,Archive);
+void EliminarCancion(Playlist,vector<Playlist>*,Archive,vector<Cancion>*);
 
 //el name es igual al username, si es igual se agrega al vector
 //para mostrar, se diferencia por el codigo
 
-void menuDeOpcionesInicioPlaylist(string name){
+void menuPlaylist(string userName){
 	int respuesta;
-	string userName;
-	userName=name;
-	Playlist objAModificar = vectorPlaylist.buscarPorNombreUsuario(userName);
-	objAModificar.setNombreUsuario(userName);
-	cout<<objAModificar.getNombreUsuario();
+	Playlist objPlaylist;
+	vector<Playlist> vectorPlaylist;
+	Archive archiveP(R"(..\docs\Playlists.csv)");
+	archiveP.cargarDatos(objPlaylist,&vectorPlaylist);
 	cout<<"\n";
-		do
-		{
 
 			cout<<"Playlist\n";
 			cout<<"Crear una playlist 	[1]\n";
@@ -41,215 +39,215 @@ void menuDeOpcionesInicioPlaylist(string name){
 			cout<<"Salir								[3]\n";
 			cout<<"Ingrese una opcion [1-3]:" ;
 			cin>>respuesta;
-
+			cin.ignore();
+// referencia = &
 			switch(respuesta)
 			{
 				case 1 : 	system("cls");
-				adicionarPlaylist(userName);
+				adicionarPlaylist(userName,&vectorPlaylist,archiveP);
+				system("pause");
+				menuPlaylist(userName);
 				break;
 
-				case 2 : 	system("cls");
-				listarPlaylist(userName);
+	      case 2 : 	system("cls");
+				listarPlaylist(userName,&vectorPlaylist,archiveP);
+			  system("pause");
+				menuPlaylist(userName);
 				break;
 
 				case 3 : 	system("cls");
 				cout<<"GRACIAS!!!";
+				system("pause");
+				exit(0);
 				break;
 
-				default : cout<<"* INGRESE UN OPCION CORRECTA [1-2] *"<<endl;
+				default : cout<<"* INGRESE UN OPCION CORRECTA [1-3] *"<<endl;
 			}
-		}
-		while(respuesta != 3);
-}
-
-void agregarCancionesPlaylist(){
-
-	cout<<"* Busca las canciones para tu playlist: "<<endl;
 
 }
 
-void adicionarPlaylist(string name)
+void adicionarPlaylist(string userName,vector<Playlist>*vectorPlaylist,Archive archiveP)
 {
-	int 	code;
-	string 	nameplaylist;
+	int code=1;
+	string 	name;
 	string 	respuesta;
-	string userName;
-	userName=name;
 
-			do {
-				code = vectorPlaylist.getCorrelativo();
+	if(vectorPlaylist->size()==0){
+		code=1;
+	}else{
+		code=vectorPlaylist->size()+1;
+	}
 
 				cout << "Crea tu playlist "<< endl;
-				cin.ignore();
 				cout << "* Crea un nombre para tu playlist: "; getline(cin, name);
 
 
 				//Crear el objeto de la clase alumno
-				Playlist playlist;
+				Playlist playlist(code,name,userName);
+				archiveP.saveNewLine(playlist);
 
-				playlist.setCodigoPlaylist(code);
-				playlist.setNombrePlaylist(name);
-				playlist.setNombreUsuario(userName);
-
-				vectorPlaylist.add(playlist); //Agregar el objeto a la estructura
-
-				vectorPlaylist.grabarEnArchivo(playlist);
-
-				agregarCancionesPlaylist();
-
-				cout << "Desea continuar(SI/si): "; cin >> respuesta;
-				system("cls");
-			}
-
-			while(respuesta == "SI" || respuesta == "si");
+				cout<<"La playlist se creo exitosamente!!!"<<endl;
 }
 
-void EditarPlaylist(int rpta){
-	int code; //Buscar el codigo
-	code=rpta;
-	Playlist objAModificar = vectorPlaylist.buscarPorCodigo(code);
 
-	cout << "Registro encontrado" << endl;
-	cout << "Codigo:" << objAModificar.getCodigoPlaylist() << endl;
-	cout << "Nombre:" << objAModificar.getNombrePlaylist() << endl;
-	cin.ignore();
-
-	string nomMod;
-	cout << "Ingrese el nuevo nombre: "; getline(cin, nomMod);
-	bool estado = vectorPlaylist.modificar(objAModificar,nomMod);
-		if(estado == true)
-		{
-			cout << "Registro modificado satisfactoriamente" << endl;
-			vectorPlaylist.grabarModificarEliminarArchivo(); /* Grabar en archivo */
-		}
-		else
-		{
-			cout << "No se edito el registro" << endl;
-		}
-		system ("pause");
-		system("cls");
-}
-
-void EliminarPlaylist(int rpta){
-	int code;
-	code=rpta;
-	string name;
-	Playlist objAModificar = vectorPlaylist.buscarPorCodigo(code);
-	cout << "Registro encontrado" << endl;
-	cout << "Codigo:" << objAModificar.getCodigoPlaylist() << endl;
-	cout << "Nombre:" << objAModificar.getNombrePlaylist() << endl;
-	cin.ignore();
-
-	string flag;
-	cout << "Desea borrar esta playlist...(Y/N)"; cin >> flag;
-
-	if(flag == "Y" || flag == "y")
-	{
-
-		Playlist objADelete = vectorPlaylist.buscarPorCodigo(code);
-		if(objADelete.getNombrePlaylist() != "Error")
-		{
-			vectorPlaylist.remove(objADelete);
-			cout << "Registro eliminado satisfactoriamente" << endl;
-			// Actualizamos el archivo para que nos muestre la lista nueva
-			vectorPlaylist.grabarModificarEliminarArchivo();
-		}
-		else
-		{
-			cout << "No se encontro el registro" << endl;
-		}
-
-		system ("pause");
-		system("cls");
-	}
-	else
-	{
-		system ("pause");
-		system("cls");
-		menuDeOpcionesInicioPlaylist(name);
-	}
-}
-
-void BuscarPlaylist(){
-
-	int code;
-	int rpta;
-	string name;
-	cout << "Ingresar el codigo de la playlist que desea elegir: "; cin >> code;
-	Playlist playlist = vectorPlaylist.buscarPorCodigo(code);
-
-	if(playlist.getNombrePlaylist() != "Error")
-	{
-		cout << "Registro encontrado" << endl;
-		cout << "Codigo:" << playlist.getCodigoPlaylist()<< endl;
-		cout << "Nombre:" << playlist.getNombrePlaylist()<< endl;
-
-		cout<<"Editar playlist	 [1]"<<endl;
-		cout<<"Eliminar playlist [2]"<<endl;
-		cout<<"Mostrar canciones [3]"<<endl;
-		cout<<"* Elija una opcion [1-3]: ";
-		cin>>rpta;
-
-		switch (rpta)
-		{
-		case 1:
-			system("cls");
-			EditarPlaylist(code);
-			break;
-		case 2:
-			system("cls");
-			EliminarPlaylist(code);
-			break;
-		case 3:
-			system("cls");
-			listarCanciones();
-			break;
-		default:
-			cout<<"Error elija una opcion [1-3]: ";
-			break;
-		}
-
-		system ("pause");
-		system("cls");
-	}
-	else
-	{
-		cout << "No se encontro el registro" << endl;
-	}
-	system ("pause");
-	system("cls");
-	menuDeOpcionesInicioPlaylist(name);
-}
-
-void listarPlaylist(string name)
+void listarPlaylist(string userName,vector<Playlist>*vectorPlaylist,Archive archiveP)
 {
-	int i;
-	string userName;
-	userName=name;
-		for(i=0; i<vectorPlaylist.rows(); i++)
+	int numero=1;
+	vector<int> codigos;
+		for(int i=0; i<vectorPlaylist->size(); i++)
 		{
-			if(userName==vectorPlaylist.get(i).getNombreUsuario()){
-				cout<<"Codigo: "<<vectorPlaylist.get(i).getCodigoPlaylist()<< "\t";
-				cout<<"Nombre: "<<vectorPlaylist.get(i).getNombrePlaylist()<<endl;
+			if(vectorPlaylist[0][i].getUsuario()==userName&&vectorPlaylist[0][i].getEstado()=="true"){
+				cout << "Nro. Playlist: " << numero << "\t" << "Nombre: " << vectorPlaylist[0][i].getNombre() << endl;
+				numero++;
+				codigos.push_back(vectorPlaylist[0][i].getCodigo());
 			}
 		}
+		int respuesta;
+		cout<<"Ingres el codigo de la playlist que desee elegir: ";
+		cin>>respuesta;
+		cin.ignore();
+		detallePlaylist(vectorPlaylist[0][codigos[respuesta-1]-1],vectorPlaylist,archiveP);
+}
 
-		BuscarPlaylist();
-
-		system("pause");
+void detallePlaylist(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive archiveP){
+	int respuesta;
+	cout<<"Playlist: "<<playlist.getNombre()<<endl;
+	cout<<"Editar Playlists			[1]"<<endl;
+	cout<<"Eliminar Playlists		[2]"<<endl;
+	cout<<"Moatrar Canciones		[3]"<<endl;
+	cout<<"Ingrese respuesta: ";
+	cin>>respuesta;
+	cin.ignore();
+	switch (respuesta) {
+		case 1:
 		system("cls");
+		EditarPlaylist(playlist,vectorPlaylist,archiveP);
+		system("pause");
+		menuPlaylist(playlist.getUsuario());
+		break;
+		case 2:
+		system("cls");
+		EliminarPlaylist(playlist,vectorPlaylist,archiveP);
+		system("pause");
+		menuPlaylist(playlist.getUsuario());
+		break;
+		case 3:
+		system("cls");
+		listarCanciones(playlist,vectorPlaylist,archiveP);
+		system("pause");
+		menuPlaylist(playlist.getUsuario());
+		break;
+	}
 }
 
-
-void MostrarCancionesPorCodigo(){
-//Tengo que modificar esto para que primero busque el codigo en el vectorcodigocancion de acorde al codigo que Ingrese
-//Probar si es con buscar por codigo cancion o buscar por cancion, si es asi entonces debo crear un buscarporvectorcancion
-// luego el el cout debo poner cancion.getnombre por ejemplo y asi con todos los atributos de la cancion, recordar que solo puedo elimiar cancion
-// o agregar cancion.
-
+void EditarPlaylist(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive archiveP){
+	string nuevoNombre;
+	cout<<"Ingresa el nuevo nombre: "<<endl;
+	getline(cin,nuevoNombre);
+	vectorPlaylist[0][playlist.getCodigo()-1].setNombre(nuevoNombre);
+	archiveP.modificarPlaylist(*vectorPlaylist);
+	cout<<"El registro se modifico exitosamente!!!";
 }
 
-void listarCanciones(){
+void EliminarPlaylist(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive archiveP){
+	string respuesta;
+	cout<<"Seguro que desea eliminar la playlist(Si|No): "<<endl;
+	getline(cin,respuesta);
+	transform(respuesta.begin(), respuesta.end(), respuesta.begin(), ::tolower);
+	if(respuesta=="si"){
+		vectorPlaylist[0][playlist.getCodigo()-1].setEstado("false");
+		archiveP.modificarPlaylist(*vectorPlaylist);
+		cout<<"El registro se elimino exitosamente!!!";
+	}else{
+		cout<<"La playlist no fue eliminada";
+	}
+}
 
+void listarCanciones(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive archiveP){
+	cout<<"Lista de canciones para la playlist"<<playlist.getNombre()<<endl;
+	Cancion objCancion;
+	vector<Cancion> vectorCanciones;
+	Archive archiveC(R"(..\docs\Canciones.csv)");
+	archiveC.cargarDatos(objCancion,&vectorCanciones);
+	int numero=1;
+	int respuesta;
+	if(playlist.getCanciones().size()!=0){
+		for(int i=0; i<playlist.getCanciones().size(); i++){
+			for(int k=0; k<vectorCanciones.size();k++){
+				if(playlist.getCanciones()[i]==vectorCanciones[k].getCodigo()){
+					cout << numero << "\t" << "Nombre: " << vectorCanciones[k].getNombre() << "\t" << "Artista: " << vectorCanciones[k].getAutor() << endl;
+					numero++;
+					break;
+				}
+			}
+		}
+		cout<<"Agregar canciones			[1]"<<endl;
+		cout<<"Eliminar canciones			[2]"<<endl;
+		cout<<"Volver atras						[3]"<<endl;
+		cin>>respuesta;
+		cin.ignore();
+
+	}
+	else{
+		cout<<"No tiene canciones en la playlist"<<endl;
+		cout<<"Agregar canciones			[1]"<<endl;
+		cout<<"Volver atras						[3]"<<endl;
+		cin>>respuesta;
+		cin.ignore();
+	}
+	switch (respuesta) {
+		case 1:
+					system("cls");
+					//Funcion de jaquie Menu Buscar
+					menuPlaylist(playlist.getUsuario());
+					break;
+		case 2:
+					system("cls");
+					EliminarCancion(playlist,vectorPlaylist,archiveP,&vectorCanciones);
+					system("pause");
+					menuPlaylist(playlist.getUsuario());
+					break;
+		case 3:
+					system("cls");
+					menuPlaylist(playlist.getUsuario());
+					break;
+		default:
+					exit(0);
+					break;
+	}
+}
+
+void EliminarCancion(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive archiveP,vector<Cancion>*vectorCanciones){
+	cout<<"Total canciones: "<<endl;
+	vector<int> codigos;
+	int numero=1;
+	int respuesta;
+	string rsp;
+	for(int i=0; i<playlist.getCanciones().size(); i++){
+		for(int k=0; k<vectorCanciones->size();k++){
+			if(playlist.getCanciones()[i]==vectorCanciones[0][k].getCodigo()){
+				cout << numero << "\t" << "Nombre: " << vectorCanciones[0][k].getNombre() << "\t" << "Artista: " << vectorCanciones[0][k].getAutor() << endl;
+				numero++;
+				codigos.push_back(vectorCanciones[0][k].getCodigo());
+				break;
+			}
+		}
+	}
+	cout<<"Ingrese el numero de la cancion que desea eliminar: "<<endl;
+	cin>>respuesta;
+	cin.ignore();
+	cout<<"Seguro que desea eliminar: "<<vectorCanciones[0][codigos[respuesta-1]-1].getNombre()<<" de playlist (SI/NO)"<<endl;
+	getline(cin,rsp);
+	transform(rsp.begin(), rsp.end(), rsp.begin(), ::tolower);
+	if(rsp=="si"){
+		vector<int> tempCancion=playlist.getCanciones();
+		cout<<playlist.getCodigo()<<endl;
+		tempCancion.erase(tempCancion.begin()+(respuesta-1));
+		vectorPlaylist[0][playlist.getCodigo()-1].setCanciones(tempCancion);
+		archiveP.modificarPlaylist(*vectorPlaylist);
+		cout<<"La cancion se ha eliminado de la playlist"<<endl;
+	}else{
+		cout<<"La cancion no fue eliminada"<<endl;
+	}
 }
 #endif

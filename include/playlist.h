@@ -1,65 +1,65 @@
 #ifndef __PLAYLIST_H__
 #define __PLAYLIST_H__
 #include<string>
-#include "Cancion.h"
+#include<iostream>
+#include<vector>
 using namespace std;
 class Playlist{
     private:
         string nombre;
         int codigo;
         string nombreUsuario;
-        vector<Cancion> vectorCancion;//crear un set y un get, guardar solo el codigo en el csv, pero en el vector playlist todos los datos.
-        //vector canciones, agegar, quitar y mostrar canciones de la playlist, crear clase
         vector<int> vectorCodigo;
+        string estado;//para hacer una eliminacion logica, no se muestra en el programa, pero se queda en el archivo
         //solo guardar los codigos, cancion csv y de alli solo jalo el codigo de la cancion.
     public:
-        Playlist(string name, int code, string userName, vector<Cancion> vectorSong, vector<int> vectorCode){
+        Playlist(int code, string name, string userName){
             this->nombre=name;
             this->codigo=code;
             this->nombreUsuario=userName;
-            this->vectorCancion=vectorSong;
-            this->vectorCodigo=vectorCode;
+            estado="true";
         }
         Playlist(){
         }
         ~Playlist(){
         }
-        void setCodigoPlaylist(int code) {codigo=code;}
+        void setCodigo(int code) {codigo=code;}
 
-        void setNombrePlaylist(string name) {nombre=name;}
+        void setNombre(string name) {nombre=name;}
 
-        void setNombreUsuario(string userName) {nombreUsuario=userName;}
+        void setUsuario(string userName) {nombreUsuario=userName;}
 
-        void setVectorCancion(vector<Cancion> vectorSong) {vectorCancion=vectorSong;}
+        void setCanciones(vector<int> vectorCode) {vectorCodigo=vectorCode;}
 
-        void setVectorCanncionCodigo(vector<int> vectorCode) {vectorCodigo=vectorCode;}
+        void setEstado(string state) {estado=state;}
 
-        int getCodigoPlaylist()
+        int getCodigo()
         {
             return codigo;
         }
-        string getNombrePlaylist()
+        string getNombre()
         {
             return nombre;
         }
 
-        string getNombreUsuario()
+        string getUsuario()
         {
             return nombreUsuario;
         }
 
-        vector<Cancion> getVectorCancion()
+        vector<int> getCanciones()
         {
-            return vectorCancion;
+          return vectorCodigo;
         }
 
-        vector<int> getVectorCodigoCancion()
-        {
-            return vectorCodigo;
+        string getEstado(){
+          return estado;
+        }
+
+        void agregarCancion(int cod){
+          vectorCodigo.push_back(cod);
         }
 };
-
 #endif
-
 //cuando haga el getvectorcodigocancion, consigo el codigo de las canciones, tengo un vector con puros codigos, debo ir comparando uno con uno con las canciones del codigo csv, puedo usar la clase de jaqui
 //los codigos que tengo yo deben compararse con los codigos de las canciones y ver cuales son iguales para mostrarlas.
