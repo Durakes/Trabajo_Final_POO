@@ -198,7 +198,7 @@ void listarCanciones(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive a
 	switch (respuesta) {
 		case 1:
 					system("cls");
-					//Funcion de jaquie Menu Buscar
+					menuBuscarCancion(playlist.getUsuario(), to_string(playlist.getCodigo()));
 					menuPlaylist(playlist.getUsuario());
 					break;
 		case 2:
