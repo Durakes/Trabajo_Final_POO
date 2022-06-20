@@ -6,11 +6,13 @@
 
 using namespace std;
 
-void menuBuscar(string codPlaylist)
+void menuBuscarCancion(string username, string codPlaylist)
 {
     BuscarCancion objBuscar;
     string titulo, rspta;
     int codCancion;
+    int codigo;
+    int opcion;
 
     do
     {
@@ -31,7 +33,7 @@ void menuBuscar(string codPlaylist)
         cout<<"No se encontraron resultados"<<endl;
         system("pause");
         system("cls");
-        menuBuscar(codPlaylist);
+        menuBuscarCancion(username, codPlaylist);
     }
     else
     {
@@ -42,21 +44,45 @@ void menuBuscar(string codPlaylist)
         system("cls");
 
         objBuscar.getDatos(codCancion-1);
+        codigo=objBuscar.getCodCancion(codCancion-1);
         cout<<endl;
 
         if (codPlaylist=="0") // determina si se viene del menu principal o una playlist especifica
         {
-            objBuscar.fromMainMenu();
+            objBuscar.fromMainMenu(username, codigo);
+            
+            cout<<"Realizar otra busqueda       [1]"<<endl;
+            cout<<"Regresar al menu principal   [2]"<<endl;
+            cout<<"Elija una opcion: ";
+            cin>>opcion;
+            cin.ignore();
         }
         else
         {
-            objBuscar.fromPlaylist(codPlaylist);
-        }
+            objBuscar.fromPlaylist(codPlaylist, codigo);
 
+            cout<<"Realizar otra busqueda        [1]"<<endl;
+            cout<<"Regresar al menu de Playlist  [2]"<<endl;
+            cout<<"Elija una opcion: ";
+            cin>>opcion;
+            cin.ignore();
+        }
+    }
+   
+    switch (opcion)
+    {
+        case 1:
+            system("cls");
+            menuBuscarCancion(username, codPlaylist);
+            break;
+        case 2:
+            break;
+        default:
+            break;
     }
 
-
 }
+
 
 /*int main()
 {

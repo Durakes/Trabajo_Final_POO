@@ -33,7 +33,8 @@ void menuOpciones(int code, string name, string typeUser)
         break;
     case 2:
         system("cls");
-        menuBuscar("0");
+        menuBuscarCancion(name,"0");
+        menuOpciones(code, name, typeUser);
         break;
     case 4:
         system("cls");
