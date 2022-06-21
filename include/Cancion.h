@@ -77,7 +77,7 @@ class Cancion{
         // así se sabe qué codigo de cancion
         int obtenerCodigo(){
             int filas=0;
-            ifstream file("../docs/data_canciones.csv");
+            ifstream file("../docs/Canciones.csv");
             string line;
             while (getline(file, line))
             filas++;
