@@ -11,7 +11,7 @@ class Cancion{
         int Codigo;
         string Nombre;
         string Autor;       // O podría ser autor*(? Un puntero de objeto autor
-        string Codautor;
+        int Codautor;
         int Duracion; //En segundos
         string Album;
 
@@ -40,13 +40,13 @@ class Cancion{
         void setNombre(string nombre){ Nombre = nombre; }
         void setAutor(string autor){ Autor = autor; }
         void setDuracion(int duracion){ Duracion = duracion; }
-        void setCodigoAutor(string codAut) { Codautor = codAut;}
+        void setCodigoAutor(int codAut) { Codautor = codAut;}
         int getCodigo(){ return Codigo; }
 
 
         string getNombre(){ return Nombre; }
         string getAutor(){ return Autor; }
-        string getCodigoAutor() {return Codautor;}
+        int getCodigoAutor() {return Codautor;}
         int getDuracion(){ return Duracion; }
         string getAlbum(){ return Album; }
 
