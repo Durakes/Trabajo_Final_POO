@@ -12,7 +12,7 @@ class BuscarCancion
     private:
 
         vector<Cancion> vectorCanciones; // almacena todas las canciones
-        vector<Cancion> vectorResultados; //almacena los resultados encontrados 
+        vector<Cancion> vectorResultados; //almacena los resultados encontrados
         
     public:
         BuscarCancion()
@@ -137,7 +137,7 @@ class BuscarCancion
             system("cls");     
         }
 
-        void fromMainMenu(string username, int codCancion) // Elejir Playlist cuando se llega del menu principal
+        void fromMainMenu(string username, int codCancion) // Elegir Playlist cuando se llega del menu principal
         {
             Playlist objPlaylist;
             vector<Playlist> vectorPlaylist;
@@ -279,7 +279,6 @@ class BuscarCancion
 
         void imprimirResultados() // imprime resultados encontrados
         {
-
             int i=1;
             sort(vectorResultados.begin(), vectorResultados.end(), compareAuthor);
             for (Cancion x : vectorResultados)
@@ -288,6 +287,16 @@ class BuscarCancion
                 i++;
             }
 
+        }
+
+        vector<string> getCancionArtista(int codArtista){ //De un codigo del artista, se obtienen todas sus canciones
+            vector<string> vectorCancionArtista; //almacena canciones segun artista 
+            for(Cancion x:vectorCanciones){
+                if(codArtista == x.getCodigoAutor()){
+                    vectorCancionArtista.push_back(x.getNombre());
+                }
+            }
+            return vectorCancionArtista;
         }
 
 };

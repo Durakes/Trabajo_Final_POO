@@ -5,14 +5,13 @@
 #include <algorithm>
 
 using namespace std;
+void elegirCancion(BuscarCancion objBuscar, string username, string codPlaylist, int codCancion);
 
 void menuBuscarCancion(string username, string codPlaylist)
 {
     BuscarCancion objBuscar;
-    string titulo, rspta;
     int codCancion;
-    int codigo;
-    int opcion;
+    string titulo, rspta;
 
     do
     {
@@ -39,13 +38,23 @@ void menuBuscarCancion(string username, string codPlaylist)
     {
         objBuscar.imprimirResultados();
         cout<<endl;
+
         cout<<"Elija una cancion: ";
         cin>>codCancion;
         system("cls");
 
-        objBuscar.getDatos(codCancion-1);
-        codigo=objBuscar.getCodCancion(codCancion-1);
-        cout<<endl;
+        elegirCancion(objBuscar, username, codPlaylist, codCancion);
+    }
+}
+
+void elegirCancion(BuscarCancion objBuscar, string username, string codPlaylist, int codCancion)
+{
+    int codigo;
+    int opcion;
+
+    objBuscar.getDatos(codCancion-1);
+    codigo=objBuscar.getCodCancion(codCancion-1);
+    cout<<endl;
 
         if (codPlaylist=="0") // determina si se viene del menu principal o una playlist especifica
         {
@@ -67,21 +76,20 @@ void menuBuscarCancion(string username, string codPlaylist)
             cin>>opcion;
             cin.ignore();
         }
-    }
    
-    switch (opcion)
-    {
-        case 1:
-            system("cls");
-            menuBuscarCancion(username, codPlaylist);
-            break;
-        case 2:
-            break;
-        default:
-            break;
-    }
-
+        switch (opcion)
+        {
+            case 1:
+                system("cls");
+                menuBuscarCancion(username, codPlaylist);
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
 }
+        
 
 
 /*int main()
