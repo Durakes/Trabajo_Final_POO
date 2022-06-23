@@ -18,6 +18,7 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
 
 
     do {
+        system("cls");
         //Recibir datos
         cout<<"Nombre de la cancion:"<<endl<<" >";
         getline(cin, nombre);
@@ -32,6 +33,8 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
         cin>>duracion;
         cin.ignore();
 
+        system("cls");
+
         cout<<"Seguro quieres crear la cancion: "<<endl;
         cout<<"Nombre: \t"<<nombre<<endl;
         cout<<"Autor: \t"<<usuario<<endl;
@@ -40,6 +43,7 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
 
         cout<<"[Si] \t [No]"<<endl<<" >";
         cin>>rpta;
+
 
         if ( rpta== "Si" || rpta=="si" || rpta=="SI" || rpta=="sI" ){
             duracion = ((int) duracion*60) + (duracion - (int)duracion)*100;
@@ -52,16 +56,17 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
             //Se agrega el objeto cancion al archivo
             try {
                 fstream archivoCanciones;
-                archivoCanciones.open("../docs/Canciones.csv", ios::out);
+                archivoCanciones.open("../docs/Canciones.csv", ios::app);
                 if (archivoCanciones.is_open()) {
-                    //1;No Apologies;Bon Jovi;223;Greatest Hits;8;
                     archivoCanciones <<
-                    nueva.obtenerCodigo()<<";"<<nombre<<";"<<usuario<<";"<<duracion<<";"<<album<<";"<<codigoUsuario;
+                    nueva.obtenerCodigo()<<";"<<nombre<<";"<<usuario<<";"<<duracion<<";"<<album<<";"<<codigoUsuario<<"\n";
                 }
                 cout<<"Grabado el archivo correctamente"<<endl;
             } catch (exception e) {
                 cout << "Ocurrio un error al grabar en el archivo";
             }            
+
+            system("cls");
 
             cout<<"Cancion agregada con exito"<<endl;
             cout<<"¿Desea agregar una nueva cancion?"<<endl<<" >";

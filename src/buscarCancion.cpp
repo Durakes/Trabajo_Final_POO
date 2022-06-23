@@ -29,7 +29,6 @@ void menuBuscarCancion(string username, string codPlaylist)
 
     if(objBuscar.getResultados(titulo)==0)
     {
-        cout<<"No se encontraron resultados"<<endl;
         system("pause");
         system("cls");
         menuBuscarCancion(username, codPlaylist);

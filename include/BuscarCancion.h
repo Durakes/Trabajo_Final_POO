@@ -4,6 +4,8 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <ctime>
+#include "..\include\Auxiliar.h"
 #include "..\include\Archive.h"
 using namespace std;
 
@@ -22,24 +24,6 @@ class BuscarCancion
             archive.cargarDatos(objCancion, &vectorCanciones); // graba las canciones a un vector;
         }
 
-        string aMinuscula(string cadena) // Convierte los titulos a minuscula
-        {
-            for (int i = 0; i < cadena.length(); i++)
-            {
-                cadena[i] = tolower(cadena[i]);
-            }
-            return cadena;
-        }
-
-        static bool compareTitle(Cancion a, Cancion b)
-        {
-            return a.getNombre() < b.getNombre();
-        }
-        
-        static bool compareAuthor(Cancion &a, Cancion &b)
-        {
-            return a.getAutor() < b.getAutor();
-        }
 
         void getDatos(int cod) // Imprime los datos de la canción seleccionada
         {
@@ -56,46 +40,21 @@ class BuscarCancion
             return vectorResultados[cod].getCodigo();
         }
 
-        void agregarCancionPlaylist(vector<Playlist> vectorPlaylist, int codCancion, int codPlaylist)
+        void agregarCancionPlaylist(int codCancion, int codPlaylist)
         {
+            Playlist objPlaylist;
+            vector<Playlist> vectorPlaylist;
             Archive archive(R"(..\docs\Playlists.csv)");
-
-            bool flag;
+            archive.cargarDatos(objPlaylist, &vectorPlaylist);
+            
             string confirma;
-            if(vectorPlaylist[codPlaylist-1].getCanciones().size()!=0)
+            vector<int> vectorCodCanciones = vectorPlaylist[codPlaylist-1].getCanciones();
+            if(vectorCodCanciones.size()!=0)
             {
-                for(int cod:vectorPlaylist[codPlaylist-1].getCanciones()) // usar busqueda binaria 
-                {
-                    if(codCancion==cod)
-                    {
-                        flag=true;
-                        break;
-                    }
-                    else
-                    {
-                        flag=false;
-                    }
-                }
-                if(flag==false)
-                {
-                    cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";
-                    cin>>confirma;
-                    transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
-                    if(confirma=="si")
-                    {
-                        system("cls");
-                        vectorPlaylist[codPlaylist-1].agregarCancion(codCancion);
-                        archive.modificarPlaylist(vectorPlaylist);
-                        cout<<"La cancion se agrego a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" exitosamente"<<endl;    
-                    }
-                    else
-                    {
-                        system("cls");
-                        cout<<"No se agrego la cancion."<<endl;
-
-                    }
-                }
-                else
+                aux::ordenamientoRapido(&vectorCodCanciones, 0, vectorCodCanciones.size()-1, &vectorCodCanciones);
+                aux::busquedaBinariaPuntual(0, vectorCodCanciones.size()-1, codCancion, vectorCodCanciones);
+                
+                if(aux::busquedaBinariaPuntual(0, vectorCodCanciones.size()-1, codCancion, vectorCodCanciones))
                 {
                     system("cls");
                     cout<<"La cancion ya se encuentra agregada a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<"."<<endl;
@@ -114,7 +73,28 @@ class BuscarCancion
                         cout<<"No se agrego la cancion."<<endl;
                     }
                 }
-            }
+
+                else
+                {
+                    cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";
+                    cin>>confirma;
+                    transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
+                    if(confirma=="si")
+                    {
+                        system("cls");
+                        vectorPlaylist[codPlaylist-1].agregarCancion(codCancion);
+                        archive.modificarPlaylist(vectorPlaylist);
+                        cout<<"La cancion se agrego a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" exitosamente"<<endl;    
+                    }
+                    else
+                    {
+                        system("cls");
+                        cout<<"No se agrego la cancion."<<endl;
+
+                    }
+                    
+                }
+            }   
             else
             {
                 cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";
@@ -144,26 +124,43 @@ class BuscarCancion
             Archive archive(R"(..\docs\Playlists.csv)");
             archive.cargarDatos(objPlaylist, &vectorPlaylist);
             
-            vector<Playlist> vectorResPlay;
+            vector<Playlist> vectorResUsuarios;
+            vector<Playlist> vectorResEstado;
+            vector<string> vectorUsuarios;
+            vector<string> vectorEstado;
             int codigo=1;
             int respuesta;
             
-            
-            for (Playlist x:vectorPlaylist)
+            for(Playlist x: vectorPlaylist)
             {
-                if (x.getUsuario()==username && x.getEstado()=="true") // usar busqueda binaria
-                {
-                    cout<<"["<<codigo<<"] "<<x.getNombre()<<endl;
-                    codigo++;
-                    vectorResPlay.push_back(x);
-                }
+                vectorUsuarios.push_back(aux::aMinuscula(x.getUsuario()));
             }
+            
+            aux:: ordenamientoRapido(&vectorUsuarios, 0, vectorUsuarios.size()-1, &vectorPlaylist);
+            aux:: busquedaBinariaMultiple(0, vectorUsuarios.size()-1, aux::aMinuscula(username), vectorUsuarios, &vectorResUsuarios, vectorPlaylist); // encuentra todas las playlist del usuario
+
+            for(Playlist x: vectorResUsuarios)
+            {
+                vectorEstado.push_back(x.getEstado());
+            }
+
+            string tipo="true";
+            int i=1;
+            aux:: ordenamientoRapido(&vectorEstado, 0, vectorEstado.size()-1, &vectorResUsuarios);
+            aux:: busquedaBinariaMultiple(0, vectorEstado.size()-1, tipo, vectorEstado, &vectorResEstado, vectorResUsuarios );
+
+            for (Playlist x: vectorResEstado)
+            {
+                cout<<"["<<i<<"]"<<x.getNombre()<<endl;
+                i++;
+            }
+
             cout<<"Elija la playlist a la que desea agregar la cancion: ";    
             cin>>respuesta;
             system("cls");
 
-            int codPlaylist=(vectorResPlay[respuesta-1].getCodigo());
-            agregarCancionPlaylist(vectorPlaylist, codCancion, codPlaylist);
+            int codPlaylist=(vectorResEstado[respuesta-1].getCodigo());
+            agregarCancionPlaylist(codCancion, codPlaylist);
                  
         }
 
@@ -175,62 +172,9 @@ class BuscarCancion
             archive.cargarDatos(objPlaylist, &vectorPlaylist);
 
             int codPlay=stoi(codeP);
-            agregarCancionPlaylist(vectorPlaylist, codCan, codPlay);
+            agregarCancionPlaylist(codCan, codPlay);
           
-        }
-
-        int binarySearch(int first, int last, string titulo, vector<Cancion> vectorMinusculas)   // busqueda binaria           
-        {
-            int codigo;
-            int med=(first+last)/2;
-            if (last>=first)
-            {  
-                if (vectorMinusculas[med].getNombre()==titulo)
-                {
-                    codigo=(vectorMinusculas[med].getCodigo());
-                    vectorResultados.push_back(vectorCanciones[codigo-1]);
-                                      
-                    if(med!=0)
-                    {
-                        int n=1;
-                        while(titulo==vectorMinusculas[med-n].getNombre())
-                        {
-                            codigo=vectorMinusculas[med-n].getCodigo();
-                            vectorResultados.push_back(vectorCanciones[codigo-1]);
-                            n++;
-                        }
-                    }
-                    
-                    if(med!=vectorMinusculas.size()-1)
-                    {
-                        int m=1;
-
-                        while(titulo==vectorMinusculas[med+m].getNombre())
-                        {
-                            codigo=vectorMinusculas[med+m].getCodigo();
-                            vectorResultados.push_back(vectorCanciones[codigo-1]);
-                            m++;
-                        }
-                    }
-
-                    return 1;
-                }
-
-                else if(vectorMinusculas[med].getNombre()>titulo)
-                {
-                    return binarySearch(first,med-1,titulo, vectorMinusculas);
-                }
-                else
-                {
-                    return binarySearch(med+1,last,titulo, vectorMinusculas);
-                }
-            }
-            else
-            {
-                return 0;
-            }
-
-        }
+        } 
 
         int getResultados(string titulo)  // Recibe el titulo para buscar los resultados
         {
@@ -239,13 +183,18 @@ class BuscarCancion
             int first=0,
                 last=vectorCanciones.size()-1;
             string temporal;
-            vector<Cancion> vectorMinusculas;
+            vector<string> vectorTitulos;
             
+            for (Cancion x:vectorCanciones)
+            {
+                vectorTitulos.push_back(aux::aMinuscula(x.getNombre()));
+            }
+
             if(vectorCanciones.size()<=2)
             {
                 for (Cancion x : vectorCanciones)
                 {
-                    if (titulo==aMinuscula(x.getNombre()))
+                    if (titulo==aux::aMinuscula(x.getNombre()))
                     {
                         vectorResultados.push_back(x);
                     }
@@ -262,17 +211,16 @@ class BuscarCancion
             }
             else
             {
-                       
-                for (Cancion x:vectorCanciones)
-                {   
-                    vectorMinusculas.push_back(x);
-                    temporal=aMinuscula(x.getNombre());
-                    vectorMinusculas[i].setNombre(temporal);
-                    i++;
+                aux::ordenamientoRapido(&vectorTitulos, 0, vectorTitulos.size()-1, &vectorCanciones);
+                aux::busquedaBinariaMultiple(first, last, titulo, vectorTitulos, &vectorResultados, vectorCanciones);// busqueda binaria
+                if(vectorResultados.size()!=0)
+                {
+                    return 1;
                 }
-                sort(vectorMinusculas.begin(), vectorMinusculas.end(), compareTitle);
-                v=binarySearch(first, last, titulo, vectorMinusculas); // busqueda binaria
-                return v;
+                else
+                {
+                    return 0;
+                }
             }
 
         }
@@ -280,7 +228,15 @@ class BuscarCancion
         void imprimirResultados() // imprime resultados encontrados
         {
             int i=1;
-            sort(vectorResultados.begin(), vectorResultados.end(), compareAuthor);
+            vector<string> vectorAutores;
+
+            for (Cancion x : vectorResultados)
+            {
+                vectorAutores.push_back(aux::aMinuscula(x.getAutor()));
+            }
+
+            aux::ordenamientoRapido(&vectorAutores,0,vectorAutores.size()-1, &vectorResultados);
+            
             for (Cancion x : vectorResultados)
             {
                 cout<<x.getNombre()<<" - "<<x.getAutor()<<" ["<<i<<"]"<<endl;
