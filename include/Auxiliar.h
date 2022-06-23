@@ -1,6 +1,11 @@
+#ifndef __AUXILIAR_H__
+#define __AUXILIAR_H__
+//#define _HAS_STD_BYTE 0
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <conio.h>
+#include <windows.h>
 
 using namespace std;
 
@@ -36,6 +41,36 @@ int particion(vector<T>* vectorT, int inicio, int final, vector<C>* vectorC)
 
 namespace aux
 {
+    void gotoxy(int x, int y)
+    {
+        HANDLE hcon;
+        hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+        COORD dwPos;
+        dwPos.X = x;
+        dwPos.Y = y;
+        SetConsoleCursorPosition(hcon, dwPos);
+    }
+
+    void cuadro(int x1, int y1, int x2, int y2)
+    {
+        for(int i = x1; i < x2; i++)
+        {
+            gotoxy(i,y1); printf("%c", 205);
+            gotoxy(i,y2); printf("%c", 205);
+        }
+
+        for(int i = y1; i < y2; i++)
+        {
+            gotoxy(x2,i); printf("%c", 186);
+            gotoxy(x1,i); printf("%c", 186);
+        }
+
+        gotoxy(x1,y1); printf("%c", 201);
+        gotoxy(x2,y1); printf("%c", 187);
+        gotoxy(x1,y2); printf("%c", 200);
+        gotoxy(x2,y2); printf("%c", 188);
+    }
+
     string aMinuscula(string cadena)
     {
         for (int i = 0; i < cadena.length(); i++)
@@ -129,3 +164,4 @@ namespace aux
 
     }
 }
+#endif

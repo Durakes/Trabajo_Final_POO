@@ -14,12 +14,42 @@ Sistema Operativo:
 
 ### Usuarios
 
-+ *usuario/contraseña*
-+ user / user
-+ 
++ EduTiburon
++ jacquiets
++ Durakes
 
 ### Artistas
 
-+ *usuario/contraseña*
-+ admin/admin
-+ 
++ NEFFEX
++ Coldplay
++ Metallica
++ Bon Jovi
++ Aerosmith
++ Amen
++ Arena Hash
++ PSuarez
++ Avril
++ One Republic
++ BryanA
++ TRS
++ THEDRIVER
++ Orianthi
++ R5
++ LinkinPark
++ JudasPriest
++ Megadeth
++ L70ETC
++ Phillip
++ AndyGrammer
++ LewisC
++ LedZeppelin
++ BlackEP
++ Maroon5
++ The Weeknd
++ BrunoM
++ Queen
++ GNR
++ Mar de Copas
++ Zaz
++ Indochine
++ Goldman

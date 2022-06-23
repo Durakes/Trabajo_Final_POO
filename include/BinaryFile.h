@@ -1,3 +1,5 @@
+#ifndef __BINARYFILE_H__
+#define __BINARYFILE_H__
 #include <vector>
 #include <fstream>
 #include "User.h"
@@ -42,3 +44,4 @@ class BinaryFile
             return objs;
         }
 };
+#endif
