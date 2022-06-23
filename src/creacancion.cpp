@@ -36,9 +36,9 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
         system("cls");
 
         cout<<"Seguro quieres crear la cancion: "<<endl;
-        cout<<"Nombre: \t"<<nombre<<endl;
-        cout<<"Autor: \t"<<usuario<<endl;
-        cout<<"Album:\t"<<album<<endl;
+        cout<<"Nombre:\t \t"<<nombre<<endl;
+        cout<<"Autor: \t \t"<<usuario<<endl;
+        cout<<"Album:\t \t"<<album<<endl;
         cout<<"Duracion: \t"<<duracion<<endl;
 
         cout<<"[Si] \t [No]"<<endl<<" >";

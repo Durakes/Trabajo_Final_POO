@@ -52,14 +52,16 @@ void menuOpciones(int code, string name, string typeUser)
         system("cls");
         //función Evie;
         break;
-    case 4:
-        system("cls");
-        subMenu_CrearCancion(code, name);
-        menuOpciones(code, name, typeUser);
-        break;
     case 5:
         exit(0);
         break;
+    case 4:
+        if (typeUser!="user"){
+            system("cls");
+            subMenu_CrearCancion(code, name);
+            menuOpciones(code, name, typeUser);
+            break;
+        }
     default:
         aux::gotoxy(1,11); cout << "Ingrese una opcion correcta!!" << endl;
         menuOpciones(code, name, typeUser);
