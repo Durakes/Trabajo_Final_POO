@@ -18,9 +18,11 @@ class Artista{
 
         //Setters and getters
         void setNombre(string nombre){this->nombre = nombre;}
-        void setCodigo(int codArtista){this->codArtista = codArtista;}
-        void setNumCanciones(int numCanciones){this->numCanciones = numCanciones;}
         string getNombre(){return nombre;}
+
+        void setCodigo(int codArtista){this->codArtista = codArtista;}
         int getCodigo(){return codArtista;}
+        
+        void setNumCanciones(int numCanciones){this->numCanciones = numCanciones;}
         int getNumCanciones(){return numCanciones;}
 };

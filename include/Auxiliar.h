@@ -118,6 +118,50 @@ namespace aux
     }
 
     template<typename T, class U>
+    void busquedaBinariaConjunta(int first, int last, T valor, vector<T> vectorTipo, vector<U>* vectorFinal, vector<U> vectorReferencia)   // busqueda binaria           
+    {
+        int med=(first+last)/2;
+        if (last>=first)
+        {  
+            if (vectorTipo[med]==valor)
+            {
+                vectorFinal->push_back(vectorReferencia[med]);                               
+            }
+            else if(vectorTipo[med]>valor)
+            {
+                busquedaBinariaConjunta(first,med-1,valor, vectorTipo, vectorFinal, vectorReferencia);
+            }
+            else
+            {
+                busquedaBinariaConjunta(med+1,last,valor, vectorTipo, vectorFinal, vectorReferencia);
+            }
+        }
+    }
+
+    template<typename T, class U>
+    void busquedaBinariaUsuario(int first, int last, T valor, vector<T> vectorTipo, U* objFinal, vector<U> vectorReferencia)   // busqueda binaria           
+    {
+        int med=(first+last)/2;
+        if (last>=first)
+        {  
+            if (vectorTipo[med]==valor)
+            {
+                *objFinal = vectorReferencia[med];                               
+            }
+            else if(vectorTipo[med]>valor)
+            {
+                busquedaBinariaUsuario(first,med-1,valor, vectorTipo, objFinal, vectorReferencia);
+            }
+            else
+            {
+                busquedaBinariaUsuario(med+1,last,valor, vectorTipo, objFinal, vectorReferencia);
+            }
+        }
+    }
+
+
+
+    template<typename T, class U>
     void busquedaBinariaMultiple(int first, int last, T valor, vector <T> vectorTipo, vector<U>* vectorResultados, vector<U> vectorClase)   // busqueda binaria           
     {
         int med=(first+last)/2;
@@ -157,11 +201,6 @@ namespace aux
                 busquedaBinariaMultiple(med+1,last,valor, vectorTipo, vectorResultados, vectorClase);
             }
         }
-        else
-        {
-            cout << "No se encontro resultados" << endl;
-        }
-
     }
 }
 #endif

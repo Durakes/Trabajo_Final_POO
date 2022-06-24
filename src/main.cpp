@@ -52,12 +52,14 @@ void menuOpciones(int code, string name, string typeUser)
     case 3:
         system("cls");
         menuBuscarArtista(name,"0");
+        menuOpciones(code, name, typeUser);
         break;
     case 5:
         exit(0);
         break;
     case 4:
-        if (typeUser!="user"){
+        if (typeUser != "user")
+        {
             system("cls");
             subMenu_CrearCancion(code, name);
             menuOpciones(code, name, typeUser);
@@ -73,22 +75,22 @@ void menuOpciones(int code, string name, string typeUser)
 
 void login(int tries)
 {
-    string user;
+    string nombreUsuario;
     int ch;
     string password;
     bool userExist;
     string path = "..\\docs\\Usuarios.bin";
     BinaryFile binFile(path);
+    vector<string> usuariosExistentes;
     vector<User> users = binFile.LeerDato();
     User usuario;
-
 
     if(tries<3)
     {
         system("cls");
         aux::cuadro(0,0,45, 11);
         aux::gotoxy(9,1);   cout << "##### INICIO DE SESION #####" << endl;
-        aux::gotoxy(1,3);   cout << "Ingrese su Usuario > "; getline(cin, user);
+        aux::gotoxy(1,3);   cout << "Ingrese su Usuario > "; getline(cin, nombreUsuario);
         aux::gotoxy(1,4);   cout << "Ingrese su Contrasena > "; ch = getch();
         while (ch != 13) /*13 ASCCI ENTER*/
         {
@@ -107,16 +109,20 @@ void login(int tries)
             ch = getch();
         }
 
-        for(int i = 0; i < users.size(); i++)
+        for(User user: users)
         {
-            if(user == users[i].getUsername())
-            {
-                userExist = true;
-                usuario = users[i];
-                break;
-            }
+            //! Pensar un workaround porque los usernames deben distingir uppercase de lowercase
+            usuariosExistentes.push_back(aux::aMinuscula(user.getUsername())); 
         }
 
+        aux::ordenamientoRapido(&usuariosExistentes, 0, usuariosExistentes.size() - 1, &users);
+
+        if(aux::busquedaBinariaPuntual(0, usuariosExistentes.size() - 1, aux::aMinuscula(nombreUsuario), usuariosExistentes))
+        {
+            userExist = true;
+            aux::busquedaBinariaUsuario(0, usuariosExistentes.size() - 1, aux::aMinuscula(nombreUsuario), usuariosExistentes, &usuario, users);
+        }
+        
         if(userExist == true)
         {
             if(bcrypt::validatePassword(password,usuario.getPassword()))
@@ -124,14 +130,12 @@ void login(int tries)
                 menuOpciones(usuario.getCode(), usuario.getUsername(), usuario.getType());
             }else
             {
-                
                 aux::gotoxy(1,6); cout << "Los datos ingresados son incorrectos!!" << endl;
                 aux::gotoxy(1,7); system("pause");
                 login(tries+1);
             }
         }else
         {
-            
             aux::gotoxy(1,6); cout << "El usuario no existe!" << endl;
             aux::gotoxy(1,7); system("pause");
             login(tries+1);
@@ -143,8 +147,6 @@ void login(int tries)
         aux::gotoxy(1,10); system("pause");
         exit(0);
     }
-
-
 }
 
 void registerUser()
@@ -178,7 +180,7 @@ void registerUser()
 
     string path = "..\\docs\\Usuarios.bin";
     BinaryFile archive(path);
-    User user;
+    vector<string> usuariosExistentes;
     int code = 1;
     string ruta = "../docs/Usuarios.bin";
     ifstream file((char*)&ruta[0]);
@@ -193,20 +195,25 @@ void registerUser()
             code = users.size() + 1;
         }
 
-        for(int i = 0 ; i < users.size(); i++)
+        for(User user: users)
         {
-            if(username == users[i].getUsername())
-            {
-                
-                aux::gotoxy(1,9);   cout << "Este nombre de usuario ya existe" << endl;
-                aux::gotoxy(1,10);   system("pause");
-                userExists = true;
-                break;
-            }else
-            {
-                userExists = false;
-            }
+            //! Pensar un workaround porque los usernames deben distingir uppercase de lowercase
+            usuariosExistentes.push_back(aux::aMinuscula(user.getUsername())); 
         }
+
+        aux::ordenamientoRapido(&usuariosExistentes, 0, usuariosExistentes.size() - 1, &users);
+        //aux::busquedaBinariaPuntual(0, usuariosExistentes.size() - 1, username, usuariosExistentes);
+        
+        if(aux::busquedaBinariaPuntual(0, usuariosExistentes.size() - 1, aux::aMinuscula(username), usuariosExistentes))
+        {
+            aux::gotoxy(1,9);   cout << "Este nombre de usuario ya existe" << endl;
+            aux::gotoxy(1,10);  system("pause");
+            userExists = true;
+        }else
+        {
+            userExists = false;
+        }
+        
     }
     file.close();
     if(userExists == false)
