@@ -1,13 +1,15 @@
-#include<iostream>
-#include<string>
-#include<math.h>
-#include<fstream>
+#include <iostream>
+#include <string>
+#include <math.h>
+#include <fstream>
 #include"..\include\Cancion.h"
+#include"..\include\Auxiliar.h"
 using namespace std;
 
 void verificarEntrada(string tipo){}
 
-void subMenu_CrearCancion( int codigoUsuario, string usuario ){
+void subMenu_CrearCancion( int codigoUsuario, string usuario )
+{
 
     string nombre;
     //string nombreArtista es igual al parametro usuario
@@ -17,35 +19,34 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
     string rpta = "Si";
 
 
-    do {
+    do 
+    {
         system("cls");
+        aux::cuadro(0,0,60,25);
         //Recibir datos
-        cout<<"Nombre de la cancion:"<<endl<<" >";
-        getline(cin, nombre);
+        aux::gotoxy(1,2);   cout << "Nombre de la cancion >";   getline(cin, nombre);
 
-        /* El autor ya se obtiene automaticamente arriba */
 
-        cout<<"Album de la cancion: "<<endl<<" >";
+        aux::gotoxy(1,3); cout<<"Album de la cancion >";
         getline(cin, album);
 
-        cout<<"Duracion de la cancion:"<<endl;
-        cout<<"(Minutos.Segundos)"<<endl<<" >";
-        cin>>duracion;
-        cin.ignore();
+        aux::gotoxy(1,4);   cout<<"Duracion de la cancion: ";
+        aux::gotoxy(1,5);   cout<<"(Minutos.Segundos) >";   cin>>duracion;  cin.ignore();
 
         system("cls");
 
-        cout<<"Seguro quieres crear la cancion: "<<endl;
-        cout<<"Nombre:\t \t"<<nombre<<endl;
-        cout<<"Autor: \t \t"<<usuario<<endl;
-        cout<<"Album:\t \t"<<album<<endl;
-        cout<<"Duracion: \t"<<duracion<<endl;
+        aux::cuadro(0,0,60,25);
+        aux::gotoxy(1,1);   cout << "Seguro quieres crear la cancion: ";
+        aux::gotoxy(1,2);   cout << "Nombre:";  aux::gotoxy(20,2);  cout << nombre;
+        aux::gotoxy(1,3);   cout << "Autor:";   aux::gotoxy(20,3);  cout << usuario;
+        aux::gotoxy(1,4);   cout << "Album:";   aux::gotoxy(20,4);  cout << album;
+        aux::gotoxy(1,5);   cout << "Duracion:";aux::gotoxy(20,5);  cout << duracion;
 
-        cout<<"[Si] \t [No]"<<endl<<" >";
-        cin>>rpta;
-
-
-        if ( rpta== "Si" || rpta=="si" || rpta=="SI" || rpta=="sI" ){
+        aux::gotoxy(1,7);   cout << "(Si o No) >";  getline(cin, rpta);
+        
+        aux::aMinuscula(rpta);
+        if (rpta=="si")
+        {
             duracion = ((int) duracion*60) + (duracion - (int)duracion)*100;
             cout<<(int) duracion<<endl;
             //  Calculo raro: parte_entera*60 + parte_decimal*100
@@ -54,28 +55,29 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario ){
             Cancion nueva( nombre, usuario, album, codigoUsuario, duracion );
 
             //Se agrega el objeto cancion al archivo
-            try {
+            try 
+            {
                 fstream archivoCanciones;
                 archivoCanciones.open("../docs/Canciones.csv", ios::app);
-                if (archivoCanciones.is_open()) {
+                if (archivoCanciones.is_open())
+                {
                     archivoCanciones <<
-                    nueva.obtenerCodigo()<<";"<<nombre<<";"<<usuario<<";"<<duracion<<";"<<album<<";"<<codigoUsuario<<"\n";
+                    nueva.obtenerCodigo()<<";"<<nombre<<";"<<usuario<<";"<<duracion<<";"<<album<<";"<<codigoUsuario<<";" << endl;
                 }
-                cout<<"Grabado el archivo correctamente"<<endl;
-            } catch (exception e) {
-                cout << "Ocurrio un error al grabar en el archivo";
+
+                aux::gotoxy(1,9);   cout<<"Grabado el archivo correctamente"<<endl;
+            } catch (exception e)
+            {
+                aux::gotoxy(1,9);   cout << "Ocurrio un error al grabar en el archivo";
             }            
 
             system("cls");
-
-            cout<<"Cancion agregada con exito"<<endl;
-            cout<<"¿Desea agregar una nueva cancion?"<<endl<<" >";
-            cin>>rpta;
+            aux::cuadro(0,0,60,10);
+            aux::gotoxy(1,1);   cout << "Cancion agregada con exito";
+            aux::gotoxy(1,2);   cout << "¿Desea agregar una nueva cancion? >";    getline(cin, rpta);
+            aux::aMinuscula(rpta);
         }
-
-        cin.ignore();
-    } while ( rpta== "Si" || rpta=="si" || rpta=="SI" || rpta=="sI" );
-
+    } while ( rpta == "si");
 }
 
 /*
