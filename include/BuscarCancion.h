@@ -43,7 +43,7 @@ class BuscarCancion
             return vectorResultados[cod].getCodigo();
         }
 
-        void agregarCancionPlaylist(int codCancion, int codPlaylist)
+        void agregarCancionPlaylist(int codCancion, int codPlaylist, int tamanoY = 0)
         {
             Playlist objPlaylist;
             vector<Playlist> vectorPlaylist;
@@ -60,25 +60,25 @@ class BuscarCancion
                 if(aux::busquedaBinariaPuntual(0, vectorCodCanciones.size()-1, codCancion, vectorCodCanciones))
                 {
 
-                    aux::gotoxy(1,6);   cout<<"La cancion ya se encuentra agregada a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<"."<<endl;
-                    aux::gotoxy(1,7);   cout<<"Esta seguro que desea agregarla nuevamente? ";   getline(cin, confirma);
+                    aux::gotoxy(1,6 + tamanoY);   cout<<"La cancion ya se encuentra agregada a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<"."<<endl;
+                    aux::gotoxy(1,7 + tamanoY);   cout<<"Esta seguro que desea agregarla nuevamente? ";   getline(cin, confirma);
                     transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
                     if(confirma == "si")
                     {
                         vectorPlaylist[codPlaylist-1].agregarCancion(codCancion);
                         archive.modificarPlaylist(vectorPlaylist);
                         
-                        aux::gotoxy(1,9);   cout<<"La cancion se agrego a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" exitosamente"<<endl;
+                        aux::gotoxy(1,9 + tamanoY);   cout<<"La cancion se agrego a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" exitosamente"<<endl;
                     }
                     else
                     {
-                        aux::gotoxy(1,9);   cout<<"No se agrego la cancion."<<endl;
+                        aux::gotoxy(1,9 + tamanoY);   cout<<"No se agrego la cancion."<<endl;
                     }
                 }
 
                 else
                 {
-                    aux::gotoxy(1,6);   cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";  getline(cin, confirma);
+                    aux::gotoxy(1,6 + tamanoY);   cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";  getline(cin, confirma);
 
                     transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
 
@@ -86,31 +86,31 @@ class BuscarCancion
                     {
                         vectorPlaylist[codPlaylist-1].agregarCancion(codCancion);
                         archive.modificarPlaylist(vectorPlaylist);
-                        aux::gotoxy(1,8);   cout<<"La cancion se agrego a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" exitosamente"<<endl;    
+                        aux::gotoxy(1,8 + tamanoY);   cout<<"La cancion se agrego a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" exitosamente"<<endl;    
                     }
                     else
                     {
-                        aux::gotoxy(1,8); cout<<"No se agrego la cancion."<<endl;
+                        aux::gotoxy(1,8 + tamanoY); cout<<"No se agrego la cancion."<<endl;
                     }
                     
                 }
             }   
             else
             {
-                aux::gotoxy(1,6);    cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";getline(cin, confirma);
+                aux::gotoxy(1,6 + tamanoY);    cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";getline(cin, confirma);
                 transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
                 if(confirma == "si")
                 {      
                     vectorPlaylist[codPlaylist-1].agregarCancion(codCancion);
                     archive.modificarPlaylist(vectorPlaylist);
-                    aux::gotoxy(1,8);   cout<<"La cancion se agrego a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" exitosamente"<<endl;
+                    aux::gotoxy(1,8 + tamanoY);   cout<<"La cancion se agrego a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" exitosamente"<<endl;
                 }
                 else
                 {
-                    aux::gotoxy(1,8); cout<<"No se agrego la cancion."<<endl;
+                    aux::gotoxy(1,8 + tamanoY); cout<<"No se agrego la cancion."<<endl;
                 }
             }
-            aux::gotoxy(1,10);  system("pause");
+            aux::gotoxy(1,10 + tamanoY);  system("pause");
             system("cls");     
         }
 
@@ -158,7 +158,7 @@ class BuscarCancion
             aux::gotoxy(1,vectorResEstado.size() + 2);    cout<<"Elija la playlist a la que desea agregar la cancion: ";    cin >> respuesta; cin.ignore();
 
             int codPlaylist=(vectorResEstado[respuesta-1].getCodigo());
-            agregarCancionPlaylist(codCancion, codPlaylist);
+            agregarCancionPlaylist(codCancion, codPlaylist, vectorResEstado.size() + 2);
         
         }
 
