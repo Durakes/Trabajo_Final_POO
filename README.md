@@ -18,6 +18,7 @@ Sistema Operativo:
 + jacquiets
 + Durakes
 + DennisC
++ 
 
 
 ### Artistas
@@ -58,4 +59,7 @@ Sistema Operativo:
 + Cuarteto
 + RHCP
 + Arcade
++ Imagine
++ Stromae
++ The Killers
 + 
