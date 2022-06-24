@@ -14,7 +14,7 @@ void pestanaArtista(BuscarArtista obj, int numIngresado, string username, string
     string titulo;
     int codigo;
     int codCancion;
-    vector<string> cancionArtista = objBuscar.getCancionArtista(obj.compararCodigo(numIngresado)); //Vector de canciones dependiendo del codigo del artista
+    vector<Cancion> cancionArtista = objBuscar.getCancionArtista(obj.compararCodigo(numIngresado)); //Vector de canciones dependiendo del codigo del artista
     
     system("cls");
     aux::cuadro(0, 0, 50, cancionArtista.size() + 20);
@@ -25,15 +25,15 @@ void pestanaArtista(BuscarArtista obj, int numIngresado, string username, string
     //Se enumeran las canciones que coinciden con el codigo del artista
     int i=1;
     aux::gotoxy(1,4); cout << setw(3) << "#" << setw(10) << "Cancion" << endl;
-    for(string x:cancionArtista)
+    for(Cancion x:cancionArtista)
     {
-        aux::gotoxy(1,4 + i);   cout << setw(3) << i << setw(15) << x << endl;
+        aux::gotoxy(1,4 + i);   cout << setw(3) << i << setw(15) << x.getNombre() << endl;
         i++;
     }
 
     aux::gotoxy(1,cancionArtista.size() + i + 4);   cout<< "Elija una cancion > ";   cin>> codigo;  cin.ignore();
 
-    titulo = cancionArtista[codigo-1]; //Se obtiene el titulo de la cancion
+    titulo = cancionArtista[codigo-1].getNombre(); //Se obtiene el titulo de la cancion
     transform(titulo.begin(), titulo.end(), titulo.begin(), ::tolower);
 
     //Se busca el titulo de la cancion y se repite el proceso de elegirCancion
@@ -45,8 +45,9 @@ void pestanaArtista(BuscarArtista obj, int numIngresado, string username, string
     }
     else
     {
-        codCancion = objBuscar.imprimirResultados();
-        elegirCancion(objBuscar, username, codPlaylist, codCancion);
+        //codCancion = objBuscar.imprimirResultados();
+
+        elegirCancion(objBuscar, username, codPlaylist, codigo); //! Por mientas sirve para solo 1 cancion.
     }
 
 }

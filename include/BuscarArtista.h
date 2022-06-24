@@ -38,7 +38,7 @@ class BuscarArtista{
 
             for(User x:artistas)
             {   
-                vector<string> cancionArtista = objBuscar.getCancionArtista(x.getCode());
+                vector<Cancion> cancionArtista = objBuscar.getCancionArtista(x.getCode());
 
                 Artista objArtista(x.getName(), x.getCode(), cancionArtista.size());
                 vectorArtista.push_back(objArtista);

@@ -130,7 +130,6 @@ void login(int tries)
                 menuOpciones(usuario.getCode(), usuario.getUsername(), usuario.getType());
             }else
             {
-                
                 aux::gotoxy(1,6); cout << "Los datos ingresados son incorrectos!!" << endl;
                 aux::gotoxy(1,7); system("pause");
                 login(tries+1);
