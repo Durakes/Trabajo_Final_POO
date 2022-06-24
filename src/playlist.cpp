@@ -13,19 +13,19 @@ using namespace std;
 void adicionarPlaylist(string,vector<Playlist>*,Archive);
 void listarPlaylist(string,vector<Playlist>*,Archive);
 void detallePlaylist(Playlist,vector<Playlist>*,Archive);
-void EditarPlaylist(Playlist,vector<Playlist>*,Archive);
-void EliminarPlaylist(Playlist,vector<Playlist>*,Archive);
+void editarPlaylist(Playlist,vector<Playlist>*,Archive);
+void eliminarPlaylist(Playlist,vector<Playlist>*,Archive);
 void listarCanciones(Playlist,vector<Playlist>*,Archive);
-void EliminarCancion(Playlist,vector<Playlist>*,Archive,vector<Cancion>*);
+void eliminarCancion(Playlist,vector<Playlist>*,Archive,vector<Cancion>*);
 
-void menuPlaylist(string userName)
+void menuPlaylist(string nombreUsuario)
 {
 	system("cls");
 	int respuesta;
 	Playlist objPlaylist;
 	vector<Playlist> vectorPlaylist;
-	Archive archiveP(R"(..\docs\Playlists.csv)");
-	archiveP.cargarDatos(objPlaylist,&vectorPlaylist);
+	Archive archivoP(R"(..\docs\Playlists.csv)");
+	archivoP.cargarDatos(objPlaylist,&vectorPlaylist);
 	
 	aux::cuadro(0,0,45, 13);
 
@@ -38,13 +38,13 @@ void menuPlaylist(string userName)
 	switch(respuesta)
 	{
 		case 1:
-			adicionarPlaylist(userName,&vectorPlaylist,archiveP);
-			menuPlaylist(userName);
+			adicionarPlaylist(nombreUsuario,&vectorPlaylist,archivoP);
+			menuPlaylist(nombreUsuario);
 			break;
 
 	    case 2:
-			listarPlaylist(userName,&vectorPlaylist,archiveP);
-			menuPlaylist(userName);
+			listarPlaylist(nombreUsuario,&vectorPlaylist,archivoP);
+			menuPlaylist(nombreUsuario);
 			break;
 
 		case 3: 	
@@ -58,41 +58,41 @@ void menuPlaylist(string userName)
 		default: 
 			aux::gotoxy(1,8);	cout << "* Ingrese una opcion correcta *" << endl;
 			system("cls");
-			menuPlaylist(userName);
+			menuPlaylist(nombreUsuario);
 			break;
 	}
 	//aux::gotoxy(1,7);	system("pause");
 }
 
-void adicionarPlaylist(string userName,vector<Playlist>*vectorPlaylist,Archive archiveP)
+void adicionarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist, Archive archivoP)
 {
 	system("cls");
-	int code=1;
-	string name;
+	int codigo=1;
+	string nuevoNombre;
 	string respuesta;
 
 	if(vectorPlaylist->size() == 0)
 	{
-		code = 1;
+		codigo = 1;
 	}else
 	{
-		code = vectorPlaylist->size() + 1;
+		codigo = vectorPlaylist->size() + 1;
 	}
 
 	aux::cuadro(0,0,50, 10);
 	aux::gotoxy(1,1); cout << " Crea tu playlist " << endl;
-	aux::gotoxy(1,3); cout << "* Crea un nombre para tu playlist > "; 
-	aux::gotoxy(1,4); getline(cin, name);
+	aux::gotoxy(1,3); cout << "* Indica el nombre para tu playlist > "; 
+	aux::gotoxy(1,4); getline(cin, nuevoNombre);
 
-	Playlist playlist(code,name,userName);
-	archiveP.saveNewLine(playlist);
+	Playlist playlist(codigo,nuevoNombre,nombreUsuario);
+	archivoP.saveNewLine(playlist);
 	
 	aux::gotoxy(1,6); 	cout << "La playlist se creo exitosamente!!!" << endl;
 	aux::gotoxy(1,7);	system("pause");
 }
 
 
-void listarPlaylist(string userName,vector<Playlist>*vectorPlaylist,Archive archiveP)
+void listarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist,Archive archivoP)
 {
 	system("cls");
 	int numero = 1;
@@ -108,7 +108,7 @@ void listarPlaylist(string userName,vector<Playlist>*vectorPlaylist,Archive arch
 	}
 
 	aux::ordenamientoRapido(&vectorUsuarios, 0, vectorUsuarios.size()-1, vectorPlaylist);
-    aux::busquedaBinariaMultiple(0, vectorUsuarios.size()-1, aux::aMinuscula(userName), vectorUsuarios, &vectorResultados, vectorPlaylist[0]);
+    aux::busquedaBinariaMultiple(0, vectorUsuarios.size()-1, aux::aMinuscula(nombreUsuario), vectorUsuarios, &vectorResultados, vectorPlaylist[0]);
 
 	for(Playlist playlist: vectorResultados)
     {
@@ -128,22 +128,22 @@ void listarPlaylist(string userName,vector<Playlist>*vectorPlaylist,Archive arch
 	}
 
 	int respuesta;
-	aux::gotoxy(1,vectorFinal.size() + 2); 	cout << "Ingrese el codigo de la playlist que desee elegir> "; cin>>respuesta; cin.ignore();
-	detallePlaylist(vectorFinal[codigos[respuesta-1]-1],vectorPlaylist,archiveP);
+	aux::gotoxy(1,vectorFinal.size() + 2); 	cout << "Ingrese el codigo de la playlist que desee elegir> "; cin >> respuesta; cin.ignore();
+	detallePlaylist(vectorFinal[codigos[respuesta-1]-1],vectorPlaylist,archivoP);
 	aux::gotoxy(1,vectorFinal.size() + 3);	system("pause");
 }
 
-void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archiveP)
+void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archivoP)
 {
 	system("cls");
 	int respuesta;
 
-	vector<int> temp;
+	vector<int> codigosCanciones;
 	for(Playlist playlist: vectorPlaylist[0])
 	{
-		temp.push_back(playlist.getCodigo());
+		codigosCanciones.push_back(playlist.getCodigo());
 	}
-	aux::ordenamientoRapido(&temp, 0, temp.size()-1, vectorPlaylist);
+	aux::ordenamientoRapido(&codigosCanciones, 0, codigosCanciones.size()-1, vectorPlaylist);
 
 	aux::cuadro(0,0,60,10);
 	aux::gotoxy(1,1);	cout << "Playlist: " << playlist.getNombre();
@@ -155,17 +155,17 @@ void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive
 	switch (respuesta)
 	{
 		case 1:
-			EditarPlaylist(playlist,vectorPlaylist,archiveP);
+			editarPlaylist(playlist,vectorPlaylist,archivoP);
 			menuPlaylist(playlist.getUsuario());
 			break;
 
 		case 2:
-			EliminarPlaylist(playlist,vectorPlaylist,archiveP);
+			eliminarPlaylist(playlist,vectorPlaylist,archivoP);
 			menuPlaylist(playlist.getUsuario());
 			break;
 
 		case 3:
-			listarCanciones(playlist,vectorPlaylist,archiveP);
+			listarCanciones(playlist,vectorPlaylist,archivoP);
 			system("pause");
 			menuPlaylist(playlist.getUsuario());
 			break;
@@ -176,7 +176,7 @@ void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive
 	}
 }
 
-void EditarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archiveP)
+void editarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archivoP)
 {
 	system("cls");
 	string nuevoNombre;
@@ -186,13 +186,13 @@ void EditarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive 
 	//! Seguro que desea ese nombre?!
 
 	vectorPlaylist[0][playlist.getCodigo()-1].setNombre(nuevoNombre);
-	archiveP.modificarPlaylist(*vectorPlaylist);
+	archivoP.modificarPlaylist(*vectorPlaylist);
 	
-	aux::gotoxy(1,6);	cout<<"El registro se modifico exitosamente!!!";
+	aux::gotoxy(1,6);	cout << "El registro se modifico exitosamente!!!";
 	aux::gotoxy(1,7);	system("pause");
 }
 
-void EliminarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archiveP)
+void eliminarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archivoP)
 {
 	system("cls");
 	string respuesta;
@@ -203,17 +203,17 @@ void EliminarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archiv
 	if(respuesta == "si")
 	{
 		vectorPlaylist[0][playlist.getCodigo()-1].setEstado("false");
-		archiveP.modificarPlaylist(*vectorPlaylist);
-		aux::gotoxy(1,4); 	cout<<"La playlist se elimino exitosamente!!!";
+		archivoP.modificarPlaylist(*vectorPlaylist);
+		aux::gotoxy(1,4); 	cout << "La playlist se elimino exitosamente!!!";
 		aux::gotoxy(1,5);	system("pause");
 	}else
 	{
-		aux::gotoxy(1,4); 	cout<<"La playlist no fue eliminada";
+		aux::gotoxy(1,4); 	cout << "La playlist no fue eliminada";
 		aux::gotoxy(1,5);	system("pause");
 	}
 }
 
-void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archiveP)
+void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archivoP)
 {
 	system("cls");
 	Cancion objCancion;
@@ -245,7 +245,6 @@ void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive
 		{
 			aux::gotoxy(1,2 + i);	cout << "Nro. Cancion: " << numero << "\t" << "Nombre: " << vectorCancionesPlaylist[i].getNombre() << endl;
 			numero++;
-			//codigos.push_back(vectorFinal[i].getCodigo());
 		}
 
 		aux::gotoxy(1,vectorCancionesPlaylist.size() + 2);	cout << "Agregar canciones"; aux::gotoxy(20,vectorCancionesPlaylist.size() + 2);	cout << "[1]";
@@ -274,26 +273,26 @@ void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive
 			break;
 		case 2:
 			//! No dejar entrar si vectorsize () == 0;
-			EliminarCancion(playlist,vectorPlaylist,archiveP,&vectorCanciones);
+			eliminarCancion(playlist,vectorPlaylist,archivoP,&vectorCanciones);
 			menuPlaylist(playlist.getUsuario());
 			break;
 		case 3:
 			menuPlaylist(playlist.getUsuario());
 			break;
 		default:
-			listarCanciones(playlist, vectorPlaylist, archiveP);
+			listarCanciones(playlist, vectorPlaylist, archivoP);
 			//exit(0);
 			break;
 	}
 }
 
-void EliminarCancion(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive archiveP,vector<Cancion>*vectorCanciones)
+void eliminarCancion(Playlist playlist,vector<Playlist> *vectorPlaylist,Archive archivoP,vector<Cancion> *vectorCanciones)
 {
 	system("cls");
 	vector<int> codigosCanciones;
 	vector<int> codigos;
 	vector<Cancion> vectorCancionesPlaylist;
-	int numero=1;
+	int numero = 1;
 	int respuesta;
 	string rsp;
 	for(Cancion cancion: vectorCanciones[0])
@@ -329,13 +328,13 @@ void EliminarCancion(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive a
 		tempCancion.erase(tempCancion.begin()+(respuesta-1));
 		
 		vectorPlaylist[0][playlist.getCodigo()-1].setCanciones(tempCancion);
-		archiveP.modificarPlaylist(*vectorPlaylist);
+		archivoP.modificarPlaylist(*vectorPlaylist);
 
-		aux::gotoxy(1,vectorCancionesPlaylist.size() + 8); 	cout<<"La cancion se ha eliminado de la playlist"<<endl;
+		aux::gotoxy(1,vectorCancionesPlaylist.size() + 8); 	cout << "La cancion se ha eliminado de la playlist" << endl;
 		aux::gotoxy(1,vectorCancionesPlaylist.size() + 9);	system("pause");
 	}else
 	{
-		aux::gotoxy(1,vectorCancionesPlaylist.size() + 8); 	cout<<"La cancion no fue eliminada"<<endl;
+		aux::gotoxy(1,vectorCancionesPlaylist.size() + 8); 	cout << "La cancion no fue eliminada" << endl;
 		aux::gotoxy(1,vectorCancionesPlaylist.size() + 9);	system("pause");
 	}
 }
