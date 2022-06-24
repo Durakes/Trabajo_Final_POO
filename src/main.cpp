@@ -52,6 +52,7 @@ void menuOpciones(int code, string name, string typeUser)
     case 3:
         system("cls");
         menuBuscarArtista(name,"0");
+        menuOpciones(code, name, typeUser);
         break;
     case 5:
         exit(0);
@@ -131,7 +132,6 @@ void login(int tries)
             }
         }else
         {
-            
             aux::gotoxy(1,6); cout << "El usuario no existe!" << endl;
             aux::gotoxy(1,7); system("pause");
             login(tries+1);
@@ -143,7 +143,6 @@ void login(int tries)
         aux::gotoxy(1,10); system("pause");
         exit(0);
     }
-
 
 }
 
