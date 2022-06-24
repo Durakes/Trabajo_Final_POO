@@ -24,9 +24,9 @@ template<typename T, class C>
 int particion(vector<T>* vectorT, int inicio, int final, vector<C>* vectorC)
 {
     T pivote = vectorT[0][final];
-    int i = (inicio - 1);
+    int i = inicio - 1;
 
-    for(int j = inicio; j <= final-1; j++)
+    for(int j = inicio; j <= final - 1; j++)
     {
         T nombre = vectorT[0][j];
         if(nombre < pivote)
@@ -35,8 +35,8 @@ int particion(vector<T>* vectorT, int inicio, int final, vector<C>* vectorC)
             cambioPosicion(&vectorT[0][i], &vectorT[0][j], &vectorC[0][i], &vectorC[0][j]);
         }
     }
-    cambioPosicion(&vectorT[0][i+1], &vectorT[0][final], &vectorC[0][i+1], &vectorC[0][final]);
-    return(i+1);
+    cambioPosicion(&vectorT[0][i + 1], &vectorT[0][final], &vectorC[0][i + 1], &vectorC[0][final]);
+    return(i + 1);
 }
 
 namespace aux
@@ -87,28 +87,28 @@ namespace aux
         {
             int pi = particion(vectorTipo, inicio, final, vectorC);
 
-            ordenamientoRapido(vectorTipo, inicio, pi-1, vectorC);
-            ordenamientoRapido(vectorTipo, pi+1, final, vectorC);
+            ordenamientoRapido(vectorTipo, inicio, pi - 1, vectorC);
+            ordenamientoRapido(vectorTipo, pi + 1, final, vectorC);
         }
     }
 
     template<typename T>
-    bool busquedaBinariaPuntual(int first, int last, T valor, vector <T> vectorTipo)   // busqueda binaria           
+    bool busquedaBinariaPuntual(int primero, int ultimo, T valor, vector <T> vectorTipo)          
     {
-        int med=(first+last)/2;
-        if (last>=first)
+        int mitad = (primero + ultimo)/2;
+        if (ultimo >= primero)
         {  
-            if (vectorTipo[med]==valor)
+            if (vectorTipo[mitad] == valor)
             {
                 return true;                               
             }
-            else if(vectorTipo[med]>valor)
+            else if(vectorTipo[mitad] > valor)
             {
-                return busquedaBinariaPuntual(first,med-1,valor, vectorTipo);
+                return busquedaBinariaPuntual(primero, mitad - 1, valor, vectorTipo);
             }
             else
             {
-                return busquedaBinariaPuntual(med+1,last,valor, vectorTipo);
+                return busquedaBinariaPuntual(mitad + 1, ultimo, valor, vectorTipo);
             }
         }
         else
@@ -118,43 +118,43 @@ namespace aux
     }
 
     template<typename T, class U>
-    void busquedaBinariaConjunta(int first, int last, T valor, vector<T> vectorTipo, vector<U>* vectorFinal, vector<U> vectorReferencia)   // busqueda binaria           
+    void busquedaBinariaConjunta(int primero, int ultimo, T valor, vector<T> vectorTipo, vector<U>* vectorFinal, vector<U> vectorReferencia)         
     {
-        int med=(first+last)/2;
-        if (last>=first)
+        int mitad = (primero + ultimo) / 2;
+        if (ultimo >= primero)
         {  
-            if (vectorTipo[med]==valor)
+            if (vectorTipo[mitad] == valor)
             {
-                vectorFinal->push_back(vectorReferencia[med]);                               
+                vectorFinal->push_back(vectorReferencia[mitad]);                               
             }
-            else if(vectorTipo[med]>valor)
+            else if(vectorTipo[mitad] > valor)
             {
-                busquedaBinariaConjunta(first,med-1,valor, vectorTipo, vectorFinal, vectorReferencia);
+                busquedaBinariaConjunta(primero, mitad - 1, valor, vectorTipo, vectorFinal, vectorReferencia);
             }
             else
             {
-                busquedaBinariaConjunta(med+1,last,valor, vectorTipo, vectorFinal, vectorReferencia);
+                busquedaBinariaConjunta(mitad + 1, ultimo, valor, vectorTipo, vectorFinal, vectorReferencia);
             }
         }
     }
 
     template<typename T, class U>
-    void busquedaBinariaUsuario(int first, int last, T valor, vector<T> vectorTipo, U* objFinal, vector<U> vectorReferencia)   // busqueda binaria           
+    void busquedaBinariaUsuario(int primero, int ultimo, T valor, vector<T> vectorTipo, U* objFinal, vector<U> vectorReferencia)           
     {
-        int med=(first+last)/2;
-        if (last>=first)
+        int mitad = (primero + ultimo)/2;
+        if (ultimo >= primero)
         {  
-            if (vectorTipo[med]==valor)
+            if (vectorTipo[mitad] == valor)
             {
-                *objFinal = vectorReferencia[med];                               
+                *objFinal = vectorReferencia[mitad];                               
             }
-            else if(vectorTipo[med]>valor)
+            else if(vectorTipo[mitad] > valor)
             {
-                busquedaBinariaUsuario(first,med-1,valor, vectorTipo, objFinal, vectorReferencia);
+                busquedaBinariaUsuario(primero, mitad - 1, valor, vectorTipo, objFinal, vectorReferencia);
             }
             else
             {
-                busquedaBinariaUsuario(med+1,last,valor, vectorTipo, objFinal, vectorReferencia);
+                busquedaBinariaUsuario(mitad + 1, ultimo, valor, vectorTipo, objFinal, vectorReferencia);
             }
         }
     }
@@ -162,43 +162,41 @@ namespace aux
 
 
     template<typename T, class U>
-    void busquedaBinariaMultiple(int first, int last, T valor, vector <T> vectorTipo, vector<U>* vectorResultados, vector<U> vectorClase)   // busqueda binaria           
+    void busquedaBinariaMultiple(int primero, int ultimo, T valor, vector <T> vectorTipo, vector<U>* vectorResultados, vector<U> vectorClase)       
     {
-        int med=(first+last)/2;
-        if (last>=first)
+        int mitad = (primero + ultimo)/2;
+        if (ultimo >= primero)
         {  
-            if (vectorTipo[med]==valor)
+            if (vectorTipo[mitad] == valor)
             {
-                vectorResultados->push_back(vectorClase[med]);
-                if(med!=0)
+                vectorResultados->push_back(vectorClase[mitad]);
+                if(mitad != 0)
                 {   
-                    int n=1;
-                    while(valor==vectorTipo[med-n])
+                    int n = 1;
+                    while(valor == vectorTipo[mitad - n])
                     {
-                        vectorResultados->push_back(vectorClase[med-n]);
+                        vectorResultados->push_back(vectorClase[mitad - n]);
                         n++;
                     }
                 }
-
-                if(med!=vectorTipo.size()-1)
+                if(mitad != vectorTipo.size() - 1)
                 {
-                    int m=1;
+                    int m = 1;
 
-                    while(valor==vectorTipo[med+m])
+                    while(valor == vectorTipo[mitad + m])
                     {
-                        vectorResultados->push_back(vectorClase[med+m]);
+                        vectorResultados->push_back(vectorClase[mitad + m]);
                         m++;
                     }
                 }                   
             }
-
-            else if(vectorTipo[med]>valor)
+            else if(vectorTipo[mitad] > valor)
             {
-                busquedaBinariaMultiple(first,med-1,valor, vectorTipo, vectorResultados, vectorClase);
+                busquedaBinariaMultiple(primero,mitad-1,valor, vectorTipo, vectorResultados, vectorClase);
             }
             else
             {
-                busquedaBinariaMultiple(med+1,last,valor, vectorTipo, vectorResultados, vectorClase);
+                busquedaBinariaMultiple(mitad+1,ultimo,valor, vectorTipo, vectorResultados, vectorClase);
             }
         }
     }

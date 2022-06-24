@@ -1,18 +1,18 @@
 #ifndef __BUSCARCANCION_CPP__
 #define __BUSCARCANCION_CPP__
 #include <iostream>
+#include <algorithm>
 #include "..\include\BuscarCancion.h"
 #include "..\include\Auxiliar.h"
-#include <algorithm>
 
 using namespace std;
-void elegirCancion(BuscarCancion objBuscar, string username, string codPlaylist, int codCancion);
+void elegirCancion(BuscarCancion objBuscar, string nombreUsuario, string codPlaylist, int codCancion);
 
-void menuBuscarCancion(string username, string codPlaylist)
+void menuBuscarCancion(string nombreUsuario, string codPlaylist)
 {
     BuscarCancion objBuscar;
     int codCancion;
-    string titulo, rspta;
+    string titulo, respuesta;
     do
     {
         system("cls");
@@ -20,11 +20,11 @@ void menuBuscarCancion(string username, string codPlaylist)
         aux::gotoxy(1,1);   cout << "Ingrese el titulo de la cancion > ";  getline(cin,titulo);
         transform(titulo.begin(), titulo.end(), titulo.begin(), ::tolower);
         
-        aux::gotoxy(1,2);   cout << "Desea buscar la cancion? (si/no) > "; getline(cin,rspta);
-        transform(rspta.begin(), rspta.end(), rspta.begin(), ::tolower);
+        aux::gotoxy(1,2);   cout << "Desea buscar la cancion? (si/no) > "; getline(cin,respuesta);
+        transform(respuesta.begin(), respuesta.end(), respuesta.begin(), ::tolower);
         //cin.ignore();
 
-    } while ( rspta!="si");
+    } while ( respuesta!="si");
 
     system("cls");
 
@@ -33,17 +33,17 @@ void menuBuscarCancion(string username, string codPlaylist)
         aux::cuadro(0,0,45, 7);
         aux::gotoxy(1,2);   cout << "No se encontro resultados" << endl;
         aux::gotoxy(1,3);   system("pause");
-        menuBuscarCancion(username, codPlaylist);
+        menuBuscarCancion(nombreUsuario, codPlaylist);
     }
     else
     {   
         codCancion = objBuscar.imprimirResultados();
         
-        elegirCancion(objBuscar, username, codPlaylist, codCancion);
+        elegirCancion(objBuscar, nombreUsuario, codPlaylist, codCancion);
     }
 }
 
-void elegirCancion(BuscarCancion objBuscar, string username, string codPlaylist, int codCancion)
+void elegirCancion(BuscarCancion objBuscar, string nombreUsuario, string codPlaylist, int codCancion)
 {
 
     system("cls");
@@ -57,7 +57,7 @@ void elegirCancion(BuscarCancion objBuscar, string username, string codPlaylist,
         if (codPlaylist == "0") // determina si se viene del menu principal o una playlist especifica
         {
             
-            objBuscar.fromMainMenu(username, codigo);
+            objBuscar.fromMainMenu(nombreUsuario, codigo);
             system("cls");
             aux::cuadro(0,0,50,10);
             aux::gotoxy(1,1);   cout <<"Realizar otra busqueda";    aux::gotoxy(35,1); cout << "[1]";
@@ -78,7 +78,7 @@ void elegirCancion(BuscarCancion objBuscar, string username, string codPlaylist,
         {
             case 1:
                 system("cls");
-                menuBuscarCancion(username, codPlaylist);
+                menuBuscarCancion(nombreUsuario, codPlaylist);
                 break;
             case 2:
                 break;
@@ -86,13 +86,5 @@ void elegirCancion(BuscarCancion objBuscar, string username, string codPlaylist,
                 break;
         }
 }
-        
-
-
-/*int main()
-{
-    string prueba="0";
-    menuBuscar(prueba);
-}*/
 
 #endif

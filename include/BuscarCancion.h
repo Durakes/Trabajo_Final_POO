@@ -6,22 +6,22 @@
 #include <algorithm>
 #include <ctime>
 #include "..\include\Auxiliar.h"
-#include "..\include\Archive.h"
+#include "..\include\Archivo.h"
 using namespace std;
 
 class BuscarCancion
 {
     private:
 
-        vector<Cancion> vectorCanciones; // almacena todas las canciones
-        vector<Cancion> vectorResultados; //almacena los resultados encontrados
+        vector<Cancion> VectorCanciones; // almacena todas las canciones
+        vector<Cancion> VectorResultados; //almacena los resultados encontrados
         
     public:
         BuscarCancion()
         {
             Cancion objCancion;
-            Archive archive(R"(..\docs\Canciones.csv)");
-            archive.cargarDatos(objCancion, &vectorCanciones); // graba las canciones a un vector;
+            Archivo archive(R"(..\docs\Canciones.csv)");
+            archive.cargarDatos(objCancion, &VectorCanciones); // graba las canciones a un vector;
         }
 
 
@@ -29,25 +29,25 @@ class BuscarCancion
         {
             system("cls");
             aux::cuadro(0,0,70, 15);
-            int minutos=(vectorResultados[cod].getDuracion())/60;
-            int segundos=vectorResultados[cod].getDuracion()-minutos*60;
-            aux::gotoxy(1,1); cout << "Titulo: " << vectorResultados[cod].getNombre() << endl;
-            aux::gotoxy(1,2); cout << "Album: "  << vectorResultados[cod].getAlbum() << endl;
-            aux::gotoxy(1,3); cout << "Artista: " << vectorResultados[cod].getAutor() << endl;
+            int minutos = (VectorResultados[cod].getDuracion()) / 60;
+            int segundos = VectorResultados[cod].getDuracion() - minutos * 60;
+            aux::gotoxy(1,1); cout << "Titulo: " << VectorResultados[cod].getNombre() << endl;
+            aux::gotoxy(1,2); cout << "Album: "  << VectorResultados[cod].getAlbum() << endl;
+            aux::gotoxy(1,3); cout << "Artista: " << VectorResultados[cod].getAutor() << endl;
             aux::gotoxy(1,4); cout << "Duracion: " << minutos << ":" <<segundos << endl;
             aux::gotoxy(1,5); system("pause");
         }
 
         int getCodCancion(int cod)
         {
-            return vectorResultados[cod].getCodigo();
+            return VectorResultados[cod].getCodigo();
         }
 
         void agregarCancionPlaylist(int codCancion, int codPlaylist, int tamanoY = 0)
         {
             Playlist objPlaylist;
             vector<Playlist> vectorPlaylist;
-            Archive archive(R"(..\docs\Playlists.csv)");
+            Archivo archive(R"(..\docs\Playlists.csv)");
             archive.cargarDatos(objPlaylist, &vectorPlaylist);
             
             string confirma;
@@ -119,7 +119,7 @@ class BuscarCancion
             system("cls");
             Playlist objPlaylist;
             vector<Playlist> vectorPlaylist;
-            Archive archive(R"(..\docs\Playlists.csv)");
+            Archivo archive(R"(..\docs\Playlists.csv)");
             archive.cargarDatos(objPlaylist, &vectorPlaylist);
             
             vector<Playlist> vectorResUsuarios;
@@ -166,7 +166,7 @@ class BuscarCancion
         {
             Playlist objPlaylist;
             vector<Playlist> vectorPlaylist;
-            Archive archive(R"(..\docs\Playlists.csv)");
+            Archivo archive(R"(..\docs\Playlists.csv)");
             archive.cargarDatos(objPlaylist, &vectorPlaylist);
 
             int codPlay = stoi(codeP);
@@ -178,25 +178,25 @@ class BuscarCancion
             int i=0;
             int v;
             int first=0,
-                last=vectorCanciones.size()-1;
+                last=VectorCanciones.size()-1;
             string temporal;
             vector<string> vectorTitulos;
             
-            for (Cancion x:vectorCanciones)
+            for (Cancion x:VectorCanciones)
             {
                 vectorTitulos.push_back(aux::aMinuscula(x.getNombre()));
             }
 
-            if(vectorCanciones.size()<=2)
+            if(VectorCanciones.size()<=2)
             {
-                for (Cancion x : vectorCanciones)
+                for (Cancion x : VectorCanciones)
                 {
                     if (titulo==aux::aMinuscula(x.getNombre()))
                     {
-                        vectorResultados.push_back(x);
+                        VectorResultados.push_back(x);
                     }
                 }
-                if (vectorResultados.size()==0)
+                if (VectorResultados.size()==0)
                 {
                     return 0;
                 }
@@ -208,9 +208,9 @@ class BuscarCancion
             }
             else
             {
-                aux::ordenamientoRapido(&vectorTitulos, 0, vectorTitulos.size()-1, &vectorCanciones);
-                aux::busquedaBinariaMultiple(first, last, titulo, vectorTitulos, &vectorResultados, vectorCanciones);// busqueda binaria
-                if(vectorResultados.size()!=0)
+                aux::ordenamientoRapido(&vectorTitulos, 0, vectorTitulos.size()-1, &VectorCanciones);
+                aux::busquedaBinariaMultiple(first, last, titulo, vectorTitulos, &VectorResultados, VectorCanciones);// busqueda binaria
+                if(VectorResultados.size()!=0)
                 {
                     return 1;
                 }
@@ -229,21 +229,21 @@ class BuscarCancion
             int codCancion;
             vector<string> vectorAutores;
 
-            for (Cancion x : vectorResultados)
+            for (Cancion x : VectorResultados)
             {
                 vectorAutores.push_back(aux::aMinuscula(x.getAutor()));
             }
 
-            aux::ordenamientoRapido(&vectorAutores,0,vectorAutores.size()-1, &vectorResultados);
+            aux::ordenamientoRapido(&vectorAutores,0,vectorAutores.size() - 1, &VectorResultados);
             
-            aux::cuadro(0,0,45, vectorResultados.size() + 5);
-            for (Cancion x : vectorResultados)
+            aux::cuadro(0,0,45, VectorResultados.size() + 5);
+            for (Cancion x : VectorResultados)
             {
                 aux::gotoxy(1,1+i); cout<<x.getNombre()<<" - "<<x.getAutor()<<" ["<<i<<"]"<<endl;
                 i++;
             }
 
-            aux::gotoxy(1,vectorResultados.size() + 3);  cout<<"Elija una cancion: "; cin >> codCancion; cin.ignore();
+            aux::gotoxy(1,VectorResultados.size() + 3);  cout<<"Elija una cancion: "; cin >> codCancion; cin.ignore();
             
             return codCancion;
         }
@@ -253,17 +253,17 @@ class BuscarCancion
             vector<string> vectorCancionArtista; //almacena canciones segun artista
             vector<int> codigos;
             //vector<Cancion> vectorResultados;
-            vectorResultados.clear();
+            VectorResultados.clear();
 
-            for(Cancion cancion: vectorCanciones)
+            for(Cancion cancion: VectorCanciones)
             {
                 codigos.push_back(cancion.getCodigoAutor());
             }
 
-            aux::ordenamientoRapido(&codigos, 0, codigos.size()-1, &vectorCanciones);
-            aux::busquedaBinariaMultiple(0, codigos.size() - 1, codArtista, codigos, &vectorResultados, vectorCanciones);
+            aux::ordenamientoRapido(&codigos, 0, codigos.size()-1, &VectorCanciones);
+            aux::busquedaBinariaMultiple(0, codigos.size() - 1, codArtista, codigos, &VectorResultados, VectorCanciones);
 
-            return vectorResultados;
+            return VectorResultados;
         }
 };
 

@@ -2,21 +2,20 @@
 #include <string>
 #include <math.h>
 #include <fstream>
-#include"..\include\Cancion.h"
-#include"..\include\Auxiliar.h"
+#include "..\include\Cancion.h"
+#include "..\include\Auxiliar.h"
 using namespace std;
 
 void verificarEntrada(string tipo){}
 
-void subMenu_CrearCancion( int codigoUsuario, string usuario )
+void crearCancion(int codigoUsuario, string nombreArtista)
 {
 
     string nombre;
-    //string nombreArtista es igual al parametro usuario
     double duracion;
     string album;
 
-    string rpta = "Si";
+    string respuesta = "Si";
 
 
     do 
@@ -25,10 +24,7 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario )
         aux::cuadro(0,0,60,25);
         //Recibir datos
         aux::gotoxy(1,2);   cout << "Nombre de la cancion >";   getline(cin, nombre);
-
-
-        aux::gotoxy(1,3); cout << "Album de la cancion >";
-        getline(cin, album);
+        aux::gotoxy(1,3); cout << "Album de la cancion >";  getline(cin, album);
 
         aux::gotoxy(1,4);   cout << "Duracion de la cancion: ";
         aux::gotoxy(1,5);   cout << "(Minutos.Segundos) >";   cin >> duracion;  cin.ignore();
@@ -38,23 +34,18 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario )
         aux::cuadro(0,0,60,25);
         aux::gotoxy(1,1);   cout << "Seguro quieres crear la cancion: ";
         aux::gotoxy(1,2);   cout << "Nombre:";  aux::gotoxy(20,2);  cout << nombre;
-        aux::gotoxy(1,3);   cout << "Autor:";   aux::gotoxy(20,3);  cout << usuario;
+        aux::gotoxy(1,3);   cout << "Autor:";   aux::gotoxy(20,3);  cout << nombreArtista;
         aux::gotoxy(1,4);   cout << "Album:";   aux::gotoxy(20,4);  cout << album;
         aux::gotoxy(1,5);   cout << "Duracion:";aux::gotoxy(20,5);  cout << duracion;
 
-        aux::gotoxy(1,7);   cout << "(Si o No) >";  getline(cin, rpta);
+        aux::gotoxy(1,7);   cout << "(Si o No) >";  getline(cin, respuesta);
         
-        aux::aMinuscula(rpta);
-        if (rpta == "si")
+        aux::aMinuscula(respuesta);
+        if (respuesta == "si")
         {
-            duracion = ((int) duracion*60) + (duracion - (int)duracion)*100;
-            cout<<(int) duracion<<endl;
-            //  Calculo raro: parte_entera*60 + parte_decimal*100
+            duracion = ((int) duracion * 60) + (duracion - (int)duracion) * 100;
+            Cancion nueva(nombre, nombreArtista, album, codigoUsuario, duracion);
 
-            //Crea el objeto cancion
-            Cancion nueva( nombre, usuario, album, codigoUsuario, duracion );
-
-            //Se agrega el objeto cancion al archivo
             try 
             {
                 fstream archivoCanciones;
@@ -62,7 +53,7 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario )
                 if (archivoCanciones.is_open())
                 {
                     archivoCanciones <<
-                    nueva.obtenerCodigo()<<";"<<nombre<<";"<<usuario<<";"<<duracion<<";"<<album<<";"<<codigoUsuario<<";" << endl;
+                    nueva.obtenerCodigo() << ";" << nombre << ";" << nombreArtista << ";" << duracion << ";" << album << ";" << codigoUsuario << ";" << endl;
                 }
 
                 aux::gotoxy(1,9);   cout << "Grabado el archivo correctamente"<<endl;
@@ -74,13 +65,8 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario )
             system("cls");
             aux::cuadro(0,0,60,10);
             aux::gotoxy(1,1);   cout << "Cancion agregada con exito";
-            aux::gotoxy(1,2);   cout << "¿Desea agregar una nueva cancion? >";    getline(cin, rpta);
-            aux::aMinuscula(rpta);
+            aux::gotoxy(1,2);   cout << "¿Desea agregar una nueva cancion? >";    getline(cin, respuesta);
+            aux::aMinuscula(respuesta);
         }
-    } while ( rpta == "si");
+    } while ( respuesta == "si");
 }
-
-/*
-int main(){
-    subMenu_CrearCancion(404, "UsuarioPrueba");
-}*/

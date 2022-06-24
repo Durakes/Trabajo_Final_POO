@@ -6,17 +6,17 @@
 #include <cstring>
 #include <string>
 #include "buscarCancion.cpp"
-#include "..\include\Archive.h"
+#include "..\include\Archivo.h"
 #include "..\include\Auxiliar.h"
 using namespace std;
 
-void adicionarPlaylist(string,vector<Playlist>*,Archive);
-void listarPlaylist(string,vector<Playlist>*,Archive);
-void detallePlaylist(Playlist,vector<Playlist>*,Archive);
-void editarPlaylist(Playlist,vector<Playlist>*,Archive);
-void eliminarPlaylist(Playlist,vector<Playlist>*,Archive);
-void listarCanciones(Playlist,vector<Playlist>*,Archive);
-void eliminarCancion(Playlist,vector<Playlist>*,Archive,vector<Cancion>*);
+void adicionarPlaylist(string,vector<Playlist>*,Archivo);
+void listarPlaylist(string,vector<Playlist>*,Archivo);
+void detallePlaylist(Playlist,vector<Playlist>*,Archivo);
+void editarPlaylist(Playlist,vector<Playlist>*,Archivo);
+void eliminarPlaylist(Playlist,vector<Playlist>*,Archivo);
+void listarCanciones(Playlist,vector<Playlist>*,Archivo);
+void eliminarCancion(Playlist,vector<Playlist>*,Archivo,vector<Cancion>*);
 
 void menuPlaylist(string nombreUsuario)
 {
@@ -24,7 +24,7 @@ void menuPlaylist(string nombreUsuario)
 	int respuesta;
 	Playlist objPlaylist;
 	vector<Playlist> vectorPlaylist;
-	Archive archivoP(R"(..\docs\Playlists.csv)");
+	Archivo archivoP(R"(..\docs\Playlists.csv)");
 	archivoP.cargarDatos(objPlaylist,&vectorPlaylist);
 	
 	aux::cuadro(0,0,45, 13);
@@ -64,7 +64,7 @@ void menuPlaylist(string nombreUsuario)
 	//aux::gotoxy(1,7);	system("pause");
 }
 
-void adicionarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist, Archive archivoP)
+void adicionarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist, Archivo archivoP)
 {
 	system("cls");
 	int codigo=1;
@@ -85,14 +85,14 @@ void adicionarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist, A
 	aux::gotoxy(1,4); getline(cin, nuevoNombre);
 
 	Playlist playlist(codigo,nuevoNombre,nombreUsuario);
-	archivoP.saveNewLine(playlist);
+	archivoP.grabarNuevaLinea(playlist);
 	
 	aux::gotoxy(1,6); 	cout << "La playlist se creo exitosamente!!!" << endl;
 	aux::gotoxy(1,7);	system("pause");
 }
 
 
-void listarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist,Archive archivoP)
+void listarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist,Archivo archivoP)
 {
 	system("cls");
 	int numero = 1;
@@ -133,7 +133,7 @@ void listarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist,Archi
 	aux::gotoxy(1,vectorFinal.size() + 3);	system("pause");
 }
 
-void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archivoP)
+void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo archivoP)
 {
 	system("cls");
 	int respuesta;
@@ -176,7 +176,7 @@ void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive
 	}
 }
 
-void editarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archivoP)
+void editarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo archivoP)
 {
 	system("cls");
 	string nuevoNombre;
@@ -192,7 +192,7 @@ void editarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive 
 	aux::gotoxy(1,7);	system("pause");
 }
 
-void eliminarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archivoP)
+void eliminarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo archivoP)
 {
 	system("cls");
 	string respuesta;
@@ -213,13 +213,13 @@ void eliminarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archiv
 	}
 }
 
-void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive archivoP)
+void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo archivoP)
 {
 	system("cls");
 	Cancion objCancion;
 	vector<Cancion> vectorCanciones;
 	vector<Cancion> vectorCancionesPlaylist;
-	Archive archiveC(R"(..\docs\Canciones.csv)");
+	Archivo archiveC(R"(..\docs\Canciones.csv)");
 	archiveC.cargarDatos(objCancion,&vectorCanciones);
 
 	int numero=1;
@@ -286,7 +286,7 @@ void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive
 	}
 }
 
-void eliminarCancion(Playlist playlist,vector<Playlist> *vectorPlaylist,Archive archivoP,vector<Cancion> *vectorCanciones)
+void eliminarCancion(Playlist playlist,vector<Playlist> *vectorPlaylist,Archivo archivoP,vector<Cancion> *vectorCanciones)
 {
 	system("cls");
 	vector<int> codigosCanciones;
