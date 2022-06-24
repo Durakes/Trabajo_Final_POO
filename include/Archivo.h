@@ -31,8 +31,8 @@ class Archivo
 
         string crearLinea(Playlist obj)
         {
-          string playlist = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getUsuario() + ";" + obj.getEstado() + ";";
-          return playlist;
+            string playlist = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getUsuario() + ";" + obj.getEstado() + ";";
+            return playlist;
         }
 
         template <class T>
@@ -75,15 +75,15 @@ class Archivo
 
             if(temporal.size()>4)
             {
-              vector<int> canciones;
-              for(int i=4; i<temporal.size(); i++)
-              {
-                canciones.push_back(stoi(temporal[i]));
-              }
-              playlist->setCanciones(canciones);
+                vector<int> canciones;
+                for(int i=4; i<temporal.size(); i++)
+                {
+                    canciones.push_back(stoi(temporal[i]));
+                }
+                playlist->setCanciones(canciones);
             }else
             {
-              playlist->setCanciones(cancionNull);
+                playlist->setCanciones(cancionNull);
             }
         }
 
@@ -122,41 +122,43 @@ class Archivo
             }
         }
 
-        void modificarPlaylist(vector<Playlist> vectorPlaylist){//esta
-        try{
-          fstream archivo;
+        void modificarPlaylist(vector<Playlist> vectorPlaylist)
+        {//esta
+            try
+            {
+                fstream archivo;
 
-          archivo.open(Ruta, ios :: out);
-          if(archivo.is_open())
-          {
-              for(Playlist playlist:vectorPlaylist)
-              {
-                if(playlist.getCanciones().size()!=0)
+                archivo.open(Ruta, ios :: out);
+                if(archivo.is_open())
                 {
-                  stringstream concatenador;
-                  for(size_t i = 0; i < playlist.getCanciones().size(); ++i)
-                  {
-                    if(i!=0)
+                    for(Playlist playlist:vectorPlaylist)
                     {
-                      concatenador << ";";
-                    }
-                    concatenador << playlist.getCanciones()[i];
-                  }
-                  string codigos = concatenador.str();
+                        if(playlist.getCanciones().size()!=0)
+                        {
+                            stringstream concatenador;
+                            for(size_t i = 0; i < playlist.getCanciones().size(); ++i)
+                            {
+                                if(i!=0)
+                                {
+                                concatenador << ";";
+                                }
+                                concatenador << playlist.getCanciones()[i];
+                            }
+                            string codigos = concatenador.str();
 
-                  archivo << to_string(playlist.getCodigo()) + ";" + playlist.getNombre() + ";" + playlist.getUsuario() + ";" + playlist.getEstado() + ";" + codigos + ";" << endl;
+                            archivo << to_string(playlist.getCodigo()) + ";" + playlist.getNombre() + ";" + playlist.getUsuario() + ";" + playlist.getEstado() + ";" + codigos + ";" << endl;
+                        }
+                        else
+                        {
+                            archivo << to_string(playlist.getCodigo()) + ";" + playlist.getNombre() + ";" + playlist.getUsuario() + ";" + playlist.getEstado() + ";" << endl;
+                        }
+                    }
                 }
-                else
-                {
-                  archivo << to_string(playlist.getCodigo()) + ";" + playlist.getNombre() + ";" + playlist.getUsuario() + ";" + playlist.getEstado() + ";" << endl;
-                }
-              }
-          }
-          archivo.close();
-        }catch(exception e)
-        {
+                archivo.close();
+            }catch(exception e)
+            {
             cout << "Ocurrio un error al modificar el archivo!!!";
+            }
         }
-      }
 };
 #endif
