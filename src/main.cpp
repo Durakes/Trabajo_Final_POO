@@ -8,6 +8,7 @@
 #include "..\lib\bcrypt\src\bcrypt.cpp"
 #include "..\src\buscarCancion.cpp"
 #include "..\src\creacancion.cpp"
+#include "..\src\BuscarArtista.cpp"
 #include "..\include\BinaryFile.h"
 #include "playlist.cpp"
 using namespace std;
@@ -50,7 +51,7 @@ void menuOpciones(int code, string name, string typeUser)
         break;
     case 3:
         system("cls");
-        //función Evie;
+        menuBuscarArtista(name,"0");
         break;
     case 5:
         exit(0);

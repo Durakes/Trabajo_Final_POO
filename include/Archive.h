@@ -23,7 +23,7 @@ class Archive
 
         string crearLinea(Cancion obj)
         {
-            string cancion = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getAutor() + ";" + to_string(obj.getDuracion()) + ";" + obj.getAlbum() + ";";
+            string cancion = to_string(obj.getCodigo()) + ";" + obj.getNombre() + ";" + obj.getAutor() + ";" + to_string(obj.getDuracion()) + ";" + obj.getAlbum() + ";" + to_string(obj.getCodigoAutor()) + ";";
             return cancion;
         }
 
@@ -58,6 +58,7 @@ class Archive
             cancion->setAutor(temp[2]);
             cancion->setDuracion(stoi(temp[3]));
             cancion->setAlbum(temp[4]);
+            cancion->setCodigoAutor(stoi(temp[5]));
         }
 
         void crearObjeto(vector<string> temp, Playlist *playlist)
