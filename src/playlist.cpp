@@ -147,7 +147,7 @@ void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive
 
 	aux::cuadro(0,0,60,10);
 	aux::gotoxy(1,1);	cout << "Playlist: " << playlist.getNombre();
-	aux::gotoxy(1,3);	cout << "Editar Playlist"; aux::gotoxy(20,3);	cout << "[1]";
+	aux::gotoxy(1,3);	cout << "Editar Playlist"; 	aux::gotoxy(20,3);	cout << "[1]";
 	aux::gotoxy(1,4);	cout << "Eliminar Playlist"; aux::gotoxy(20,4);	cout << "[2]";
 	aux::gotoxy(1,5);	cout << "Mostrar Canciones"; aux::gotoxy(20,5);	cout << "[3]";
 	aux::gotoxy(1,6);	cout << "Ingrese la opcion que desea > "; cin >> respuesta; cin.ignore();
@@ -168,7 +168,11 @@ void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archive
 			listarCanciones(playlist,vectorPlaylist,archiveP);
 			system("pause");
 			menuPlaylist(playlist.getUsuario());
-		break;
+			break;
+		
+		default:
+			menuPlaylist(playlist.getUsuario());
+			break;
 	}
 }
 

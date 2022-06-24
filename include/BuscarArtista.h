@@ -5,6 +5,7 @@
 #include "BinaryFile.h"
 #include "Artista.h"
 #include "BuscarCancion.h"
+#include "Auxiliar.h"
 
 using namespace std;
 
@@ -22,22 +23,25 @@ class BuscarArtista{
             string path = "..\\docs\\Usuarios.bin";
             BinaryFile archive(path);
             vector<User> vectorUsuario = archive.LeerDato();
+            string tipo = "artist";
+            vector<string> tipoArtista;
+            vector<User> artistas;
 
-            //Recorre vector del archivo binario y agrega nombre, codigo y #canciones a vectorArtista
-            for(User x:vectorUsuario)
+            for(User x: vectorUsuario)
             {
-                string tipoArtista = (char*)&x.getType()[0];
-                
-                if("artist" == tipoArtista)
-                {
-                    string nombre = x.getName();
-                    int codigo = x.getCode();
-                    transform(nombre.begin(), nombre.end(), nombre.begin(), ::tolower);
-                    vector<string> cancionArtista = objBuscar.getCancionArtista(codigo);
+                tipoArtista.push_back(x.getType());
+            }
 
-                    Artista objArtista(nombre, codigo, cancionArtista.size());
-                    vectorArtista.push_back(objArtista);
-                }
+            aux::ordenamientoRapido(&tipoArtista, 0, tipoArtista.size() - 1, &vectorUsuario);
+            aux::busquedaBinariaMultiple(0, tipoArtista.size() - 1, tipo, tipoArtista, &artistas, vectorUsuario);
+            //Recorre vector del archivo binario y agrega nombre, codigo y #canciones a vectorArtista
+
+            for(User x:artistas)
+            {   
+                vector<string> cancionArtista = objBuscar.getCancionArtista(x.getCode());
+
+                Artista objArtista(x.getName(), x.getCode(), cancionArtista.size());
+                vectorArtista.push_back(objArtista);
             }
             return vectorArtista;
         }
@@ -48,26 +52,28 @@ class BuscarArtista{
             aux::cuadro(0,0, 60, 10);
             aux::gotoxy(1,1);   cout << "............Buscando..........." << endl;
 
-            int i=0;
-            for(Artista x:vectorArtista)
+            //int i=0;
+            vector<string> nombres;
+            //vector<Artista> artistaFinal;
+
+            for(Artista artista: vectorArtista)
             {
-                if(x.getNombre() == nombreArtista)
-                {
-                    i++;
-                    Artista objArtista(x.getNombre(), x.getCodigo(), x.getNumCanciones());
-                    temporal.push_back(objArtista);
-                }
+                //cout << artista.getNombre() << endl;
+                nombres.push_back(aux::aMinuscula(artista.getNombre()));
             }
 
-            if(i > 0)
+            aux::ordenamientoRapido(&nombres,0, nombres.size()-1, &vectorArtista);
+            aux::busquedaBinariaMultiple(0, nombres.size()-1, nombreArtista, nombres, &temporal, vectorArtista);
+
+            if(temporal.size() > 0)
             {
-                aux::gotoxy(1,2); cout << "Se han encontrado " << i << " coincidencias...";
+                aux::gotoxy(1,2); cout << "Se han encontrado " << temporal.size() << " coincidencias...";
             }
             else
             {
                 aux::gotoxy(1,2);    cout << "No se encontraron coincidencias";
-                //Regresar a menu principal (cambiar)
-                //exit(0);
+                // Regresar a menu principal (cambiar)
+                // exit(0);
             }
         }
 

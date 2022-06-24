@@ -77,9 +77,8 @@ void menuBuscarArtista(string username, string codPlaylist)
 
         codElegido =objArtista.listarResultados(); //Impresion de resultados de busqueda      
         pestanaArtista(objArtista, codElegido, username, codPlaylist);
-    }
-
-    else{
+    }else
+    {
         //Regresar a menu principal
     }
 

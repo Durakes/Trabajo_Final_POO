@@ -255,17 +255,24 @@ class BuscarCancion
 
         vector<string> getCancionArtista(int codArtista)
         { //De un codigo del artista, se obtienen todas sus canciones
-            vector<string> vectorCancionArtista; //almacena canciones segun artista 
-            for(Cancion x:vectorCanciones)
+            vector<string> vectorCancionArtista; //almacena canciones segun artista
+            vector<int> codigos;
+            vector<Cancion> vectorResultados;
+
+            for(Cancion cancion: vectorCanciones)
             {
-                if(codArtista == x.getCodigoAutor())
-                {
-                    vectorCancionArtista.push_back(x.getNombre());
-                }
+                codigos.push_back(cancion.getCodigoAutor());
+            }
+
+            aux::ordenamientoRapido(&codigos, 0, codigos.size()-1, &vectorCanciones);
+            aux::busquedaBinariaMultiple(0, codigos.size() - 1, codArtista, codigos, &vectorResultados, vectorCanciones);
+
+            for(Cancion x:vectorResultados)
+            {
+                vectorCancionArtista.push_back(x.getNombre());
             }
             return vectorCancionArtista;
         }
-
 };
 
 #endif
