@@ -27,11 +27,11 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario )
         aux::gotoxy(1,2);   cout << "Nombre de la cancion >";   getline(cin, nombre);
 
 
-        aux::gotoxy(1,3); cout<<"Album de la cancion >";
+        aux::gotoxy(1,3); cout << "Album de la cancion >";
         getline(cin, album);
 
-        aux::gotoxy(1,4);   cout<<"Duracion de la cancion: ";
-        aux::gotoxy(1,5);   cout<<"(Minutos.Segundos) >";   cin>>duracion;  cin.ignore();
+        aux::gotoxy(1,4);   cout << "Duracion de la cancion: ";
+        aux::gotoxy(1,5);   cout << "(Minutos.Segundos) >";   cin >> duracion;  cin.ignore();
 
         system("cls");
 
@@ -45,7 +45,7 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario )
         aux::gotoxy(1,7);   cout << "(Si o No) >";  getline(cin, rpta);
         
         aux::aMinuscula(rpta);
-        if (rpta=="si")
+        if (rpta == "si")
         {
             duracion = ((int) duracion*60) + (duracion - (int)duracion)*100;
             cout<<(int) duracion<<endl;
@@ -65,7 +65,7 @@ void subMenu_CrearCancion( int codigoUsuario, string usuario )
                     nueva.obtenerCodigo()<<";"<<nombre<<";"<<usuario<<";"<<duracion<<";"<<album<<";"<<codigoUsuario<<";" << endl;
                 }
 
-                aux::gotoxy(1,9);   cout<<"Grabado el archivo correctamente"<<endl;
+                aux::gotoxy(1,9);   cout << "Grabado el archivo correctamente"<<endl;
             } catch (exception e)
             {
                 aux::gotoxy(1,9);   cout << "Ocurrio un error al grabar en el archivo";

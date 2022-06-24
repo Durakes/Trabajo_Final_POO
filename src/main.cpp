@@ -13,7 +13,7 @@
 #include "playlist.cpp"
 using namespace std;
 
-void menuOpciones(int code, string name, string typeUser)
+void menuOpciones(int code, string name, string typeUser, string artistName)
 {
     int option;
     system("cls");
@@ -47,12 +47,12 @@ void menuOpciones(int code, string name, string typeUser)
     case 2:
         system("cls");
         menuBuscarCancion(name,"0");
-        menuOpciones(code, name, typeUser);
+        menuOpciones(code, name, typeUser, artistName);
         break;
     case 3:
         system("cls");
         menuBuscarArtista(name,"0");
-        menuOpciones(code, name, typeUser);
+        menuOpciones(code, name, typeUser, artistName);
         break;
     case 5:
         exit(0);
@@ -61,13 +61,13 @@ void menuOpciones(int code, string name, string typeUser)
         if (typeUser != "user")
         {
             system("cls");
-            subMenu_CrearCancion(code, name);
-            menuOpciones(code, name, typeUser);
+            subMenu_CrearCancion(code, artistName);
+            menuOpciones(code, name, typeUser, artistName);
             break;
         }
     default:
         aux::gotoxy(1,11); cout << "Ingrese una opcion correcta!!" << endl;
-        menuOpciones(code, name, typeUser);
+        menuOpciones(code, name, typeUser, artistName);
         break;
     }
 }
@@ -127,7 +127,7 @@ void login(int tries)
         {
             if(bcrypt::validatePassword(password,usuario.getPassword()))
             {
-                menuOpciones(usuario.getCode(), usuario.getUsername(), usuario.getType());
+                menuOpciones(usuario.getCode(), usuario.getUsername(), usuario.getType(), usuario.getName());
             }else
             {
                 aux::gotoxy(1,6); cout << "Los datos ingresados son incorrectos!!" << endl;
@@ -202,7 +202,6 @@ void registerUser()
         }
 
         aux::ordenamientoRapido(&usuariosExistentes, 0, usuariosExistentes.size() - 1, &users);
-        //aux::busquedaBinariaPuntual(0, usuariosExistentes.size() - 1, username, usuariosExistentes);
         
         if(aux::busquedaBinariaPuntual(0, usuariosExistentes.size() - 1, aux::aMinuscula(username), usuariosExistentes))
         {
@@ -245,13 +244,9 @@ int main()
     system("cls");
     aux::cuadro(0,0,35, 10);
     aux::gotoxy(7,1);   cout << "##### BIENVENIDO #####" << endl;
-    //cout << endl;
     aux::gotoxy(1,3);   cout << "Iniciar sesion" << endl;   aux::gotoxy(18,3); cout << "[1]" << endl;
     aux::gotoxy(1,4);   cout << "Registro" << endl;         aux::gotoxy(18,4); cout << "[2]" << endl;
     aux::gotoxy(1,5);   cout << "Ingrese la opcion que desea > "; cin >> option; cin.ignore();
-    //cout << "##### INICIO DE SESION ##### \n Iniciar sesion [1] \n Registro [2] \n Ingrese una opcion [1-2]" << endl;
-    // cin >> option;
-    // cin.ignore();
 
     switch (option)
     {

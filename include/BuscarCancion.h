@@ -59,8 +59,7 @@ class BuscarCancion
                 
                 if(aux::busquedaBinariaPuntual(0, vectorCodCanciones.size()-1, codCancion, vectorCodCanciones))
                 {
-                    // system("cls");
-                    // aux::cuadro(0,0,60,10);
+
                     aux::gotoxy(1,6);   cout<<"La cancion ya se encuentra agregada a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<"."<<endl;
                     aux::gotoxy(1,7);   cout<<"Esta seguro que desea agregarla nuevamente? ";   getline(cin, confirma);
                     transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
@@ -79,8 +78,6 @@ class BuscarCancion
 
                 else
                 {
-                    // system("cls");
-                    // aux::cuadro(0,0,60,10);
                     aux::gotoxy(1,6);   cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";  getline(cin, confirma);
 
                     transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
@@ -100,8 +97,6 @@ class BuscarCancion
             }   
             else
             {
-                // system("cls");
-                // aux::cuadro(0,0,60,10);
                 aux::gotoxy(1,6);    cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";getline(cin, confirma);
                 transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
                 if(confirma == "si")
@@ -268,10 +263,6 @@ class BuscarCancion
             aux::ordenamientoRapido(&codigos, 0, codigos.size()-1, &vectorCanciones);
             aux::busquedaBinariaMultiple(0, codigos.size() - 1, codArtista, codigos, &vectorResultados, vectorCanciones);
 
-            // for(Cancion x:vectorResultados)
-            // {
-            //     vectorCancionArtista.push_back(x.getNombre());
-            // }
             return vectorResultados;
         }
 };
