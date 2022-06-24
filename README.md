@@ -17,6 +17,8 @@ Sistema Operativo:
 + EduTiburon
 + jacquiets
 + Durakes
++ DennisC
+
 
 ### Artistas
 
@@ -53,3 +55,7 @@ Sistema Operativo:
 + Zaz
 + Indochine
 + Goldman
++ Cuarteto
++ RHCP
++ Arcade
++ 

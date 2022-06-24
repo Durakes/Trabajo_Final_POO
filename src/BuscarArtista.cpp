@@ -31,7 +31,7 @@ void pestanaArtista(BuscarArtista obj, int numIngresado, string username, string
         i++;
     }
 
-    aux::gotoxy(1,cancionArtista.size() + i);   cout<< "Elija una cancion > ";   cin>> codigo;  cin.ignore();
+    aux::gotoxy(1,cancionArtista.size() + i + 4);   cout<< "Elija una cancion > ";   cin>> codigo;  cin.ignore();
 
     titulo = cancionArtista[codigo-1]; //Se obtiene el titulo de la cancion
     transform(titulo.begin(), titulo.end(), titulo.begin(), ::tolower);

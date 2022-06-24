@@ -300,7 +300,6 @@ void EliminarCancion(Playlist playlist,vector<Playlist>*vectorPlaylist,Archive a
 	{
 		codigosCanciones.push_back(cancion.getCodigo());
 	}
-
 	
 	for(int i=0; i < playlist.getCanciones().size(); i++)
 	{
