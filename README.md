@@ -62,4 +62,35 @@ Sistema Operativo:
 + Imagine
 + Stromae
 + The Killers
++ AURORA
++ Sonata
++ Beatles
++ McCartney
++ Hikaru
++ Scorpions
++ Smith
++ GarbageScreaming
++ Cascada
++ Pentatonix
++ Cohen
++ Buckley
++ Burke
++ Perry
++ Maneskin
++ Madcon
++ Frankie
++ Pogues
++ BANNERS
++ Tore
++ Animals
++ FiveFinger
++ Angeles
++ MagoOz
++ Nightwish
++ Northern
++ A-ha
++ HombresG
++ Ember
++ Rihanna
++ Freedom
 + 

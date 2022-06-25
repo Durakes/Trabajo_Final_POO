@@ -61,7 +61,7 @@ void menuPlaylist(string nombreUsuario)
 			menuPlaylist(nombreUsuario);
 			break;
 	}
-	//aux::gotoxy(1,7);	system("pause");
+
 }
 
 void adicionarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist, Archivo archivoP)

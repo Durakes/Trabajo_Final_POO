@@ -8,8 +8,8 @@
 #include "..\include\Cancion.h"
 using namespace std;
 
-void pestanaArtista(BuscarArtista objArtista, int numIngresado, string nombreUsuario, string codPlaylist){
-
+void pestanaArtista(BuscarArtista objArtista, int numIngresado, string nombreUsuario, string codPlaylist)
+{
     BuscarCancion objBuscar;
     string titulo;
     int codigo;
@@ -17,39 +17,35 @@ void pestanaArtista(BuscarArtista objArtista, int numIngresado, string nombreUsu
     vector<Cancion> cancionArtista = objBuscar.getCancionArtista(objArtista.compararCodigo(numIngresado)); //Vector de canciones dependiendo del codigo del artista
     
     system("cls");
-    aux::cuadro(0, 0, 50, cancionArtista.size() + 20);
+    aux::cuadro(0, 0, 60, cancionArtista.size() + 10);
     aux::gotoxy(1,1);   cout << "NOMBRE DEL ARTISTA" << endl;
     
-    aux::gotoxy(1,3); cout << objArtista.tempNombre(numIngresado);
+    aux::gotoxy(1,2); cout << objArtista.tempNombre(numIngresado);
 
-    //Se enumeran las canciones que coinciden con el codigo del artista
     int i=1;
-    aux::gotoxy(1,4); cout << setw(3) << "#" << setw(10) << "Cancion" << endl;
-    for(Cancion x:cancionArtista)
+    aux::gotoxy(1,4); cout << "#"; aux::gotoxy(10, 4);  cout << "Cancion";
+
+    for(Cancion cancion: cancionArtista)
     {
-        aux::gotoxy(1,4 + i);   cout << setw(3) << i << setw(15) << x.getNombre() << endl;
+        aux::gotoxy(1,4 + i);   cout << i; aux::gotoxy(10,4 + i);    cout << cancion.getNombre();
         i++;
     }
 
-    aux::gotoxy(1,cancionArtista.size() + i + 4);   cout<< "Elija una cancion > ";   cin>> codigo;  cin.ignore();
+    aux::gotoxy(1,i + 6);   cout<< "Elija una cancion > ";   cin>> codigo;  cin.ignore();
 
-    titulo = cancionArtista[codigo-1].getNombre(); //Se obtiene el titulo de la cancion
+    titulo = cancionArtista[codigo-1].getNombre();
     transform(titulo.begin(), titulo.end(), titulo.begin(), ::tolower);
 
-    //Se busca el titulo de la cancion y se repite el proceso de elegirCancion
     if(objBuscar.getResultados(titulo) == 0)
     {
-        aux::gotoxy(1,cancionArtista.size() + i + 2);   cout << "No se encontraron resultados";
+        aux::gotoxy(1,cancionArtista.size() + i + 2);  cout << "No se encontraron resultados";
         aux::gotoxy(1,cancionArtista.size() + i + 3);  system("pause");
         menuBuscarCancion(nombreUsuario, codPlaylist);
     }
     else
     {
-        //codCancion = objBuscar.imprimirResultados();
-
         elegirCancion(objBuscar, nombreUsuario, codPlaylist, codigo); //! Por mientas sirve para solo 1 cancion.
     }
-
 }
 
 void menuBuscarArtista(string nombreUsuario, string codPlaylist)
@@ -77,9 +73,5 @@ void menuBuscarArtista(string nombreUsuario, string codPlaylist)
 
         codElegido =objArtista.listarResultados();      
         pestanaArtista(objArtista, codElegido, nombreUsuario, codPlaylist);
-    }else
-    {
-        //! Mensaje de salida.
-        //Regresar a menu principal
     }
 }

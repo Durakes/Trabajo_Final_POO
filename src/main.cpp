@@ -20,17 +20,17 @@ void menuOpciones(int codigo, string nombreUsuario, string tipoUsuario, string n
     if(tipoUsuario == "user")
     {
         aux::cuadro(0,0,45, 13);
-        //! hacer un string, conocer la cantidad de caracteres, dividir total/string size y restar - 1 para que esté centrado!
-        aux::gotoxy(5,1);   cout << "##### Bienvenido "<< nombreUsuario <<" ##### "; //! Convertir a string
-        aux::gotoxy(1,3);   cout << "Playlist" << endl;         aux::gotoxy(25,3); cout << "[1]" << endl;
-        aux::gotoxy(1,4);   cout << "Buscar Canciones" << endl; aux::gotoxy(25,4); cout << "[2]" << endl;
-        aux::gotoxy(1,5);   cout << "Buscar Artista" << endl;   aux::gotoxy(25,5); cout << "[3]" << endl;
-        aux::gotoxy(1,6);   cout << "Salir" << endl;            aux::gotoxy(25,6); cout << "[5]" << endl;
+        //! Hacer un string, conocer la cantidad de caracteres, dividir total/string size y restar - 1 para que esté centrado!
+        aux::gotoxy(5,1);   cout << "##### Bienvenido " << nombreUsuario << " #####"; //! Convertir a string
+        aux::gotoxy(1,3);   cout << "Playlist";         aux::gotoxy(25,3); cout << "[1]";
+        aux::gotoxy(1,4);   cout << "Buscar Canciones"; aux::gotoxy(25,4); cout << "[2]";
+        aux::gotoxy(1,5);   cout << "Buscar Artista";   aux::gotoxy(25,5); cout << "[3]";
+        aux::gotoxy(1,6);   cout << "Salir";            aux::gotoxy(25,6); cout << "[5]";
         aux::gotoxy(1,8);   cout << "Ingrese la opcion que desea > "; cin >> opcion; cin.ignore();
     }else
     {
         aux::cuadro(0,0,45, 13);
-        aux::gotoxy(6,1);   cout << "##### Bienvenido "<< nombreUsuario <<" ##### ";
+        aux::gotoxy(6,1);   cout << "##### Bienvenido " << nombreUsuario << " ##### ";
         aux::gotoxy(1,3);   cout << "Playlist";         aux::gotoxy(25,3); cout << "[1]";
         aux::gotoxy(1,4);   cout << "Buscar Canciones"; aux::gotoxy(25,4); cout << "[2]";
         aux::gotoxy(1,5);   cout << "Buscar Artista";   aux::gotoxy(25,5); cout << "[3]";
@@ -55,6 +55,7 @@ void menuOpciones(int codigo, string nombreUsuario, string tipoUsuario, string n
         menuOpciones(codigo, nombreUsuario, tipoUsuario, nombreArtista);
         break;
     case 5:
+        system("cls");
         exit(0);
         break;
     case 4:
@@ -71,7 +72,6 @@ void menuOpciones(int codigo, string nombreUsuario, string tipoUsuario, string n
         break;
     }
 }
-
 
 void inicioSesion(int tries)
 {

@@ -28,19 +28,19 @@ class BuscarArtista
             vector<string> tipoArtista;
             vector<Usuario> artistas;
 
-            for(Usuario x: vectorUsuario)
+            for(Usuario usuario: vectorUsuario)
             {
-                tipoArtista.push_back(x.getTipo());
+                tipoArtista.push_back(usuario.getTipo());
             }
 
             aux::ordenamientoRapido(&tipoArtista, 0, tipoArtista.size() - 1, &vectorUsuario);
             aux::busquedaBinariaMultiple(0, tipoArtista.size() - 1, tipo, tipoArtista, &artistas, vectorUsuario);
 
-            for(Usuario x:artistas)
+            for(Usuario usuario:artistas)
             {   
-                vector<Cancion> cancionArtista = objBuscar.getCancionArtista(x.getCodigo());
+                vector<Cancion> cancionArtista = objBuscar.getCancionArtista(usuario.getCodigo());
 
-                Artista objArtista(x.getNombre(), x.getCodigo(), cancionArtista.size());
+                Artista objArtista(usuario.getNombre(), usuario.getCodigo(), cancionArtista.size());
                 VectorArtista.push_back(objArtista);
             }
             return VectorArtista;
@@ -76,17 +76,15 @@ class BuscarArtista
             int codElegido;
             aux::cuadro(0,0, 60, Temporal.size()+15);
 
-            aux::gotoxy(1,1);   cout << "..................." << endl;
-            aux::gotoxy(1,2);   cout << "    RESULTADOS" << endl;
-            aux::gotoxy(1,3);   cout << "..................." << endl;
+            aux::gotoxy(25,2);   cout << "RESULTADOS" << endl;            
 
             int i=1;
-            aux::gotoxy(1,4);   cout << setw(3) << "#" << setw(10) << "Nombre" << setw(20) << "#Canciones" << endl;
+            aux::gotoxy(1,4);   cout << "#";  aux::gotoxy(5, 4); cout << "Nombre"; aux::gotoxy(25, 4); cout << "#Canciones";
             
-            for (Artista x:Temporal) 
+            for (Artista artista:Temporal) 
             {
                 //!Revisar
-                aux::gotoxy(1,5+i);   cout << setw(3) << "[" << i << "]" << setw(10) << x.getNombre() << setw(20) << x.getNumCanciones() << endl;
+                aux::gotoxy(1,5 + i);   cout << "[" << i << "]";    aux::gotoxy(5, 5 + i); cout << artista.getNombre();   aux::gotoxy(30, 5 + i);   cout << artista.getNumCanciones();
                 i++;
             }
 
