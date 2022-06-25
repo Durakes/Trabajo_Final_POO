@@ -8,6 +8,51 @@
 #include "..\include\Cancion.h"
 using namespace std;
 
+void menuBuscarArtista(string , string);
+void pestanaArtista(BuscarArtista, int, string, string);
+
+void elegirCancionArtista(BuscarCancion objBuscar, string nombreUsuario, string codPlaylist, int codCancion)
+{
+    system("cls");
+    int codigo;
+    int opcion;
+
+    objBuscar.getDatos(codCancion-1);
+    codigo = objBuscar.getCodCancion(codCancion-1);
+
+        if (codPlaylist == "0")
+        {
+            
+            objBuscar.fromMainMenu(nombreUsuario, codigo);
+            system("cls");
+            aux::cuadro(0,0,50,10);
+            aux::gotoxy(1,1);   cout <<"Realizar otra busqueda";    aux::gotoxy(35,1); cout << "[1]";
+            aux::gotoxy(1,2);   cout <<"Regresar al menu principal";    aux::gotoxy(35,2);  cout << "[2]";
+            aux::gotoxy(1,3);   cout << "Ingrese la opcion que desea > "; cin >> opcion; cin.ignore();
+        }
+        else
+        {
+            objBuscar.fromPlaylist(codPlaylist, codigo);
+            system("cls");
+            aux::cuadro(0,0,50,10);
+            aux::gotoxy(1,1);   cout <<"Realizar otra busqueda";    aux::gotoxy(35,1); cout << "[1]";
+            aux::gotoxy(1,2);   cout <<"Regresar al menu principal";    aux::gotoxy(35,2);  cout << "[2]";
+            aux::gotoxy(1,3);   cout << "Ingrese la opcion que desea > "; cin >> opcion; cin.ignore();
+        }
+
+        switch (opcion)
+        {
+            case 1:
+                system("cls");
+                menuBuscarArtista(nombreUsuario, codPlaylist);
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
+}
+
 void pestanaArtista(BuscarArtista objArtista, int numIngresado, string nombreUsuario, string codPlaylist)
 {
     BuscarCancion objBuscar;
@@ -27,7 +72,7 @@ void pestanaArtista(BuscarArtista objArtista, int numIngresado, string nombreUsu
 
     for(Cancion cancion: cancionArtista)
     {
-        aux::gotoxy(1,4 + i);   cout << i; aux::gotoxy(10,4 + i);    cout << cancion.getNombre();
+        aux::gotoxy(1,i + 4);   cout << i; aux::gotoxy(10,4 + i);    cout << cancion.getNombre();
         i++;
     }
 
@@ -44,7 +89,7 @@ void pestanaArtista(BuscarArtista objArtista, int numIngresado, string nombreUsu
     }
     else
     {
-        elegirCancion(objBuscar, nombreUsuario, codPlaylist, codigo); //! Por mientas sirve para solo 1 cancion.
+        elegirCancionArtista(objBuscar, nombreUsuario, codPlaylist, codigo); //! Por mientas sirve para solo 1 cancion.
     }
 }
 
@@ -73,5 +118,8 @@ void menuBuscarArtista(string nombreUsuario, string codPlaylist)
 
         codElegido =objArtista.listarResultados();      
         pestanaArtista(objArtista, codElegido, nombreUsuario, codPlaylist);
+    }else
+    {
+        menuBuscarArtista(nombreUsuario, codPlaylist);
     }
 }

@@ -13,62 +13,99 @@
 #include "playlist.cpp"
 using namespace std;
 
-void menuOpciones(int codigo, string nombreUsuario, string tipoUsuario, string nombreArtista)
+void menuOpciones(int codigo, string nombreUsuario, string nombreArtista)
 {
     int opcion;
     system("cls");
-    if(tipoUsuario == "user")
-    {
-        aux::cuadro(0,0,45, 13);
-        //! Hacer un string, conocer la cantidad de caracteres, dividir total/string size y restar - 1 para que esté centrado!
-        aux::gotoxy(5,1);   cout << "##### Bienvenido " << nombreUsuario << " #####"; //! Convertir a string
-        aux::gotoxy(1,3);   cout << "Playlist";         aux::gotoxy(25,3); cout << "[1]";
-        aux::gotoxy(1,4);   cout << "Buscar Canciones"; aux::gotoxy(25,4); cout << "[2]";
-        aux::gotoxy(1,5);   cout << "Buscar Artista";   aux::gotoxy(25,5); cout << "[3]";
-        aux::gotoxy(1,6);   cout << "Salir";            aux::gotoxy(25,6); cout << "[5]";
-        aux::gotoxy(1,8);   cout << "Ingrese la opcion que desea > "; cin >> opcion; cin.ignore();
-    }else
-    {
-        aux::cuadro(0,0,45, 13);
-        aux::gotoxy(6,1);   cout << "##### Bienvenido " << nombreUsuario << " ##### ";
-        aux::gotoxy(1,3);   cout << "Playlist";         aux::gotoxy(25,3); cout << "[1]";
-        aux::gotoxy(1,4);   cout << "Buscar Canciones"; aux::gotoxy(25,4); cout << "[2]";
-        aux::gotoxy(1,5);   cout << "Buscar Artista";   aux::gotoxy(25,5); cout << "[3]";
-        aux::gotoxy(1,6);   cout << "Crear Cancion";    aux::gotoxy(25,6); cout << "[4]";
-        aux::gotoxy(1,7);   cout << "Salir";            aux::gotoxy(25,7); cout << "[5]";
-        aux::gotoxy(1,9);   cout << "Ingrese la opcion que desea > "; cin >> opcion; cin.ignore();
-    }
+    
+    aux::cuadro(0,0,45, 13);
+    aux::gotoxy(6,1);   cout << "##### Bienvenido " << nombreUsuario << " ##### ";
+    aux::gotoxy(1,3);   cout << "Playlist";         aux::gotoxy(25,3); cout << "[1]";
+    aux::gotoxy(1,4);   cout << "Buscar Canciones"; aux::gotoxy(25,4); cout << "[2]";
+    aux::gotoxy(1,5);   cout << "Buscar Artista";   aux::gotoxy(25,5); cout << "[3]";
+    aux::gotoxy(1,6);   cout << "Crear Cancion";    aux::gotoxy(25,6); cout << "[4]";
+    aux::gotoxy(1,7);   cout << "Salir";            aux::gotoxy(25,7); cout << "[5]";
+    aux::gotoxy(1,9);   cout << "Ingrese la opcion que desea > "; cin >> opcion; cin.ignore();
+    
     switch (opcion)
     {
     case 1:
         system("cls");
         menuPlaylist(nombreUsuario);
+        menuOpciones(codigo, nombreUsuario, nombreArtista);
         break;
     case 2:
         system("cls");
         menuBuscarCancion(nombreUsuario,"0");
-        menuOpciones(codigo, nombreUsuario, tipoUsuario, nombreArtista);
+        menuOpciones(codigo, nombreUsuario, nombreArtista);
         break;
     case 3:
         system("cls");
         menuBuscarArtista(nombreUsuario,"0");
-        menuOpciones(codigo, nombreUsuario, tipoUsuario, nombreArtista);
+        menuOpciones(codigo, nombreUsuario, nombreArtista);
+        break;
+    case 4:
+        crearCancion(codigo, nombreArtista);
+        menuOpciones(codigo, nombreUsuario, nombreArtista);
         break;
     case 5:
         system("cls");
+        aux::cuadro(0,0,50, 6);
+        aux::gotoxy(1,2);   cout << "GRACIAS!!!";
+        aux::gotoxy(1,3);   system("pause");
+        system("cls");
         exit(0);
         break;
-    case 4:
-        if (tipoUsuario != "user")
-        {
-            system("cls");
-            crearCancion(codigo, nombreArtista);
-            menuOpciones(codigo, nombreUsuario, tipoUsuario, nombreArtista);
-            break;
-        }
     default:
         aux::gotoxy(1,11); cout << "Ingrese una opcion correcta!!" << endl;
-        menuOpciones(codigo, nombreUsuario, tipoUsuario, nombreArtista);
+        aux::gotoxy(1,12); system("pause");
+        menuOpciones(codigo, nombreUsuario, nombreArtista);
+        break;
+    }
+}
+
+void menuOpciones(int codigo, string nombreUsuario)
+{
+    int opcion;
+    system("cls");
+    aux::cuadro(0,0,45, 13);
+    //! Hacer un string, conocer la cantidad de caracteres, dividir total/string size y restar - 1 para que esté centrado!
+    aux::gotoxy(5,1);   cout << "##### Bienvenido " << nombreUsuario << " #####"; //! Convertir a string
+    aux::gotoxy(1,3);   cout << "Playlist";         aux::gotoxy(25,3); cout << "[1]";
+    aux::gotoxy(1,4);   cout << "Buscar Canciones"; aux::gotoxy(25,4); cout << "[2]";
+    aux::gotoxy(1,5);   cout << "Buscar Artista";   aux::gotoxy(25,5); cout << "[3]";
+    aux::gotoxy(1,6);   cout << "Salir";            aux::gotoxy(25,6); cout << "[4]";
+    aux::gotoxy(1,8);   cout << "Ingrese la opcion que desea > "; cin >> opcion; cin.ignore();
+    
+    switch (opcion)
+    {
+    case 1:
+        system("cls");
+        menuPlaylist(nombreUsuario);
+        menuOpciones(codigo, nombreUsuario);
+        break;
+    case 2:
+        system("cls");
+        menuBuscarCancion(nombreUsuario,"0");
+        menuOpciones(codigo, nombreUsuario);
+        break;
+    case 3:
+        system("cls");
+        menuBuscarArtista(nombreUsuario,"0");
+        menuOpciones(codigo, nombreUsuario);
+        break;
+    case 4:
+        system("cls");
+        aux::cuadro(0,0,50, 6);
+        aux::gotoxy(1,2);   cout << "GRACIAS!!!";
+        aux::gotoxy(1,3);   system("pause");
+        system("cls");
+        exit(0);
+        break;
+    default:
+        aux::gotoxy(1,11); cout << "Ingrese una opcion correcta!!" << endl;
+        aux::gotoxy(1,12); system("pause");
+        menuOpciones(codigo, nombreUsuario);
         break;
     }
 }
@@ -127,7 +164,14 @@ void inicioSesion(int tries)
         {
             if(bcrypt::validatePassword(contrasena,usuario.getContrasena()))
             {
-                menuOpciones(usuario.getCodigo(), usuario.getNombreUsuario(), usuario.getTipo(), usuario.getNombre());
+                string tipo = "user";
+                if(usuario.getTipo() == tipo)
+                {
+                    menuOpciones(usuario.getCodigo(), usuario.getNombreUsuario());
+                }else
+                {
+                    menuOpciones(usuario.getCodigo(), usuario.getNombreUsuario(), usuario.getNombre());
+                }
             }else
             {
                 aux::gotoxy(1,6); cout << "Los datos ingresados son incorrectos!!" << endl;
