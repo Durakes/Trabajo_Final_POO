@@ -22,7 +22,6 @@ void menuBuscarCancion(string nombreUsuario, string codPlaylist)
         
         aux::gotoxy(1,2);   cout << "Desea buscar la cancion? (si/no) > "; getline(cin,respuesta);
         transform(respuesta.begin(), respuesta.end(), respuesta.begin(), ::tolower);
-        //cin.ignore();
 
     } while ( respuesta!="si");
 
@@ -45,16 +44,14 @@ void menuBuscarCancion(string nombreUsuario, string codPlaylist)
 
 void elegirCancion(BuscarCancion objBuscar, string nombreUsuario, string codPlaylist, int codCancion)
 {
-
     system("cls");
     int codigo;
     int opcion;
 
     objBuscar.getDatos(codCancion-1);
     codigo = objBuscar.getCodCancion(codCancion-1);
-    //cout << endl;
 
-        if (codPlaylist == "0") // determina si se viene del menu principal o una playlist especifica
+        if (codPlaylist == "0")
         {
             
             objBuscar.fromMainMenu(nombreUsuario, codigo);
@@ -73,7 +70,7 @@ void elegirCancion(BuscarCancion objBuscar, string nombreUsuario, string codPlay
             aux::gotoxy(1,2);   cout <<"Regresar al menu principal";    aux::gotoxy(35,2);  cout << "[2]";
             aux::gotoxy(1,3);   cout << "Ingrese la opcion que desea > "; cin >> opcion; cin.ignore();
         }
-   
+
         switch (opcion)
         {
             case 1:

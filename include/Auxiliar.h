@@ -120,7 +120,7 @@ namespace aux
     template<typename T, class U>
     void busquedaBinariaConjunta(int primero, int ultimo, T valor, vector<T> vectorTipo, vector<U>* vectorFinal, vector<U> vectorReferencia)         
     {
-        int mitad = (primero + ultimo) / 2;
+        int mitad = (primero + ultimo)/2;
         if (ultimo >= primero)
         {  
             if (vectorTipo[mitad] == valor)
@@ -192,11 +192,11 @@ namespace aux
             }
             else if(vectorTipo[mitad] > valor)
             {
-                busquedaBinariaMultiple(primero,mitad-1,valor, vectorTipo, vectorResultados, vectorClase);
+                busquedaBinariaMultiple(primero, mitad - 1, valor, vectorTipo, vectorResultados, vectorClase);
             }
             else
             {
-                busquedaBinariaMultiple(mitad+1,ultimo,valor, vectorTipo, vectorResultados, vectorClase);
+                busquedaBinariaMultiple(mitad + 1, ultimo, valor, vectorTipo, vectorResultados, vectorClase);
             }
         }
     }

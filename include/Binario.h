@@ -36,7 +36,7 @@ class Binario
             {
                 vectorUsuarios.push_back(objUsuario);
                 fread(&objUsuario, sizeof(Usuario), 1, archivo);
-            };
+            }
 
             fclose(archivo);
 

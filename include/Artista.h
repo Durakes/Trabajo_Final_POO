@@ -12,7 +12,8 @@ class Artista
         int NumCanciones;
 
     public:
-        Artista(string nombre, int codArtista, int numCanciones){
+        Artista(string nombre, int codArtista, int numCanciones)
+        {
             this->Nombre = nombre;
             this->CodArtista = codArtista;
             this->NumCanciones = numCanciones;

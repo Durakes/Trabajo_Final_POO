@@ -10,19 +10,16 @@ void verificarEntrada(string tipo){}
 
 void crearCancion(int codigoUsuario, string nombreArtista)
 {
-
     string nombre;
     double duracion;
     string album;
-
     string respuesta = "Si";
-
 
     do 
     {
         system("cls");
         aux::cuadro(0,0,60,25);
-        //Recibir datos
+
         aux::gotoxy(1,2);   cout << "Nombre de la cancion >";   getline(cin, nombre);
         aux::gotoxy(1,3); cout << "Album de la cancion >";  getline(cin, album);
 
@@ -65,7 +62,7 @@ void crearCancion(int codigoUsuario, string nombreArtista)
             system("cls");
             aux::cuadro(0,0,60,10);
             aux::gotoxy(1,1);   cout << "Cancion agregada con exito";
-            aux::gotoxy(1,2);   cout << "¿Desea agregar una nueva cancion? >";    getline(cin, respuesta);
+            aux::gotoxy(1,2);   cout << "Desea agregar una nueva cancion? >";    getline(cin, respuesta);
             aux::aMinuscula(respuesta);
         }
     } while ( respuesta == "si");

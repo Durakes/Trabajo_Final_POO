@@ -36,7 +36,7 @@ class Archivo
         }
 
         template <class T>
-        void grabarNuevaLinea(T obj)//guarda las lineas csv
+        void grabarNuevaLinea(T obj)
         {
             try
             {
@@ -140,7 +140,7 @@ class Archivo
                             {
                                 if(i!=0)
                                 {
-                                concatenador << ";";
+                                    concatenador << ";";
                                 }
                                 concatenador << playlist.getCanciones()[i];
                             }
@@ -157,7 +157,7 @@ class Archivo
                 archivo.close();
             }catch(exception e)
             {
-            cout << "Ocurrio un error al modificar el archivo!!!";
+                cout << "Ocurrio un error al modificar el archivo!!!";
             }
         }
 };
