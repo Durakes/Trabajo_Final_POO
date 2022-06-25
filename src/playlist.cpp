@@ -32,7 +32,7 @@ void menuPlaylist(string nombreUsuario)
 	aux::gotoxy(1,1);	cout << "Playlist";
 	aux::gotoxy(1,3);	cout <<	"Crear una playlist ";			aux::gotoxy(25,3);	cout << "[1]";
 	aux::gotoxy(1,4);	cout << "Mostrar tus playlist ";		aux::gotoxy(25,4);	cout << "[2]";
-	aux::gotoxy(1,5);	cout << "Salir ";						aux::gotoxy(25,5);	cout << "[3]";
+	aux::gotoxy(1,5);	cout << "Atras ";						aux::gotoxy(25,5);	cout << "[3]";
 	aux::gotoxy(1,6);	cout << "Ingrese la opcion que desea > "; cin >> respuesta; cin.ignore();
 
 	switch(respuesta)
@@ -42,17 +42,12 @@ void menuPlaylist(string nombreUsuario)
 			menuPlaylist(nombreUsuario);
 			break;
 
-	    case 2:
+        case 2:
 			listarPlaylist(nombreUsuario,&vectorPlaylist,archivoP);
 			menuPlaylist(nombreUsuario);
 			break;
 
 		case 3: 	
-			system("cls");
-			//! Armar tabla bonita
-			cout << "GRACIAS!!!";
-			system("pause");
-			exit(0);
 			break;
 
 		default: 
