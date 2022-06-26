@@ -47,7 +47,8 @@ void menuPlaylist(string nombreUsuario)
 			menuPlaylist(nombreUsuario);
 			break;
 
-		case 3: 	
+		case 3:
+            system("cls");
 			break;
 
 		default: 
@@ -161,8 +162,8 @@ void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo
 
 		case 3:
 			listarCanciones(playlist,vectorPlaylist,archivoP);
-			system("pause");
-			menuPlaylist(playlist.getUsuario());
+			//system("pause");
+			//menuPlaylist(playlist.getUsuario());
 			break;
 		
 		default:
@@ -261,14 +262,14 @@ void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo
 		case 1:
 			system("cls");
 			menuBuscarCancion(playlist.getUsuario(), to_string(playlist.getCodigo()));
-			menuPlaylist(playlist.getUsuario());
+			//menuPlaylist(playlist.getUsuario());
 			break;
 		case 2:
 			eliminarCancion(playlist,vectorPlaylist,archivoP,&vectorCanciones);
 			menuPlaylist(playlist.getUsuario());
 			break;
 		case 3:
-			menuPlaylist(playlist.getUsuario());
+			//menuPlaylist(playlist.getUsuario());
 			break;
 		default:
 			listarCanciones(playlist, vectorPlaylist, archivoP);

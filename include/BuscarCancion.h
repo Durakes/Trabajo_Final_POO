@@ -43,7 +43,7 @@ class BuscarCancion
             return VectorResultados[cod].getCodigo();
         }
 
-        void agregarCancionPlaylist(int codCancion, int codPlaylist, int tamanoY = 0)
+        void agregarCancionPlaylist(int codCancion, int codPlaylist, int tamanoY = 5)
         {
             Playlist objPlaylist;
             vector<Playlist> vectorPlaylist;

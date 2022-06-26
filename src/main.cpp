@@ -19,7 +19,7 @@ void menuOpciones(int codigo, string nombreUsuario, string nombreArtista)
     system("cls");
     
     aux::cuadro(0,0,45, 13);
-    aux::gotoxy(6,1);   cout << "##### Bienvenido " << nombreUsuario << " ##### ";
+    aux::gotoxy(6,1);   cout << "##### Bienvenido " << nombreArtista << " ##### ";
     aux::gotoxy(1,3);   cout << "Playlist";         aux::gotoxy(25,3); cout << "[1]";
     aux::gotoxy(1,4);   cout << "Buscar Canciones"; aux::gotoxy(25,4); cout << "[2]";
     aux::gotoxy(1,5);   cout << "Buscar Artista";   aux::gotoxy(25,5); cout << "[3]";

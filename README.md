@@ -18,7 +18,7 @@ Sistema Operativo:
 + jacquiets
 + Durakes
 + DennisC
-+ 
++ evie
 
 
 ### Artistas
@@ -93,4 +93,8 @@ Sistema Operativo:
 + Ember
 + Rihanna
 + Freedom
++ The Warning
++ Monkeys
++ Taylor
++ TaylorS
 + 
