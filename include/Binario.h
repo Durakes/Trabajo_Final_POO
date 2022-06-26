@@ -14,7 +14,7 @@ class Binario
             Ruta = ruta;
         }
         
-        void GrabarDato(Usuario obj)
+        void grabarDato(Usuario obj)
         {
             FILE* archivo;
             archivo = fopen((char*)&Ruta[0], "ab");
@@ -22,7 +22,7 @@ class Binario
             fclose(archivo);
         }
 
-        vector<Usuario> LeerDato()
+        vector<Usuario> leerDato()
         {
             vector<Usuario> vectorUsuarios;
             Usuario objUsuario;

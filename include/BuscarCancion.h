@@ -13,19 +13,19 @@ class BuscarCancion
 {
     private:
 
-        vector<Cancion> VectorCanciones; // almacena todas las canciones
-        vector<Cancion> VectorResultados; //almacena los resultados encontrados
+        vector<Cancion> VectorCanciones; 
+        vector<Cancion> VectorResultados; 
         
     public:
         BuscarCancion()
         {
             Cancion objCancion;
             Archivo archive(R"(..\docs\Canciones.csv)");
-            archive.cargarDatos(objCancion, &VectorCanciones); // graba las canciones a un vector;
+            archive.cargarDatos(objCancion, &VectorCanciones); 
         }
 
 
-        void getDatos(int cod) // Imprime los datos de la canción seleccionada
+        void getDatos(int cod) 
         {
             system("cls");
             aux::cuadro(0,0,70, 15);
@@ -115,7 +115,7 @@ class BuscarCancion
             system("cls");     
         }
 
-        void fromMainMenu(string username, int codCancion) // Elegir Playlist cuando se llega del menu principal
+        void fromMainMenu(string username, int codCancion)
         {
             system("cls");
             Playlist objPlaylist;
@@ -163,7 +163,7 @@ class BuscarCancion
         
         }
 
-        void fromPlaylist(string codeP, int codCan) // Añadir a playlist ya determinada
+        void fromPlaylist(string codeP, int codCan)
         {
             Playlist objPlaylist;
             vector<Playlist> vectorPlaylist;
@@ -174,7 +174,7 @@ class BuscarCancion
             agregarCancionPlaylist(codCan, codPlay);
         } 
 
-        int getResultados(string titulo)  // Recibe el titulo para buscar los resultados
+        int getResultados(string titulo)
         {
             int i=0;
             int v;
@@ -251,10 +251,9 @@ class BuscarCancion
         }
 
         vector<Cancion> getCancionArtista(int codArtista)
-        { //De un codigo del artista, se obtienen todas sus canciones
-            vector<string> vectorCancionArtista; //almacena canciones segun artista
+        { 
+            vector<string> vectorCancionArtista;
             vector<int> codigos;
-            //vector<Cancion> vectorResultados;
             VectorResultados.clear();
 
             for(Cancion cancion: VectorCanciones)

@@ -12,8 +12,7 @@ class Playlist
         int Codigo;
         string NombreUsuario;
         vector<int> VectorCodigo;
-        string Estado;//para hacer una eliminacion logica, no se muestra en el programa, pero se queda en el archivo
-        //solo guardar los codigos, cancion csv y de alli solo jalo el codigo de la cancion.
+        string Estado;
     public:
         Playlist(int codigo, string name, string userName)
         {
@@ -23,8 +22,6 @@ class Playlist
             Estado = "true";
         }
         Playlist(){
-        }
-        ~Playlist(){
         }
 
         int getCodigo() {return Codigo;}

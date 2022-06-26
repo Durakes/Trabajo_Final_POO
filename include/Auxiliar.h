@@ -1,6 +1,6 @@
 #ifndef __AUXILIAR_H__
 #define __AUXILIAR_H__
-//#define _HAS_STD_BYTE 0
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
