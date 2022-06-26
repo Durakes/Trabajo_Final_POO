@@ -23,7 +23,7 @@ class BuscarArtista
             BuscarCancion objBuscar;
             string path = "..\\docs\\Usuarios.bin";
             Binario archive(path);
-            vector<Usuario> vectorUsuario = archive.LeerDato();
+            vector<Usuario> vectorUsuario = archive.leerDato();
             string tipo = "artist";
             vector<string> tipoArtista;
             vector<Usuario> artistas;
@@ -83,7 +83,7 @@ class BuscarArtista
             
             for (Artista artista:Temporal) 
             {
-                //!Revisar
+                
                 aux::gotoxy(1,5 + i);   cout << "[" << i << "]";    aux::gotoxy(5, 5 + i); cout << artista.getNombre();   aux::gotoxy(30, 5 + i);   cout << artista.getNumCanciones();
                 i++;
             }

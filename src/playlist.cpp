@@ -177,8 +177,6 @@ void editarPlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo 
 	string nuevoNombre;
 	aux::cuadro(0,0,60,10);
 	aux::gotoxy(1,3); 	cout << "Ingresa el nuevo nombre > "; getline(cin,nuevoNombre);
-	
-	//! Seguro que desea ese nombre?!
 
 	vectorPlaylist[0][playlist.getCodigo()-1].setNombre(nuevoNombre);
 	archivoP.modificarPlaylist(*vectorPlaylist);
@@ -258,7 +256,6 @@ void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo
 		aux::gotoxy(1,7);	cout << "Ingrese la opcion que desea > "; cin >> respuesta; cin.ignore();
 	}
 
-	//! Llevar el menú a otro lado.
 	switch (respuesta)
 	{
 		case 1:
@@ -267,7 +264,6 @@ void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo
 			menuPlaylist(playlist.getUsuario());
 			break;
 		case 2:
-			//! No dejar entrar si vectorsize () == 0;
 			eliminarCancion(playlist,vectorPlaylist,archivoP,&vectorCanciones);
 			menuPlaylist(playlist.getUsuario());
 			break;

@@ -4,6 +4,7 @@
 #include <fstream>
 #include "..\include\Cancion.h"
 #include "..\include\Auxiliar.h"
+#include "..\include\Archivo.h"
 using namespace std;
 
 void verificarEntrada(string tipo){}
@@ -41,23 +42,10 @@ void crearCancion(int codigoUsuario, string nombreArtista)
         if (respuesta == "si")
         {
             duracion = ((int) duracion * 60) + (duracion - (int)duracion) * 100;
-            Cancion nueva(nombre, nombreArtista, album, codigoUsuario, duracion);
+            Cancion nuevaCancion(nombre, nombreArtista, album, codigoUsuario, duracion);
 
-            try 
-            {
-                fstream archivoCanciones;
-                archivoCanciones.open("../docs/Canciones.csv", ios::app);
-                if (archivoCanciones.is_open())
-                {
-                    archivoCanciones <<
-                    nueva.obtenerCodigo() << ";" << nombre << ";" << nombreArtista << ";" << duracion << ";" << album << ";" << codigoUsuario << ";" << endl;
-                }
-
-                aux::gotoxy(1,9);   cout << "Grabado el archivo correctamente"<<endl;
-            } catch (exception e)
-            {
-                aux::gotoxy(1,9);   cout << "Ocurrio un error al grabar en el archivo";
-            }            
+            Archivo archivo(R"(..\docs\Canciones.csv)");
+            archivo.grabarNuevaLinea(nuevaCancion);
 
             system("cls");
             aux::cuadro(0,0,60,10);

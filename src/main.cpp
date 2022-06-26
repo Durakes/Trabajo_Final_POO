@@ -8,7 +8,7 @@
 #include "..\include\Binario.h"
 #include "..\lib\bcrypt\src\bcrypt.cpp"
 #include "buscarCancion.cpp"
-#include "creacancion.cpp"
+#include "crearCancion.cpp"
 #include "buscarArtista.cpp"
 #include "playlist.cpp"
 using namespace std;
@@ -69,8 +69,8 @@ void menuOpciones(int codigo, string nombreUsuario)
     int opcion;
     system("cls");
     aux::cuadro(0,0,45, 13);
-    //! Hacer un string, conocer la cantidad de caracteres, dividir total/string size y restar - 1 para que esté centrado!
-    aux::gotoxy(5,1);   cout << "##### Bienvenido " << nombreUsuario << " #####"; //! Convertir a string
+    
+    aux::gotoxy(5,1);   cout << "##### Bienvenido " << nombreUsuario << " #####";
     aux::gotoxy(1,3);   cout << "Playlist";         aux::gotoxy(25,3); cout << "[1]";
     aux::gotoxy(1,4);   cout << "Buscar Canciones"; aux::gotoxy(25,4); cout << "[2]";
     aux::gotoxy(1,5);   cout << "Buscar Artista";   aux::gotoxy(25,5); cout << "[3]";
@@ -119,7 +119,7 @@ void inicioSesion(int tries)
     string ruta = "..\\docs\\Usuarios.bin";
     Binario binFile(ruta);
     vector<string> usuariosExistentes;
-    vector<Usuario> vectorUsuarios = binFile.LeerDato();
+    vector<Usuario> vectorUsuarios = binFile.leerDato();
     Usuario usuario;
 
     if(tries<3)
@@ -148,7 +148,6 @@ void inicioSesion(int tries)
 
         for(Usuario usuario: vectorUsuarios)
         {
-            //! Pensar un workaround porque los usernames deben distingir uppercase de lowercase
             usuariosExistentes.push_back(aux::aMinuscula(usuario.getNombreUsuario())); 
         }
 
@@ -213,7 +212,6 @@ void registroUsuario()
     aux::gotoxy(1,7);   cout << "Es una cuenta de artista? (Si o no) > "; getline(cin, esArtista);
     transform(esArtista.begin(), esArtista.end(), esArtista.begin(), ::tolower);
 
-    //Arreglar y ordenar
     if(esArtista == "si")
     {
         tipoUsuario = "artist";
@@ -230,7 +228,7 @@ void registroUsuario()
     ifstream archivo((char*)&rutaVerificar[0]);
     if(archivo.good() == true)
     {
-        vector<Usuario> vectorUsuarios = archivoBin.LeerDato();
+        vector<Usuario> vectorUsuarios = archivoBin.leerDato();
         if(vectorUsuarios.size() == 0)
         {
             codigo = 1;
@@ -241,7 +239,6 @@ void registroUsuario()
 
         for(Usuario usuario: vectorUsuarios)
         {
-            //! Pensar un workaround porque los usernames deben distingir uppercase de lowercase
             usuariosExistentes.push_back(aux::aMinuscula(usuario.getNombreUsuario())); 
         }
 
@@ -265,13 +262,11 @@ void registroUsuario()
         {
             string hashed = bcrypt::generateHash(contrasena);
             Usuario nuevoUsuario(codigo, (char*)&nombreCompleto[0], (char*)&nombreUsuario[0], (char*)&hashed[0], (char*)&tipoUsuario[0]);
-            archivoBin.GrabarDato(nuevoUsuario);
-            //cout << endl;
+            archivoBin.grabarDato(nuevoUsuario);
             aux::gotoxy(1,9);  cout << "Cuenta creada exitosamente!" << endl;
             aux::gotoxy(1,10);  system("pause");
         }else
         {
-            //cout << endl;
             aux::gotoxy(1,9);   cout << "Las contrasenas no coinciden!!!" << endl;
             aux::gotoxy(1,10);   system("pause");
             registroUsuario();
@@ -304,6 +299,8 @@ int main()
         main();
         break;
     default:
+        system("cls");
+        exit(0);
         break;
     }
     return 0;

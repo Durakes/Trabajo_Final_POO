@@ -93,7 +93,7 @@ class Archivo
             try
             {
                 string linea;
-                size_t posicionFinal; //Cantidad Maxima
+                size_t posicionFinal;
                 fstream archivo;
 
                 archivo.open(Ruta, ios :: in);
@@ -104,7 +104,7 @@ class Archivo
                         while (getline(archivo, linea))
                         {
                             vector<string> temporal;
-                            while ((posicionFinal = linea.find(";")) != string::npos /*Valor constante que vale -1*/)
+                            while ((posicionFinal = linea.find(";")) != string::npos)
                             {
                                 temporal.push_back(linea.substr(0, posicionFinal));
                                 linea.erase(0, posicionFinal+1);
@@ -123,7 +123,7 @@ class Archivo
         }
 
         void modificarPlaylist(vector<Playlist> vectorPlaylist)
-        {//esta
+        {
             try
             {
                 fstream archivo;

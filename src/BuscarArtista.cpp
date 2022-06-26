@@ -59,7 +59,7 @@ void pestanaArtista(BuscarArtista objArtista, int numIngresado, string nombreUsu
     string titulo;
     int codigo;
     int codCancion;
-    vector<Cancion> cancionArtista = objBuscar.getCancionArtista(objArtista.compararCodigo(numIngresado)); //Vector de canciones dependiendo del codigo del artista
+    vector<Cancion> cancionArtista = objBuscar.getCancionArtista(objArtista.compararCodigo(numIngresado));
     
     system("cls");
     aux::cuadro(0, 0, 60, cancionArtista.size() + 10);
@@ -89,7 +89,7 @@ void pestanaArtista(BuscarArtista objArtista, int numIngresado, string nombreUsu
     }
     else
     {
-        elegirCancionArtista(objBuscar, nombreUsuario, codPlaylist, codigo); //! Por mientas sirve para solo 1 cancion.
+        elegirCancionArtista(objBuscar, nombreUsuario, codPlaylist, codigo);
     }
 }
 
