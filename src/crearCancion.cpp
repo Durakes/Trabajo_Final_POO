@@ -19,7 +19,7 @@ void crearCancion(int codigoUsuario, string nombreArtista)
     do 
     {
         system("cls");
-        aux::cuadro(0,0,60,25);
+        aux::cuadro(0,0,60,12);
 
         aux::gotoxy(1,2);   cout << "Nombre de la cancion >";   getline(cin, nombre);
         aux::gotoxy(1,3); cout << "Album de la cancion >";  getline(cin, album);
@@ -29,7 +29,7 @@ void crearCancion(int codigoUsuario, string nombreArtista)
 
         system("cls");
 
-        aux::cuadro(0,0,60,25);
+        aux::cuadro(0,0,60,12);
         aux::gotoxy(1,1);   cout << "Seguro quieres crear la cancion: ";
         aux::gotoxy(1,2);   cout << "Nombre:";  aux::gotoxy(20,2);  cout << nombre;
         aux::gotoxy(1,3);   cout << "Autor:";   aux::gotoxy(20,3);  cout << nombreArtista;
@@ -38,7 +38,7 @@ void crearCancion(int codigoUsuario, string nombreArtista)
 
         aux::gotoxy(1,7);   cout << "(Si o No) >";  getline(cin, respuesta);
         
-        aux::aMinuscula(respuesta);
+        respuesta = aux::aMinuscula(respuesta);
         if (respuesta == "si")
         {
             duracion = ((int) duracion * 60) + (duracion - (int)duracion) * 100;
