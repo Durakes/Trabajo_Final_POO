@@ -126,7 +126,7 @@ void listarPlaylist(string nombreUsuario, vector<Playlist> *vectorPlaylist,Archi
 	int respuesta;
 	aux::gotoxy(1,vectorFinal.size() + 2); 	cout << "Ingrese el codigo de la playlist que desee elegir> "; cin >> respuesta; cin.ignore();
 	detallePlaylist(vectorFinal[codigos[respuesta-1]-1],vectorPlaylist,archivoP);
-	aux::gotoxy(1,vectorFinal.size() + 3);	system("pause");
+	//aux::gotoxy(1,vectorFinal.size() + 3);	system("pause");
 }
 
 void detallePlaylist(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo archivoP)
@@ -266,7 +266,7 @@ void listarCanciones(Playlist playlist, vector<Playlist>*vectorPlaylist, Archivo
 			break;
 		case 2:
 			eliminarCancion(playlist,vectorPlaylist,archivoP,&vectorCanciones);
-			menuPlaylist(playlist.getUsuario());
+			//menuPlaylist(playlist.getUsuario());
 			break;
 		case 3:
 			//menuPlaylist(playlist.getUsuario());
@@ -297,7 +297,7 @@ void eliminarCancion(Playlist playlist,vector<Playlist> *vectorPlaylist,Archivo 
 		aux::busquedaBinariaConjunta(0, vectorCanciones[0].size()- 1, playlist.getCanciones()[i], codigosCanciones, &vectorCancionesPlaylist, vectorCanciones[0]);
 	}
 
-	aux::cuadro(0,0,60,vectorCancionesPlaylist.size() + 13);
+	aux::cuadro(0,0,75,vectorCancionesPlaylist.size() + 13);
 	aux::gotoxy(1,1);	cout << "Lista de canciones de la playlist" << playlist.getNombre() << endl;
 
 	for(int i = 0; i < vectorCancionesPlaylist.size(); i++)
