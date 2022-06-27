@@ -19,6 +19,10 @@ Sistema Operativo:
 + Durakes
 + DennisC
 + evie
++ AnaS
++ Cross
++ Darkrath45
++ 
 
 
 ### Artistas

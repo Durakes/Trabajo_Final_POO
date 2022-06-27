@@ -62,7 +62,7 @@ class BuscarCancion
                 {
 
                     aux::gotoxy(1,tamanoY);   cout << "La cancion ya se encuentra agregada a la playlist " << vectorPlaylist[codPlaylist-1].getNombre() << "." << endl;
-                    aux::gotoxy(1,1 + tamanoY);   cout << "Esta seguro que desea agregarla nuevamente? ";   getline(cin, confirma);
+                    aux::gotoxy(1,1 + tamanoY);   cout << "Esta seguro que desea agregarla nuevamente? (si/no)";   getline(cin, confirma);
                     transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
                     if(confirma == "si")
                     {
@@ -79,7 +79,7 @@ class BuscarCancion
 
                 else
                 {
-                    aux::gotoxy(1,tamanoY);   cout << "Desea agregar la cancion a la playlist " << vectorPlaylist[codPlaylist-1].getNombre() << " ? ";  getline(cin, confirma);
+                    aux::gotoxy(1,tamanoY);   cout << "Desea agregar la cancion a la playlist " << vectorPlaylist[codPlaylist-1].getNombre() << " ? (si/no) ";  getline(cin, confirma);
 
                     transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
 
@@ -98,7 +98,7 @@ class BuscarCancion
             }   
             else
             {
-                aux::gotoxy(1,tamanoY);    cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? ";getline(cin, confirma);
+                aux::gotoxy(1,tamanoY);    cout<<"Desea agregar la cancion a la playlist "<<vectorPlaylist[codPlaylist-1].getNombre()<<" ? (si/no)";getline(cin, confirma);
                 transform(confirma.begin(), confirma.end(), confirma.begin(), ::tolower);
                 if(confirma == "si")
                 {      
@@ -152,7 +152,7 @@ class BuscarCancion
             for (Playlist playlist: vectorResEstado)
             {
                 
-                aux::gotoxy(1,i + 2); cout<<"["<<i<<"]"; aux::gotoxy(20,i + 2); cout << playlist.getNombre();
+                aux::gotoxy(1,i + 2); cout<<"["<<i<<"]"; aux::gotoxy(10,i + 2); cout << playlist.getNombre();
                 i++;
             }
 
