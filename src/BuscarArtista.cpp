@@ -101,7 +101,7 @@ void menuBuscarArtista(string nombreUsuario, string codPlaylist)
     int codElegido;
     vector<Artista> vecArtista = objArtista.agregarDatos();
     system("cls");
-    aux::cuadro(0, 0, 50, 15);
+    aux::cuadro(0, 0, 65, 15);
     
     aux::gotoxy(1,1);   cout << "BUSCAR ARTISTA" << endl;
     aux::gotoxy(1,2);   cout << "Ingresa nombre de artista a buscar: "; getline(cin, nombreArtista);
