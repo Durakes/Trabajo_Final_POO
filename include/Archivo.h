@@ -109,7 +109,7 @@ class Archivo
                                 temporal.push_back(linea.substr(0, posicionFinal));
                                 linea.erase(0, posicionFinal+1);
                             }
-                            T obj;
+                            //T obj;
                             crearObjeto(temporal, &obj);
                             objs->push_back(obj);
                         }

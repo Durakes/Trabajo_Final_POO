@@ -21,8 +21,8 @@ class Playlist
             this->NombreUsuario = userName;
             Estado = "true";
         }
-        Playlist(){
-        }
+        
+        Playlist(){}
 
         int getCodigo() {return Codigo;}
         void setCodigo(int codigo) {Codigo = codigo;}
