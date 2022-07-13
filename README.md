@@ -11,6 +11,7 @@ Sistema Operativo:
 + Hacer una excepción a "main.exe" en el "data protector" del antivirus.
 
 ## Usuarios de Prueba
++ Contraseña: 12345
 
 ### Usuarios
 

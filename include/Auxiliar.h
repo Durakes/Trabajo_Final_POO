@@ -160,7 +160,6 @@ namespace aux
     }
 
 
-
     template<typename T, class U>
     void busquedaBinariaMultiple(int primero, int ultimo, T valor, vector <T> vectorTipo, vector<U>* vectorResultados, vector<U> vectorClase)       
     {

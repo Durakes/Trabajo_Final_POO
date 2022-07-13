@@ -19,7 +19,7 @@ class Cancion
 
     public:
         Cancion(){}
-        Cancion( string nombre, string autor,string album, int codAut, int duracionSegundos)
+        Cancion(string nombre, string autor,string album, int codAut, int duracionSegundos)
         {
             this->Codigo = obtenerCodigo();
             this->Nombre = nombre;

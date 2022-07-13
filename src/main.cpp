@@ -129,6 +129,7 @@ void inicioSesion(int tries)
         aux::gotoxy(9,1);   cout << "##### INICIO DE SESION #####" << endl;
         aux::gotoxy(1,3);   cout << "Ingrese su Usuario > "; getline(cin, nombreUsuario);
         aux::gotoxy(1,4);   cout << "Ingrese su Contrasena > "; ch = getch();
+        
         while (ch != 13) /*13 ASCCI ENTER*/
         {
             if(ch != 8) /*8 BACKSPACE*/
@@ -263,12 +264,12 @@ void registroUsuario()
             string hashed = bcrypt::generateHash(contrasena);
             Usuario nuevoUsuario(codigo, (char*)&nombreCompleto[0], (char*)&nombreUsuario[0], (char*)&hashed[0], (char*)&tipoUsuario[0]);
             archivoBin.grabarDato(nuevoUsuario);
-            aux::gotoxy(1,9);  cout << "Cuenta creada exitosamente!" << endl;
+            aux::gotoxy(1,9);   cout << "Cuenta creada exitosamente!" << endl;
             aux::gotoxy(1,10);  system("pause");
         }else
         {
             aux::gotoxy(1,9);   cout << "Las contrasenas no coinciden!!!" << endl;
-            aux::gotoxy(1,10);   system("pause");
+            aux::gotoxy(1,10);  system("pause");
             registroUsuario();
         }
     }else
